@@ -1,14 +1,14 @@
 <button mat-flat-button class="pill" [matMenuTriggerFor]="menu">
-  <mat-icon>language</mat-icon>
-  {{ languageService.locale }}
+    <mat-icon>language</mat-icon>
+    {{ languageService.locale }}
 </button>
 <mat-menu #menu="matMenu">
-  <div
-    *ngFor="let lang of languages"
-    class="flag-row"
-    (click)="languageService.locale = lang"
-  >
-    <img [src]="langFlag(lang)" alt="" />
-    <p>{{ languagesDisplay[lang] }}</p>
-  </div>
+    <div
+        *ngFor="let lang of languages"
+        class="flag-row"
+        (click)="changeLang(lang)"
+    >
+        <img [src]="langFlag(lang)" [alt]="lang" />
+        <p>{{ languagesDisplay[lang] }}</p>
+    </div>
 </mat-menu>

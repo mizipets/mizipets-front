@@ -8,16 +8,31 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { LanguageComponent } from './components/language/language.component';
 import { LanguageService } from './components/language/language.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LanguageComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-  ],
-  providers: [LanguageService],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, HeaderComponent, LanguageComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        TranslateModule.forRoot({
+            defaultLanguage: localStorage.getItem('language') ?? 'fr',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        MaterialModule
+    ],
+    providers: [LanguageService],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

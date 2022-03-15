@@ -8,15 +8,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
-  exports: [
-    MatSelectModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatDividerModule,
-  ],
+    declarations: [],
+    imports: [CommonModule],
+    exports: [
+        MatSelectModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatDividerModule
+    ]
 })
 export class MaterialModule {}
