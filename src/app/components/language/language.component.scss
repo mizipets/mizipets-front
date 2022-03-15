@@ -1,0 +1,21 @@
+img {
+  padding: 5%;
+  height: 25px;
+  width: 25px;
+}
+
+.flag-row {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-transform: capitalize;
+
+  &:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
+}
+
+mat-button {
+  border-radius: 40px;
+}

@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { LanguageComponent } from './components/language/language.component';
+import { LanguageService } from './components/language/language.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LanguageComponent],
@@ -16,7 +17,7 @@ import { LanguageComponent } from './components/language/language.component';
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [LanguageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
