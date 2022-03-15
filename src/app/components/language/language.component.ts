@@ -13,10 +13,7 @@ export class LanguageComponent implements OnInit {
     languages: string[] = Object.values(Languages);
     languagesDisplay = Object.fromEntries(Object.entries(LanguagesDisplay));
 
-    constructor(
-        public languageService: LanguageService,
-        public translate: TranslateService
-    ) {}
+    constructor(public languageService: LanguageService) {}
 
     ngOnInit(): void {}
 
@@ -26,6 +23,5 @@ export class LanguageComponent implements OnInit {
 
     changeLang(lang: string): void {
         this.languageService.locale = lang;
-        this.translate.use(lang);
     }
 }
