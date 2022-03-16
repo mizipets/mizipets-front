@@ -11,13 +11,14 @@ import { LanguageService } from './components/language/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './components/auth/login/login.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LanguageComponent],
+    declarations: [AppComponent, HeaderComponent, LanguageComponent, LoginComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
