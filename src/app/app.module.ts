@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/auth/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -18,10 +19,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
     declarations: [
-      AppComponent,
-      HeaderComponent,
-      LanguageComponent,
-      LoginComponent
+        AppComponent,
+        HeaderComponent,
+        LanguageComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
@@ -35,9 +36,10 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
+        MaterialModule,
         HttpClientModule,
-        MaterialModule
-
+        ReactiveFormsModule,
+        FormsModule
     ],
     providers: [LanguageService],
     bootstrap: [AppComponent]
