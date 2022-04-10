@@ -1,3 +1,20 @@
 {
-    "hello": "Bonjour le monde!"
+  "common": {
+    "title": "Mizipets",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "or": "ou"
+  },
+  "login": {
+    "title": "Connexion",
+    "button": "Se connecter",
+    "remember": "Se souvenir de moi",
+    "forgot-password": "Mot de passe oublié",
+    "no-account": "Créer un compte Pro"
+  },
+  "register": {
+    "title": "Inscription",
+    "subtitle": "Je suis un refuge, un eleveur, ou une association.",
+    "button": "Create Pro account"
+  }
 }

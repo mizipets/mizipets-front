@@ -14,6 +14,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptor } from './token.interceptor';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -25,7 +26,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         HeaderComponent,
         LanguageComponent,
         LoginComponent,
-        DashboardComponent
+        DashboardComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule,
