@@ -46,7 +46,8 @@ export class LoginComponent {
             (result) => {
                 // if (this.loginForm.value.isConnectionSave)
                 localStorage.setItem('token', result.token);
-                this.authenticationService.decodedToken = this.authenticationService.decodeToken(result.token);
+                this.authenticationService.decodedToken =
+                    this.authenticationService.decodeToken(result.token);
                 this.router.navigate(['dashboard']).then();
             },
             (e) => {
