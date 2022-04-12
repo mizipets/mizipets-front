@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { DecodedTokenModel } from '../models/decoded-token';
+import { DecodedTokenModel } from '../models/decoded-token.model';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
