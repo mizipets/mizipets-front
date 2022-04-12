@@ -36,7 +36,11 @@
           <mat-hint>{{'register.hint' | translate}}</mat-hint>
         </mat-form-field>
         <br/>
-        <button mat-flat-button color="primary" type="button" class="mt-4" (click)="next = true">{{'register.next' | translate}}</button>
+        <button mat-flat-button color="primary" type="button" class="mt-4"
+                (click)="next = true"
+                [disabled]="firstnameCtrl.invalid || lastnameCtrl.invalid || emailCtrl.invalid || passwordCtrl.invalid">
+          {{'register.next' | translate}}
+        </button>
       </mat-card-content>
 
       <mat-card-content *ngIf="next" class="mt-4">
@@ -48,7 +52,7 @@
         <p>{{'register.address.title' | translate}}</p>
         <mat-form-field appearance="outline">
           <mat-label>{{'register.address.country' | translate}}</mat-label>
-          <mat-select required>
+          <mat-select  formControlName="country" required>
             <mat-option *ngFor="let country of countries" [value]="country.value">
               {{country.display}}
             </mat-option>
@@ -57,21 +61,21 @@
         <br/>
         <mat-form-field appearance="outline" class="my-1">
           <mat-label>{{'register.address.street' | translate}}</mat-label>
-          <input matInput formControlName="email" required>
+          <input matInput formControlName="street" required>
         </mat-form-field>
         <br/>
         <mat-form-field appearance="outline" class="my-1">
           <mat-label>{{'register.address.apartment' | translate}}</mat-label>
-          <input matInput formControlName="email">
+          <input matInput formControlName="apartment">
         </mat-form-field>
         <div class="d-flex justify-content-center">
           <mat-form-field appearance="outline" class="my-1 mr-2">
             <mat-label>{{'register.address.zip' | translate}}</mat-label>
-            <input matInput formControlName="email" required>
+            <input matInput formControlName="zip" maxlength="5" required>
           </mat-form-field>
           <mat-form-field appearance="outline" class="my-1">
             <mat-label>{{'register.address.city' | translate}}</mat-label>
-            <input matInput formControlName="email" required>
+            <input matInput formControlName="city" required>
           </mat-form-field>
         </div>
 

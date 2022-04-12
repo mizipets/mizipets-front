@@ -5,6 +5,7 @@ import { DecodedTokenModel } from '../models/decoded-token.model';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
+import { RegisterModel } from '../models/register.model';
 
 @Injectable({
     providedIn: 'root'
@@ -36,10 +37,10 @@ export class AuthService {
         }
     }
 
-    register(account: any): Observable<any> {
-        return this.http.post<any>(
+    register(registerData: RegisterModel): Observable<RegisterModel> {
+        return this.http.post<RegisterModel>(
             environment.baseUrl + 'auth/register',
-            account
+            registerData
         );
     }
 
