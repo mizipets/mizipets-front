@@ -1,3 +1,19 @@
 {
-    "hello": "Hello world!"
+  "common": {
+    "title": "Mizipets",
+    "email": "Email",
+    "password": "Password",
+    "or": "or"
+  },
+  "login": {
+    "title": "Log in",
+    "button": "Log in",
+    "remember": "Remember me",
+    "forgot-password": "Forgotten your password",
+    "no-account": "Create Pro account"
+  },
+  "register": {
+    "title": "Sign up",
+    "button": "Create Pro account"
+  }
 }

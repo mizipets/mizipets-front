@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -10,18 +9,34 @@ import { LanguageComponent } from './components/language/language.component';
 import { LanguageService } from './components/language/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+    HTTP_INTERCEPTORS,
+    HttpClient,
+    HttpClientModule
+} from '@angular/common/http';
+import { LoginComponent } from './components/auth/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TokenInterceptor } from './token.interceptor';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, LanguageComponent],
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        LanguageComponent,
+        LoginComponent,
+        DashboardComponent,
+        RegisterComponent
+    ],
     imports: [
         BrowserModule,
-        AppRoutingModule,
         BrowserAnimationsModule,
+        AppRoutingModule,
         TranslateModule.forRoot({
             defaultLanguage: localStorage.getItem('language') ?? 'fr',
             loader: {
@@ -30,10 +45,15 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
+        MaterialModule,
         HttpClientModule,
-        MaterialModule
+        ReactiveFormsModule,
+        FormsModule
     ],
-    providers: [LanguageService],
+    providers: [
+        LanguageService,
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
