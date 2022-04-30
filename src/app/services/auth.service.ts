@@ -27,13 +27,13 @@ export class AuthService {
             if (!this.decodedToken) {
                 this.decodedToken = this.decodeToken(this.getToken());
             }
-            if (!this.isTokenValid()) {
-                this.refreshToken().subscribe((result) => {
-                    localStorage.clear();
-                    localStorage.setItem('token', result.token);
-                    this.decodedToken = this.decodeToken(result.token);
-                });
-            }
+            // if (!this.isTokenValid()) {
+            //     this.refreshToken().subscribe((result) => {
+            //         localStorage.clear();
+            //         localStorage.setItem('token', result.token);
+            //         this.decodedToken = this.decodeToken(result.token);
+            //     });
+            // }
         }
     }
 
@@ -52,7 +52,7 @@ export class AuthService {
     }
 
     refreshToken(): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'auth/token/refresh');
+        return this.http.get<any>(environment.baseUrl + 'auth/token/' + this.decodedToken.id + '/refresh');
     }
 
     logout(): void {

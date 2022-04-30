@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AnimalsService} from "../../../services/animals.service";
 
 @Component({
   selector: 'app-animals-list',
@@ -8,14 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class AnimalsListComponent implements OnInit {
   isOpen: boolean = true;
   valueCols: number = 3;
+  animals: any[] = [];
 
-  constructor() { }
+  constructor(private animalService: AnimalsService) { }
 
   ngOnInit(): void {
     const storageValue = localStorage.getItem('valueCols');
     if(storageValue) {
         this.valueCols = parseInt(storageValue);
     }
+    this.animalService.getUserAnimals().subscribe(animals => this.animals = animals);
   }
 
   setValueColsToStorage(): number {
