@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Food {
-    value: string;
-    viewValue: string;
-}
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'header',
@@ -11,7 +7,7 @@ interface Food {
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-    constructor() {}
+    constructor(public authService: AuthService) {}
 
     ngOnInit(): void {}
 }

@@ -14,6 +14,20 @@
   },
   "register": {
     "title": "Sign up",
-    "button": "Create Pro account"
+    "subtitle": "Je suis un refuge, un eleveur, ou une association.",
+    "button": "Créer mon compte",
+    "next": "Suivant",
+    "firstname": "Prénom du responsable",
+    "lastname": "Nom du responsable",
+    "shelter": "Nom du refuge, de l'élevage ou de l'association",
+    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
+    "address": {
+      "title": "Adresse du refuge, de l'élevage ou de l'association",
+      "country": "Pays",
+      "street": "Adresse postale",
+      "apartment": "Appartement, bâtiment (facultatif)",
+      "zip": "Code postal",
+      "city": "Ville"
+    }
   }
 }

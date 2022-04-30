@@ -10,6 +10,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatRippleModule } from '@angular/material/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [],
@@ -24,7 +30,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatCardModule,
         MatInputModule,
         MatCheckboxModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatBadgeModule,
+        MatRippleModule,
+        MatSidenavModule,
+        MatGridListModule,
+        MatSliderModule,
+        MatTooltipModule
     ]
 })
 export class MaterialModule {}
