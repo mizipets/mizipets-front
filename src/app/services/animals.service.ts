@@ -10,8 +10,9 @@ export class AnimalsService {
     constructor(private http: HttpClient) {}
 
     getUserAnimals(): Observable<any> {
+      // /adoption?getMine=true
         return this.http.get<any>(
-            environment.baseUrl + 'animals/adoption?getMine=true'
+            environment.baseUrl + 'animals'
         );
     }
 }

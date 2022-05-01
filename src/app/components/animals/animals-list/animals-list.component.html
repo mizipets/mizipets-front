@@ -68,16 +68,19 @@
         <mat-card>
           <img mat-card-image src="{{animal.images[0]}}">
           <mat-card-content>
+
             <div class="d-flex justify-content-between">
               <mat-card-title>{{animal.name}}</mat-card-title>
               <mat-icon *ngIf="animal.sex === 'male'" matTooltip="Male">male</mat-icon>
               <mat-icon *ngIf="animal.sex === 'female'" matTooltip="Femelle">female</mat-icon>
               <mat-icon  *ngIf="animal.sex === 'unknown'" matTooltip="Sex inconnue">question_mark</mat-icon>
             </div>
+
             <div class="d-flex justify-content-start">
               <span class="mr-2"><mat-icon class="icon-primary">event</mat-icon></span>
               <span class="align-center"> Né le {{animal.birthDate | date: 'd MMMM yyyy'}}</span>
             </div>
+
             <div class="d-flex justify-content-start">
               <span class="mr-2"><mat-icon class="icon-primary">pets</mat-icon></span>
               <span class="align-center mr-3">{{animal.race.species.name}}</span>
@@ -85,16 +88,14 @@
               <span class="align-center ml-3">{{animal.race.name}}</span>
             </div>
           </mat-card-content>
-          <mat-card-actions class="d-flex justify-content-between">
-            <button mat-icon-button color="warn" *ngIf="!liked.includes(animal.id)" (click)="adopted(animal.id, true)" matTooltip="Like si l'animal a été adopté">
-              <mat-icon>favorite_border</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" *ngIf="liked.includes(animal.id)" (click)="adopted(animal.id)">
-              <mat-icon>favorite</mat-icon>
-            </button>
 
+          <mat-card-actions class="d-flex" [ngClass]="{'justify-content-between': !animal.isAdoption, 'justify-content-end': animal.isAdoption}">
+            <button mat-icon-button color="warn" *ngIf="!animal.isAdoption" disableRipple style="cursor: default">
+              <mat-icon>verified</mat-icon> Adopté
+            </button>
             <button mat-flat-button [routerLink]="['/animal', animal.id]">Modifier</button>
           </mat-card-actions>
+
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
