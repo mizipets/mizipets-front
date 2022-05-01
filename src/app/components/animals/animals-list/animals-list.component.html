@@ -1,7 +1,7 @@
 <mat-drawer-container class="sidenav-container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [(opened)]="isOpen">
     <h3>Filtres</h3>
-    <div>
+    <div class="ml-3">
       <mat-slider
         aria-label="number of cols"
         max="6"
@@ -14,6 +14,15 @@
         matTooltipPosition="right"
       >
       </mat-slider>
+      <div>
+        <mat-checkbox
+          class="example-margin"
+          [(ngModel)]="adoptionChecked">
+          Adopté
+        </mat-checkbox>
+      </div>
+
+
       <p>Localisation</p>
       <p>Espèces</p>
       <p>Race</p>
@@ -26,7 +35,7 @@
       <mat-icon *ngIf="!isOpen">chevron_right</mat-icon>
       <mat-icon *ngIf="isOpen">chevron_left</mat-icon>
     </button>
-    <mat-grid-list [cols]="valueCols" rowHeight="420px">
+    <mat-grid-list [cols]="valueCols" rowHeight="500px">
       <mat-grid-tile *ngFor="let animal of animals">
         <mat-card>
           <img mat-card-image src="{{animal.images[0]}}" alt="Photo of a Shiba Inu">
@@ -37,12 +46,25 @@
               <mat-icon *ngIf="animal.sex === 'female'" matTooltip="Femelle">female</mat-icon>
               <mat-icon  *ngIf="animal.sex === 'unknown'" matTooltip="Sex inconnue">question_mark</mat-icon>
             </div>
-
-            <p>
-            </p>
+            <div class="d-flex justify-content-start">
+              <span class="mr-2"><mat-icon class="icon-primary">event</mat-icon></span>
+              <span class="align-center"> Né le {{animal.birthDate | date: 'd MMMM yyyy'}}</span>
+            </div>
+            <div class="d-flex justify-content-start">
+              <span class="mr-2"><mat-icon class="icon-primary">pets</mat-icon></span>
+              <span class="align-center mr-3">{{animal.race.species.name}}</span>
+              <mat-divider [vertical]="true"></mat-divider>
+              <span class="align-center ml-3">{{animal.race.name}}</span>
+            </div>
           </mat-card-content>
-          <mat-card-actions>
-            <button mat-flat-button color="primary">Adopter !</button>
+          <mat-card-actions class="d-flex justify-content-between">
+            <button mat-icon-button color="warn" *ngIf="!liked.includes(animal.id)" (click)="adopted(animal.id, true)" matTooltip="Like si l'animal a été adopté">
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" *ngIf="liked.includes(animal.id)" (click)="adopted(animal.id)">
+              <mat-icon>favorite</mat-icon>
+            </button>
+
             <button mat-flat-button>Modifier</button>
           </mat-card-actions>
         </mat-card>

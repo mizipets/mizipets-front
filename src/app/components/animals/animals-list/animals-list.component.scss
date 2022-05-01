@@ -8,8 +8,17 @@
 
   mat-card {
     width: 300px;
+
     .mat-card-image {
       height: 280px;
+    }
+
+    .align-center {
+      display: flex;
+      align-items: center;
+    }
+    .icon-primary {
+      color: #168aad;
     }
   }
 }
