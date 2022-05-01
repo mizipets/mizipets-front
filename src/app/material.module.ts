@@ -16,6 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [],
@@ -36,7 +37,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatSidenavModule,
         MatGridListModule,
         MatSliderModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatExpansionModule
     ]
 })
 export class MaterialModule {}
