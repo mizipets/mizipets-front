@@ -52,7 +52,12 @@ export class AuthService {
     }
 
     refreshToken(): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'auth/token/' + this.decodedToken.id + '/refresh');
+        return this.http.get<any>(
+            environment.baseUrl +
+                'auth/token/' +
+                this.decodedToken.id +
+                '/refresh'
+        );
     }
 
     logout(): void {

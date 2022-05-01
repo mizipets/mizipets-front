@@ -135,7 +135,7 @@ export class RegisterComponent {
                     localStorage.setItem('token', result.token);
                     this.authService.decodedToken =
                         this.authService.decodeToken(result.token);
-                    this.router.navigate(['dashboard']).then();
+                    this.router.navigate(['animals']).then();
                 },
                 (error) => {
                     this.errorMessage = error.error.message;
