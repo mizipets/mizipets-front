@@ -8,4 +8,5 @@ export class RegisterModel {
     address?: Address;
     preferences?: Preferences;
     shelter?: Shelter;
+    photoUrl?: string;
 }

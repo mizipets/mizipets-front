@@ -25,6 +25,7 @@ export class AuthService {
     }
 
     register(registerData: RegisterModel): Observable<RegisterModel> {
+        registerData.photoUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg'
         return this.http.post<RegisterModel>(
             environment.baseUrl + 'auth/register',
             registerData
