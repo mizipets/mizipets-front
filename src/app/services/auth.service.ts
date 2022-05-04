@@ -14,8 +14,8 @@ export class AuthService {
     public decodedToken: DecodedTokenModel | undefined;
 
     constructor(private router: Router, private http: HttpClient) {
-        if(this.isLogged()) {
-          this.decodedToken = this.decodeToken(this.getToken());
+        if (this.isLogged()) {
+            this.decodedToken = this.decodeToken(this.getToken());
         }
     }
 
@@ -25,7 +25,7 @@ export class AuthService {
     }
 
     register(registerData: RegisterModel): Observable<RegisterModel> {
-        registerData.photoUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg'
+        registerData.photoUrl = environment.userDefaultUrl;
         return this.http.post<RegisterModel>(
             environment.baseUrl + 'auth/register',
             registerData
@@ -41,7 +41,10 @@ export class AuthService {
 
     refreshToken(): Observable<any> {
         return this.http.get<any>(
-            environment.baseUrl + 'auth/token/' + this.decodedToken!.id + '/refresh'
+            environment.baseUrl +
+                'auth/token/' +
+                this.decodedToken!.id +
+                '/refresh'
         );
     }
 

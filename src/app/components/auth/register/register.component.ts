@@ -119,6 +119,7 @@ export class RegisterComponent {
             lastname: this.registerForm.value.lastname,
             email: this.registerForm.value.email,
             password: this.registerForm.value.password,
+            photoUrl: '',
             address,
             shelter,
             preferences

@@ -17,6 +17,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [],
@@ -38,6 +39,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatGridListModule,
         MatSliderModule,
         MatTooltipModule,
+        MatProgressSpinnerModule,
         MatExpansionModule
     ]
 })

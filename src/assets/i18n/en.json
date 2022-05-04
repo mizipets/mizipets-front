@@ -29,5 +29,21 @@
       "zip": "Code postal",
       "city": "Ville"
     }
+  },
+  "animals": {
+    "no-animals": "No animals for the moment",
+    "no-adopted-animals": "No animals to adopt, you can uncheck the \"Adopt\" filter",
+    "add": "Post an ad",
+    "born": "Born on",
+    "edit": "Edit",
+    "filter": {
+      "title": "Filters",
+      "adopted": "Adopted",
+      "location": "Location",
+      "breeds": "Breeds",
+      "species": "Species",
+      "gender": "Gender",
+      "age": "Age"
+    }
   }
 }
