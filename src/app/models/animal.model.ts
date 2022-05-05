@@ -1,6 +1,6 @@
 import { UserModel } from './user.model';
 
-export interface SpeciesModel {
+export interface SpecieModel {
     id: number;
     name: string;
     category: string;
@@ -9,7 +9,7 @@ export interface SpeciesModel {
 export interface RaceModel {
     id: number;
     name: string;
-    species: SpeciesModel;
+    specie: SpecieModel;
 }
 
 export interface AnimalModel {
