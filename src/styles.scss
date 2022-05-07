@@ -98,7 +98,7 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #e5e5e5;
+  background-color: #fafafa;
 }
 .m-auto {
   margin: auto !important;
@@ -214,6 +214,14 @@ body {
   top: 0 !important;
   z-index: 999;
 }
+.justify-content-start {
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+.justify-content-end {
+  display: flex !important;
+  justify-content: flex-end !important;
+}
 .justify-content-center {
   display: flex !important;
   justify-content: center !important;
@@ -236,6 +244,11 @@ body {
 }
 .spacer {
   flex: 1 1 auto !important;
+}
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }
 
 /* ======== Mobile ======== */

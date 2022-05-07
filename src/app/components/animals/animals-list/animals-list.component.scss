@@ -1,0 +1,25 @@
+.sidenav-container {
+  height: 100%;
+
+  .sidenav {
+    padding: 20px;
+    width: 300px;
+  }
+
+  mat-card {
+    width: 300px;
+
+    .mat-card-image {
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .align-center {
+      display: flex;
+      align-items: center;
+    }
+    .icon-primary {
+      color: #168aad;
+    }
+  }
+}

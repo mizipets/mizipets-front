@@ -14,6 +14,36 @@
   },
   "register": {
     "title": "Sign up",
-    "button": "Create Pro account"
+    "subtitle": "Je suis un refuge, un eleveur, ou une association.",
+    "button": "Créer mon compte",
+    "next": "Suivant",
+    "firstname": "Prénom du responsable",
+    "lastname": "Nom du responsable",
+    "shelter": "Nom du refuge, de l'élevage ou de l'association",
+    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
+    "address": {
+      "title": "Adresse du refuge, de l'élevage ou de l'association",
+      "country": "Pays",
+      "street": "Adresse postale",
+      "apartment": "Appartement, bâtiment (facultatif)",
+      "zip": "Code postal",
+      "city": "Ville"
+    }
+  },
+  "animals": {
+    "no-animals": "No animals for the moment",
+    "no-adopted-animals": "No animals to adopt, you can uncheck the \"Adopt\" filter",
+    "add": "Post an ad",
+    "born": "Born on",
+    "edit": "Edit",
+    "filter": {
+      "title": "Filters",
+      "adopted": "Adopted",
+      "location": "Location",
+      "breeds": "Breeds",
+      "species": "Species",
+      "gender": "Gender",
+      "age": "Age"
+    }
   }
 }

@@ -119,6 +119,7 @@ export class RegisterComponent {
             lastname: this.registerForm.value.lastname,
             email: this.registerForm.value.email,
             password: this.registerForm.value.password,
+            photoUrl: '',
             address,
             shelter,
             preferences
@@ -135,7 +136,7 @@ export class RegisterComponent {
                     localStorage.setItem('token', result.token);
                     this.authService.decodedToken =
                         this.authService.decodeToken(result.token);
-                    this.router.navigate(['dashboard']).then();
+                    this.router.navigate(['animals']).then();
                 },
                 (error) => {
                     this.errorMessage = error.error.message;

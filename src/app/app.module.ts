@@ -19,6 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptor } from './token.interceptor';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { AnimalsListComponent } from './components/animals/animals-list/animals-list.component';
+import { HomeComponent } from './components/home/home.component';
+import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -31,7 +34,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         LanguageComponent,
         LoginComponent,
         DashboardComponent,
-        RegisterComponent
+        RegisterComponent,
+        AnimalsListComponent,
+        HomeComponent,
+        AnimalsDetailComponent
     ],
     imports: [
         BrowserModule,

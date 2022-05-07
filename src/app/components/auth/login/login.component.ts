@@ -48,7 +48,7 @@ export class LoginComponent {
                 localStorage.setItem('token', result.token);
                 this.authenticationService.decodedToken =
                     this.authenticationService.decodeToken(result.token);
-                this.router.navigate(['dashboard']).then();
+                this.router.navigate(['animals']).then();
             },
             (e) => {
                 this.errorMessage = e.error.message;

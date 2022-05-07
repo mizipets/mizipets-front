@@ -1,7 +1,46 @@
 <mat-toolbar color="accent">
   <img src="assets/images/logo.png" class="icon">
-  <span>Mizipets Pro</span>
+  <span routerLink="/home" class="home"  matRipple
+        [matRippleCentered]="true">Mizipets Pro</span>
+
+  <span class="spacer"></span>
+
+  <button mat-button  class="mx-5"
+        routerLink="/animals"
+        routerLinkActive="active-link"
+        *ngIf="authService.isLogged()">
+    Mes animaux
+  </button>
+
+  <button mat-button  class="mx-5"
+        *ngIf="authService.isLogged()">
+    Ajouter une annonce
+  </button>
+
+  <button mat-button class="mx-4"
+        matBadge="7"
+        [matBadgeHidden]="false"
+        matBadgeColor="warn"
+        *ngIf="authService.isLogged()">
+    Messagerie
+  </button>
+
   <span class="spacer"></span>
   <language></language>
-  <button mat-flat-button routerLink="/login" class="ml-2">Connexion</button>
+
+  <button mat-flat-button class="ml-2"
+          routerLink="/login"
+          *ngIf="!authService.isLogged()">
+    Connexion
+  </button>
+
+  <button mat-flat-button class="ml-2"
+          [matMenuTriggerFor]="menu"
+          *ngIf="authService.isLogged()">
+    <mat-icon>person_outlined</mat-icon><mat-icon>expand_more</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item (click)="authService.logout()">Deconnexion</button>
+  </mat-menu>
 </mat-toolbar>

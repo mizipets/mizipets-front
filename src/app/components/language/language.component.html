@@ -3,7 +3,7 @@
     {{ languageService.locale }}
 </button>
 
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" xPosition="before">
     <div *ngFor="let lang of languages"
          class="flag-row"
          (click)="changeLang(lang)">
