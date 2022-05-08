@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -59,11 +59,8 @@ export class LoginComponent {
     checkCode(code: string): void {
         this.errorMessage = '';
         this.currentCode = code;
-        const data = {
-            email: this.email,
-            code: code
-        };
-        this.authenticationService.checkCode(data).subscribe((isValid) => {
+
+        this.authenticationService.checkCode(this.email, parseInt(code)).subscribe((isValid: boolean) => {
             if (isValid) {
                 this.isCode = false;
                 this.isPassword = true;
@@ -75,15 +72,16 @@ export class LoginComponent {
 
     sendCode(): void {
         this.errorMessage = '';
-        this.authenticationService.sendCode(this.email).subscribe(
-            () => {
+        this.authenticationService.sendCode(this.email).subscribe({
+            next: () => {
                 this.isCode = true;
                 this.isPasswordForgot = false;
             },
-            (error) => {
+            error: (error) => {
+                console.error(error);
                 this.errorMessage = 'Invalid Email !';
             }
-        );
+        });
     }
 
     resetPassword(): void {
@@ -92,17 +90,15 @@ export class LoginComponent {
             email: this.email,
             password: this.password
         };
-        this.authenticationService
-            .resetPassword(loginData, this.currentCode)
-            .subscribe(
-                () => {
-                    this.isPasswordForgot = false;
-                    this.isCode = false;
-                    this.isPassword = false;
-                },
-                (error) => {
-                    this.errorMessage = error.message;
-                }
-            );
+        this.authenticationService.resetPassword(loginData, this.currentCode).subscribe({
+            next: () => {
+                this.isPasswordForgot = false;
+                this.isCode = false;
+                this.isPassword = false;
+            },
+            error: (error) => {
+                this.errorMessage = error.message;
+            }
+        });
     }
 }

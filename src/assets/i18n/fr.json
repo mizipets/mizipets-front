@@ -3,7 +3,15 @@
     "title": "Mizipets",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
-    "or": "ou"
+    "or": "ou",
+    "continue": "Continuer",
+    "forgot-password": "Mot de passe oublié ?",
+    "forgot-text": "Indiquez l'adresse e-mail que vous avez utilisée pour vous inscrire et nous vous enverrons un code pour réinitialiser votre mot de passe.",
+    "code-send": "Saisissez le code à 6 chiffres que vous avez reçu par email.",
+    "send-again": "Envoyer à nouveau le code",
+    "code": "Vérification",
+    "new-password": "Entrer un nouveau mot de passe",
+    "register-password": "Enregistrer"
   },
   "login": {
     "title": "Connexion",

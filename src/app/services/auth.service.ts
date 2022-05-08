@@ -53,21 +53,20 @@ export class AuthService {
         this.router.navigate(['home']).then();
     }
 
-    checkCode(data: any): Observable<any> {
+    checkCode(email: string, code: number): Observable<boolean> {
         return this.http.post<boolean>(
-            environment.baseUrl + 'auth/code/check',
-            data
+            environment.baseUrl + 'auth/code/verify',{ email: email, code: code }
         );
     }
 
-    sendCode(email: string): Observable<any> {
-        return this.http.get<boolean>(
-            environment.baseUrl + 'auth/code?email=' + email
+    sendCode(email: string): Observable<void> {
+        return this.http.post<void>(
+            environment.baseUrl + 'auth/code/send', {email: email}
         );
     }
 
-    resetPassword(login: any, code: string): Observable<any> {
-        return this.http.post<any>(
+    resetPassword(login: any, code: string): Observable<void> {
+        return this.http.put<void>(
             environment.baseUrl + 'auth/reset/password?code=' + code,
             login
         );

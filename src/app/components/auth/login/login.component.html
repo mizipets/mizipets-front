@@ -57,10 +57,10 @@
     </mat-card-header>
     <mat-card-content>
       <p>{{'common.code-send' | translate}}</p>
-<!--      <code-input [isCodeHidden]="false"-->
-<!--                  [codeLength]="6"-->
-<!--                  (codeCompleted)="checkCode($event)">-->
-<!--      </code-input>-->
+      <code-input [isCodeHidden]="false"
+                  [codeLength]="6"
+                  (codeCompleted)="checkCode($event)">
+      </code-input>
       <p class="text-center danger">{{errorMessage}}</p>
       <a class="text-center" (click)="sendCode()">{{'common.send-again' | translate}}</a>
     </mat-card-content>
