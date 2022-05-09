@@ -11,17 +11,24 @@ import { RegisterModel } from '../models/register.model';
     providedIn: 'root'
 })
 export class AuthService {
-    public decodedToken: DecodedTokenModel | undefined;
+    decodedToken: DecodedTokenModel | undefined;
+    isTokenStored: boolean;
 
     constructor(private router: Router, private http: HttpClient) {
+        this.isTokenStored = localStorage.getItem('isTokenStored') === 'true';
         if (this.isLogged()) {
-            this.decodedToken = this.decodeToken(this.getToken());
+            this.decodedToken = this.decodeToken(this.getToken()!);
         }
     }
 
-    getToken(): string {
-        const token = localStorage.getItem('token');
-        return token ? token : '';
+    getToken(): string | null {
+        return this.isTokenStored
+            ? localStorage.getItem('token')
+            : sessionStorage.getItem('token');
+    }
+
+    getRefreshToken(): string | null {
+        return localStorage.getItem('refreshKey');
     }
 
     register(registerData: RegisterModel): Observable<RegisterModel> {
@@ -41,15 +48,18 @@ export class AuthService {
 
     refreshToken(): Observable<any> {
         return this.http.get<any>(
-            environment.baseUrl +
-                'auth/token/' +
-                this.decodedToken!.id +
-                '/refresh'
+            environment.baseUrl + 'auth/token/' + this.decodedToken!.id +
+            '/refresh?key=' + localStorage.getItem('refreshKey')
         );
     }
 
     logout(): void {
-        localStorage.removeItem('token');
+        if (this.isTokenStored) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+        } else {
+            sessionStorage.removeItem('token');
+        }
         this.router.navigate(['home']).then();
     }
 
@@ -75,7 +85,7 @@ export class AuthService {
 
     isLogged(): boolean {
         const currentToken = this.getToken();
-        return !!(currentToken && currentToken.length > 1);
+        return !!currentToken;
     }
 
     isTokenValid(): boolean {
@@ -83,7 +93,7 @@ export class AuthService {
         return Number(this.decodedToken!.exp) > currentDate;
     }
 
-    decodeToken(token: string): any {
+    decodeToken(token: string): DecodedTokenModel {
         return jwt_decode(token);
     }
 }

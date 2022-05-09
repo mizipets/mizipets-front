@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -13,7 +13,7 @@ import { AuthService } from '../../../services/auth.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     emailCtrl: FormControl;
     passwordCtrl: FormControl;
@@ -40,11 +40,26 @@ export class LoginComponent {
         });
     }
 
+    ngOnInit(): void {
+        if (this.authenticationService.isLogged()) {
+            this.router.navigate(['animals']).then();
+        }
+    }
+
     onSubmit(): void {
         this.authenticationService.login(this.loginForm.value).subscribe({
-            next: (result: { token: string }) => {
-                // if (this.loginForm.value.isConnectionSave)
-                localStorage.setItem('token', result.token);
+            next: (result: { token: string; refreshKey: string }) => {
+                localStorage.setItem('refreshKey', result.refreshKey);
+                localStorage.setItem(
+                    'isTokenStored',
+                    this.loginForm.value.isConnectionSave
+                );
+
+                this.authenticationService.isTokenStored =
+                    this.loginForm.value.isConnectionSave;
+                this.authenticationService.isTokenStored
+                    ? localStorage.setItem('token', result.token)
+                    : sessionStorage.setItem('token', result.token);
                 this.authenticationService.decodedToken =
                     this.authenticationService.decodeToken(result.token);
                 this.router.navigate(['animals']).then();
