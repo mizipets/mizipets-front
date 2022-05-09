@@ -5,16 +5,16 @@
     </mat-card-header>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
+      <!-- Step one -->
       <mat-card-content *ngIf="!next" class="mt-4">
         <p>{{'register.subtitle' | translate}}</p>
-        <mat-form-field appearance="outline" class="my-1">
+        <mat-form-field appearance="outline">
           <mat-label>{{'register.lastname' | translate}}</mat-label>
           <input matInput formControlName="lastname" required>
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
         <br/>
-        <mat-form-field appearance="outline" class="my-1">
+        <mat-form-field appearance="outline">
           <mat-label>{{'register.firstname' | translate}}</mat-label>
           <input matInput formControlName="firstname" required>
           <mat-icon matSuffix>person</mat-icon>
@@ -26,14 +26,10 @@
           <mat-icon matSuffix>mail</mat-icon>
         </mat-form-field>
         <br/>
-        <mat-form-field appearance="outline" class="my-1">
+        <mat-form-field appearance="outline">
           <mat-label>{{'common.password' | translate}}</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
-          <button mat-icon-button matSuffix (click)="hide = !hide"
-                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon class="visibility">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-hint>{{'register.hint' | translate}}</mat-hint>
+          <input matInput type="password" id="password" formControlName="password" autocomplete="on" required>
+          <mat-icon matSuffix>visibility_off</mat-icon>
         </mat-form-field>
         <br/>
         <button mat-flat-button color="primary" type="button" class="mt-4"
@@ -43,6 +39,7 @@
         </button>
       </mat-card-content>
 
+      <!-- Step two -->
       <mat-card-content *ngIf="next" class="mt-4">
         <mat-form-field appearance="outline" class="my-1">
           <mat-label>{{'register.shelter' | translate}}</mat-label>

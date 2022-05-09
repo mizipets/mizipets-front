@@ -17,7 +17,6 @@ import { RegisterModel } from '../../../models/register.model';
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-    hide = true;
     next = false;
     check = false;
     countries = [{ value: 'france', display: 'France' }];

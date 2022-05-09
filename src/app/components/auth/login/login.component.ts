@@ -14,17 +14,16 @@ import { AuthService } from '../../../services/auth.service';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-    hide = true;
-    isPasswordForgot = false;
-    isCode = false;
-    isPassword = false;
     loginForm: FormGroup;
     emailCtrl: FormControl;
     passwordCtrl: FormControl;
-    currentCode = '';
-    email = '';
-    password = '';
-    errorMessage = '';
+    isPasswordForgot: boolean = false;
+    isCode: boolean = false;
+    isPassword: boolean = false;
+    currentCode: string = '';
+    email: string = '';
+    password: string = '';
+    errorMessage: string = '';
 
     constructor(
         public formBuilder: FormBuilder,
@@ -42,32 +41,40 @@ export class LoginComponent {
     }
 
     onSubmit(): void {
-        this.authenticationService.login(this.loginForm.value).subscribe(
-            (result) => {
+        this.authenticationService.login(this.loginForm.value).subscribe({
+            next: (result: { token: string }) => {
                 // if (this.loginForm.value.isConnectionSave)
                 localStorage.setItem('token', result.token);
                 this.authenticationService.decodedToken =
                     this.authenticationService.decodeToken(result.token);
                 this.router.navigate(['animals']).then();
             },
-            (e) => {
-                this.errorMessage = e.error.message;
+            error: (error) => {
+                console.error(error);
+                this.errorMessage = error.error.message;
             }
-        );
+        });
     }
 
     checkCode(code: string): void {
         this.errorMessage = '';
         this.currentCode = code;
-
-        this.authenticationService.checkCode(this.email, parseInt(code)).subscribe((isValid: boolean) => {
-            if (isValid) {
-                this.isCode = false;
-                this.isPassword = true;
-            } else {
-                this.errorMessage = 'Invalid Code !';
-            }
-        });
+        this.authenticationService
+            .checkCode(this.email, parseInt(code))
+            .subscribe({
+                next: (isValid: boolean) => {
+                    if (isValid) {
+                        this.isCode = false;
+                        this.isPassword = true;
+                    } else {
+                        this.errorMessage = 'Invalid code !';
+                    }
+                },
+                error: (error) => {
+                    console.error(error);
+                    this.errorMessage = error.error.message;
+                }
+            });
     }
 
     sendCode(): void {
@@ -79,7 +86,7 @@ export class LoginComponent {
             },
             error: (error) => {
                 console.error(error);
-                this.errorMessage = 'Invalid Email !';
+                this.errorMessage = error.error.message;
             }
         });
     }
@@ -90,15 +97,18 @@ export class LoginComponent {
             email: this.email,
             password: this.password
         };
-        this.authenticationService.resetPassword(loginData, this.currentCode).subscribe({
-            next: () => {
-                this.isPasswordForgot = false;
-                this.isCode = false;
-                this.isPassword = false;
-            },
-            error: (error) => {
-                this.errorMessage = error.message;
-            }
-        });
+        this.authenticationService
+            .resetPassword(loginData, this.currentCode)
+            .subscribe({
+                next: () => {
+                    this.isPasswordForgot = false;
+                    this.isCode = false;
+                    this.isPassword = false;
+                },
+                error: (error) => {
+                    console.error(error);
+                    this.errorMessage = error.error.message;
+                }
+            });
     }
 }

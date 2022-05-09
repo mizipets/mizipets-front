@@ -55,14 +55,15 @@ export class AuthService {
 
     checkCode(email: string, code: number): Observable<boolean> {
         return this.http.post<boolean>(
-            environment.baseUrl + 'auth/code/verify',{ email: email, code: code }
+            environment.baseUrl + 'auth/code/verify',
+            { email: email, code: code }
         );
     }
 
     sendCode(email: string): Observable<void> {
-        return this.http.post<void>(
-            environment.baseUrl + 'auth/code/send', {email: email}
-        );
+        return this.http.post<void>(environment.baseUrl + 'auth/code/send', {
+            email: email
+        });
     }
 
     resetPassword(login: any, code: string): Observable<void> {
