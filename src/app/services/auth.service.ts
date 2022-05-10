@@ -29,6 +29,14 @@ export class AuthService {
         return localStorage.getItem('refreshKey');
     }
 
+    setToken(token: string): void {
+      this.isTokenStored ? localStorage.setItem('token', token) : sessionStorage.setItem('token', token);
+    }
+
+    setRefreshToken(token: string): void {
+      localStorage.setItem('token', token);
+    }
+
     register(registerData: RegisterModel): Observable<RegisterModel> {
         registerData.photoUrl = environment.userDefaultUrl;
         return this.http.post<RegisterModel>(
@@ -44,10 +52,10 @@ export class AuthService {
         );
     }
 
-    refreshToken(): Observable<any> {
+    refreshToken(tokenKey: string): Observable<any> {
         return this.http.get<any>(
             environment.baseUrl + 'auth/token/' + this.decodedToken!.id +
-            '/refresh?key=' + localStorage.getItem('refreshKey')
+            '/refresh?key=' + tokenKey
         );
     }
 
