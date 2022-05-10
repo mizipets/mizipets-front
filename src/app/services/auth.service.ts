@@ -30,11 +30,11 @@ export class AuthService {
     }
 
     setToken(token: string): void {
-      this.isTokenStored ? localStorage.setItem('token', token) : sessionStorage.setItem('token', token);
+        this.isTokenStored ? localStorage.setItem('token', token) : sessionStorage.setItem('token', token);
     }
 
     setRefreshToken(token: string): void {
-      localStorage.setItem('token', token);
+        localStorage.setItem('refreshKey', token);
     }
 
     register(registerData: RegisterModel): Observable<RegisterModel> {
@@ -60,8 +60,9 @@ export class AuthService {
     }
 
     logout(): void {
-        localStorage.removeItem('refreshKey');
         this.isTokenStored ? localStorage.removeItem('token') : sessionStorage.removeItem('token');
+        localStorage.removeItem('isTokenStored');
+        localStorage.removeItem('refreshKey');
         this.router.navigate(['home']).then();
     }
 

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         public formBuilder: FormBuilder,
-        private authenticationService: AuthService,
+        private authService: AuthService,
         private router: Router
     ) {
         this.emailCtrl = formBuilder.control('', Validators.required);
@@ -41,27 +41,19 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.authenticationService.isLogged()) {
+        if (this.authService.isLogged()) {
             this.router.navigate(['animals']).then();
         }
     }
 
     onSubmit(): void {
-        this.authenticationService.login(this.loginForm.value).subscribe({
+        this.authService.login(this.loginForm.value).subscribe({
             next: (result: { token: string; refreshKey: string }) => {
-                localStorage.setItem('refreshKey', result.refreshKey);
-                localStorage.setItem(
-                    'isTokenStored',
-                    this.loginForm.value.isConnectionSave
-                );
-
-                this.authenticationService.isTokenStored =
-                    this.loginForm.value.isConnectionSave;
-                this.authenticationService.isTokenStored
-                    ? localStorage.setItem('token', result.token)
-                    : sessionStorage.setItem('token', result.token);
-                this.authenticationService.decodedToken =
-                    this.authenticationService.decodeToken(result.token);
+                localStorage.setItem('isTokenStored', this.loginForm.value.isConnectionSave);
+                this.authService.isTokenStored = this.loginForm.value.isConnectionSave;
+                this.authService.setToken(result.token);
+                this.authService.setRefreshToken(result.refreshKey);
+                this.authService.decodedToken = this.authService.decodeToken(result.token);
                 this.router.navigate(['animals']).then();
             },
             error: (error) => {
@@ -74,7 +66,7 @@ export class LoginComponent implements OnInit {
     checkCode(code: string): void {
         this.errorMessage = '';
         this.currentCode = code;
-        this.authenticationService
+        this.authService
             .checkCode(this.email, parseInt(code))
             .subscribe({
                 next: (isValid: boolean) => {
@@ -94,7 +86,7 @@ export class LoginComponent implements OnInit {
 
     sendCode(): void {
         this.errorMessage = '';
-        this.authenticationService.sendCode(this.email).subscribe({
+        this.authService.sendCode(this.email).subscribe({
             next: () => {
                 this.isCode = true;
                 this.isPasswordForgot = false;
@@ -112,7 +104,7 @@ export class LoginComponent implements OnInit {
             email: this.email,
             password: this.password
         };
-        this.authenticationService
+        this.authService
             .resetPassword(loginData, this.currentCode)
             .subscribe({
                 next: () => {

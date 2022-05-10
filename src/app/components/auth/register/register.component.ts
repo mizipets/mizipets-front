@@ -39,6 +39,9 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private snackBar: MatSnackBar
     ) {
+        /**
+         * Form controls with validators
+         */
         this.firstnameCtrl = formBuilder.control('', [
             Validators.required,
             Validators.minLength(3)
@@ -139,15 +142,11 @@ export class RegisterComponent implements OnInit {
                 };
                 this.authService.login(loginForm).subscribe({
                     next: (result: { token: string; refreshKey: string }) => {
-                        localStorage.setItem('refreshKey', result.refreshKey);
                         localStorage.setItem('isTokenStored', 'true');
-
                         this.authService.isTokenStored = true;
-                        this.authService.isTokenStored
-                            ? localStorage.setItem('token', result.token)
-                            : sessionStorage.setItem('token', result.token);
-                        this.authService.decodedToken =
-                            this.authService.decodeToken(result.token);
+                        this.authService.setToken(result.token);
+                        this.authService.setRefreshToken(result.refreshKey);
+                        this.authService.decodedToken = this.authService.decodeToken(result.token);
                         this.router.navigate(['animals']).then();
                     },
                     error: (error) => {
