@@ -22,9 +22,7 @@ export class AuthService {
     }
 
     getToken(): string | null {
-        return this.isTokenStored
-            ? localStorage.getItem('token')
-            : sessionStorage.getItem('token');
+        return this.isTokenStored ? localStorage.getItem('token') : sessionStorage.getItem('token');
     }
 
     getRefreshToken(): string | null {
@@ -54,12 +52,8 @@ export class AuthService {
     }
 
     logout(): void {
-        if (this.isTokenStored) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('refreshToken');
-        } else {
-            sessionStorage.removeItem('token');
-        }
+        localStorage.removeItem('refreshKey');
+        this.isTokenStored ? localStorage.removeItem('token') : sessionStorage.removeItem('token');
         this.router.navigate(['home']).then();
     }
 
