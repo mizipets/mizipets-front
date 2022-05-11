@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+
+.head-section {
+  background-color: #05668d;
+  color: white;
+  top: 0;
+  height: 60%;
+  text-align: center;
+
+  .title {
+    margin: 0 !important;
+    font-family: 'Cookie', cursive;
+    font-size: 50px;
+  }
+}
