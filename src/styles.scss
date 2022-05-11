@@ -100,6 +100,15 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #fafafa;
 }
+.warn {
+  color: mat.get-color-from-palette($custom-warn) !important;
+}
+.primary {
+  color: mat.get-color-from-palette($custom-primary) !important;
+}
+.accent {
+  color: mat.get-color-from-palette($custom-accent) !important;
+}
 .m-auto {
   margin: auto !important;
 }

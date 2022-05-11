@@ -22,6 +22,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { AnimalsListComponent } from './components/animals/animals-list/animals-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
+import { CodeInputModule } from 'angular-code-input';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -54,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MaterialModule,
         HttpClientModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        CodeInputModule
     ],
     providers: [
         LanguageService,

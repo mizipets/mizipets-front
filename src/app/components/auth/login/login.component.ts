@@ -13,22 +13,21 @@ import { AuthService } from '../../../services/auth.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
-    hide = true;
-    isPasswordForgot = false;
-    isCode = false;
-    isPassword = false;
+export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     emailCtrl: FormControl;
     passwordCtrl: FormControl;
-    currentCode = '';
-    email = '';
-    password = '';
-    errorMessage = '';
+    isPasswordForgot: boolean = false;
+    isCode: boolean = false;
+    isPassword: boolean = false;
+    currentCode: string = '';
+    email: string = '';
+    password: string = '';
+    errorMessage: string = '';
 
     constructor(
         public formBuilder: FormBuilder,
-        private authenticationService: AuthService,
+        private authService: AuthService,
         private router: Router
     ) {
         this.emailCtrl = formBuilder.control('', Validators.required);
@@ -41,49 +40,62 @@ export class LoginComponent {
         });
     }
 
+    ngOnInit(): void {
+        if (this.authService.isLogged()) {
+            this.router.navigate(['animals']).then();
+        }
+    }
+
     onSubmit(): void {
-        this.authenticationService.login(this.loginForm.value).subscribe(
-            (result) => {
-                // if (this.loginForm.value.isConnectionSave)
-                localStorage.setItem('token', result.token);
-                this.authenticationService.decodedToken =
-                    this.authenticationService.decodeToken(result.token);
+        this.authService.login(this.loginForm.value).subscribe({
+            next: (result: { token: string; refreshKey: string }) => {
+                localStorage.setItem('isTokenStored', this.loginForm.value.isConnectionSave);
+                this.authService.isTokenStored = this.loginForm.value.isConnectionSave;
+                this.authService.setToken(result.token);
+                this.authService.setRefreshToken(result.refreshKey);
+                this.authService.decodedToken = this.authService.decodeToken(result.token);
                 this.router.navigate(['animals']).then();
             },
-            (e) => {
-                this.errorMessage = e.error.message;
+            error: (error) => {
+                console.error(error);
+                this.errorMessage = error.error.message;
             }
-        );
+        });
     }
 
     checkCode(code: string): void {
         this.errorMessage = '';
         this.currentCode = code;
-        const data = {
-            email: this.email,
-            code: code
-        };
-        this.authenticationService.checkCode(data).subscribe((isValid) => {
-            if (isValid) {
-                this.isCode = false;
-                this.isPassword = true;
-            } else {
-                this.errorMessage = 'Invalid Code !';
-            }
-        });
+        this.authService
+            .checkCode(this.email, parseInt(code))
+            .subscribe({
+                next: (isValid: boolean) => {
+                    if (isValid) {
+                        this.isCode = false;
+                        this.isPassword = true;
+                    } else {
+                        this.errorMessage = 'Invalid code !';
+                    }
+                },
+                error: (error) => {
+                    console.error(error);
+                    this.errorMessage = error.error.message;
+                }
+            });
     }
 
     sendCode(): void {
         this.errorMessage = '';
-        this.authenticationService.sendCode(this.email).subscribe(
-            () => {
+        this.authService.sendCode(this.email).subscribe({
+            next: () => {
                 this.isCode = true;
                 this.isPasswordForgot = false;
             },
-            (error) => {
-                this.errorMessage = 'Invalid Email !';
+            error: (error) => {
+                console.error(error);
+                this.errorMessage = error.error.message;
             }
-        );
+        });
     }
 
     resetPassword(): void {
@@ -92,17 +104,18 @@ export class LoginComponent {
             email: this.email,
             password: this.password
         };
-        this.authenticationService
+        this.authService
             .resetPassword(loginData, this.currentCode)
-            .subscribe(
-                () => {
+            .subscribe({
+                next: () => {
                     this.isPasswordForgot = false;
                     this.isCode = false;
                     this.isPassword = false;
                 },
-                (error) => {
-                    this.errorMessage = error.message;
+                error: (error) => {
+                    console.error(error);
+                    this.errorMessage = error.error.message;
                 }
-            );
+            });
     }
 }

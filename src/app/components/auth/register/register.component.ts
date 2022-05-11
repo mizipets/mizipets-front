@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -16,8 +16,7 @@ import { RegisterModel } from '../../../models/register.model';
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
-    hide = true;
+export class RegisterComponent implements OnInit {
     next = false;
     check = false;
     countries = [{ value: 'france', display: 'France' }];
@@ -40,6 +39,9 @@ export class RegisterComponent {
         private router: Router,
         private snackBar: MatSnackBar
     ) {
+        /**
+         * Form controls with validators
+         */
         this.firstnameCtrl = formBuilder.control('', [
             Validators.required,
             Validators.minLength(3)
@@ -86,6 +88,12 @@ export class RegisterComponent {
         });
     }
 
+    ngOnInit(): void {
+        if (this.authService.isLogged()) {
+            this.router.navigate(['animals']).then();
+        }
+    }
+
     openSnackBar(): void {
         this.snackBar.open('register.success', '', {
             duration: 2000,
@@ -125,23 +133,32 @@ export class RegisterComponent {
             preferences
         };
 
-        this.authService.register(registerData).subscribe(() => {
-            this.openSnackBar();
-            const loginForm = {
-                email: this.registerForm.value.email,
-                password: this.registerForm.value.password
-            };
-            this.authService.login(loginForm).subscribe(
-                (result) => {
-                    localStorage.setItem('token', result.token);
-                    this.authService.decodedToken =
-                        this.authService.decodeToken(result.token);
-                    this.router.navigate(['animals']).then();
-                },
-                (error) => {
-                    this.errorMessage = error.error.message;
-                }
-            );
+        this.authService.register(registerData).subscribe({
+            next: () => {
+                this.openSnackBar();
+                const loginForm = {
+                    email: this.registerForm.value.email,
+                    password: this.registerForm.value.password
+                };
+                this.authService.login(loginForm).subscribe({
+                    next: (result: { token: string; refreshKey: string }) => {
+                        localStorage.setItem('isTokenStored', 'true');
+                        this.authService.isTokenStored = true;
+                        this.authService.setToken(result.token);
+                        this.authService.setRefreshToken(result.refreshKey);
+                        this.authService.decodedToken = this.authService.decodeToken(result.token);
+                        this.router.navigate(['animals']).then();
+                    },
+                    error: (error) => {
+                        console.error(error);
+                        this.errorMessage = error.error.message;
+                    }
+                });
+            },
+            error: (error) => {
+                console.error(error);
+                this.errorMessage = error.error.message;
+            }
         });
     }
 }

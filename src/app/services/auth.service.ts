@@ -11,17 +11,30 @@ import { RegisterModel } from '../models/register.model';
     providedIn: 'root'
 })
 export class AuthService {
-    public decodedToken: DecodedTokenModel | undefined;
+    decodedToken: DecodedTokenModel | undefined;
+    isTokenStored: boolean;
 
     constructor(private router: Router, private http: HttpClient) {
+        this.isTokenStored = localStorage.getItem('isTokenStored') === 'true';
         if (this.isLogged()) {
-            this.decodedToken = this.decodeToken(this.getToken());
+            this.decodedToken = this.decodeToken(this.getToken()!);
         }
     }
 
-    getToken(): string {
-        const token = localStorage.getItem('token');
-        return token ? token : '';
+    getToken(): string | null {
+        return this.isTokenStored ? localStorage.getItem('token') : sessionStorage.getItem('token');
+    }
+
+    getRefreshToken(): string | null {
+        return localStorage.getItem('refreshKey');
+    }
+
+    setToken(token: string): void {
+        this.isTokenStored ? localStorage.setItem('token', token) : sessionStorage.setItem('token', token);
+    }
+
+    setRefreshToken(token: string): void {
+        localStorage.setItem('refreshKey', token);
     }
 
     register(registerData: RegisterModel): Observable<RegisterModel> {
@@ -39,35 +52,35 @@ export class AuthService {
         );
     }
 
-    refreshToken(): Observable<any> {
+    refreshToken(tokenKey: string): Observable<any> {
         return this.http.get<any>(
-            environment.baseUrl +
-                'auth/token/' +
-                this.decodedToken!.id +
-                '/refresh'
+            environment.baseUrl + 'auth/token/' + this.decodedToken!.id +
+            '/refresh?key=' + tokenKey
         );
     }
 
     logout(): void {
-        localStorage.removeItem('token');
+        this.isTokenStored ? localStorage.removeItem('token') : sessionStorage.removeItem('token');
+        localStorage.removeItem('isTokenStored');
+        localStorage.removeItem('refreshKey');
         this.router.navigate(['home']).then();
     }
 
-    checkCode(data: any): Observable<any> {
+    checkCode(email: string, code: number): Observable<boolean> {
         return this.http.post<boolean>(
-            environment.baseUrl + 'auth/code/check',
-            data
+            environment.baseUrl + 'auth/code/verify',
+            { email: email, code: code }
         );
     }
 
-    sendCode(email: string): Observable<any> {
-        return this.http.get<boolean>(
-            environment.baseUrl + 'auth/code?email=' + email
-        );
+    sendCode(email: string): Observable<void> {
+        return this.http.post<void>(environment.baseUrl + 'auth/code/send', {
+            email: email
+        });
     }
 
-    resetPassword(login: any, code: string): Observable<any> {
-        return this.http.post<any>(
+    resetPassword(login: any, code: string): Observable<void> {
+        return this.http.put<void>(
             environment.baseUrl + 'auth/reset/password?code=' + code,
             login
         );
@@ -75,7 +88,7 @@ export class AuthService {
 
     isLogged(): boolean {
         const currentToken = this.getToken();
-        return !!(currentToken && currentToken.length > 1);
+        return !!currentToken;
     }
 
     isTokenValid(): boolean {
@@ -83,7 +96,7 @@ export class AuthService {
         return Number(this.decodedToken!.exp) > currentDate;
     }
 
-    decodeToken(token: string): any {
+    decodeToken(token: string): DecodedTokenModel {
         return jwt_decode(token);
     }
 }
