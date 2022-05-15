@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { AnimalsListComponent } from './components/animals/animals-list/animals-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,7 +29,11 @@ const routes: Routes = [
         component: AnimalsDetailComponent,
         canActivate: [AuthGuardService]
     },
-
+    {
+      path: 'messages',
+      component: MessagesComponent,
+      canActivate: [AuthGuardService]
+    },
     { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
