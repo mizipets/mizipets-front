@@ -2,35 +2,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap');
 
 section {
-  text-align: center;
-
+  overflow-y: hidden;
+  text-align: start;
+  h1, .title {
+    text-align: center;
+  }
   h1 {
     font-size: 38px;
     font-family: 'Arima Madurai',cursive;
     line-height: 38px;
     margin-top: 0;
   }
-
+  .title {
+    margin: 0;
+    font-family: 'Cookie', cursive;
+    font-size: 80px;
+  }
   button {
     width: 100%;
   }
 }
-
 svg {
-  margin-top: -3px !important;
+  width: 100% !important;
+  margin-top: -7px !important;
+  margin-bottom: -7px !important;
 }
-
-.head-section {
+.head-section,.end-section {
   background-color: #05668d;
   color: white;
-  height: 40%;
-
-    .title {
-    margin: 0 !important;
-    font-family: 'Cookie', cursive;
-    font-size: 80px;
-  }
 }
 
-
-
+@media (min-width: 768px) {
+  .container {
+    width: auto !important;
+  }
+}
