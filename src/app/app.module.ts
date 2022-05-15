@@ -23,6 +23,7 @@ import { AnimalsListComponent } from './components/animals/animals-list/animals-
 import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 import { CodeInputModule } from 'angular-code-input';
+import { MessagesComponent } from './components/messages/messages.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -38,7 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         RegisterComponent,
         AnimalsListComponent,
         HomeComponent,
-        AnimalsDetailComponent
+        AnimalsDetailComponent,
+        MessagesComponent
     ],
     imports: [
         BrowserModule,
