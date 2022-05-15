@@ -11,7 +11,8 @@
     "send-again": "Send the code again",
     "code": "Verification",
     "new-password": "Enter new password",
-    "register-password": "Register new password"
+    "register-password": "Register new password",
+    "go-home": "Back to home"
   },
   "login": {
     "title": "Log in",

@@ -49,11 +49,17 @@ export class LoginComponent implements OnInit {
     onSubmit(): void {
         this.authService.login(this.loginForm.value).subscribe({
             next: (result: { token: string; refreshKey: string }) => {
-                localStorage.setItem('isTokenStored', this.loginForm.value.isConnectionSave);
-                this.authService.isTokenStored = this.loginForm.value.isConnectionSave;
+                localStorage.setItem(
+                    'isTokenStored',
+                    this.loginForm.value.isConnectionSave
+                );
+                this.authService.isTokenStored =
+                    this.loginForm.value.isConnectionSave;
                 this.authService.setToken(result.token);
                 this.authService.setRefreshToken(result.refreshKey);
-                this.authService.decodedToken = this.authService.decodeToken(result.token);
+                this.authService.decodedToken = this.authService.decodeToken(
+                    result.token
+                );
                 this.router.navigate(['animals']).then();
             },
             error: (error) => {
@@ -66,22 +72,20 @@ export class LoginComponent implements OnInit {
     checkCode(code: string): void {
         this.errorMessage = '';
         this.currentCode = code;
-        this.authService
-            .checkCode(this.email, parseInt(code))
-            .subscribe({
-                next: (isValid: boolean) => {
-                    if (isValid) {
-                        this.isCode = false;
-                        this.isPassword = true;
-                    } else {
-                        this.errorMessage = 'Invalid code !';
-                    }
-                },
-                error: (error) => {
-                    console.error(error);
-                    this.errorMessage = error.error.message;
+        this.authService.checkCode(this.email, parseInt(code)).subscribe({
+            next: (isValid: boolean) => {
+                if (isValid) {
+                    this.isCode = false;
+                    this.isPassword = true;
+                } else {
+                    this.errorMessage = 'Invalid code !';
                 }
-            });
+            },
+            error: (error) => {
+                console.error(error);
+                this.errorMessage = error.error.message;
+            }
+        });
     }
 
     sendCode(): void {
@@ -104,18 +108,16 @@ export class LoginComponent implements OnInit {
             email: this.email,
             password: this.password
         };
-        this.authService
-            .resetPassword(loginData, this.currentCode)
-            .subscribe({
-                next: () => {
-                    this.isPasswordForgot = false;
-                    this.isCode = false;
-                    this.isPassword = false;
-                },
-                error: (error) => {
-                    console.error(error);
-                    this.errorMessage = error.error.message;
-                }
-            });
+        this.authService.resetPassword(loginData, this.currentCode).subscribe({
+            next: () => {
+                this.isPasswordForgot = false;
+                this.isCode = false;
+                this.isPassword = false;
+            },
+            error: (error) => {
+                console.error(error);
+                this.errorMessage = error.error.message;
+            }
+        });
     }
 }
