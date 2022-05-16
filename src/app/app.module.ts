@@ -25,6 +25,8 @@ import { AnimalsDetailComponent } from './components/animals/animals-detail/anim
 import { CodeInputModule } from 'angular-code-input';
 import { HomeMobileComponent } from './components/home-mobile/home-mobile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -42,7 +44,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         HomeComponent,
         AnimalsDetailComponent,
         HomeMobileComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        UserProfileComponent,
+        SettingsComponent
     ],
     imports: [
         BrowserModule,

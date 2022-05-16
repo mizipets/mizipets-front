@@ -41,6 +41,10 @@
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
     <button mat-menu-item>Item 1</button>
+    <button mat-menu-item
+    routerLink="/user">Profile</button>
+    <button mat-menu-item
+    routerLink="/settings">Paramètres</button>
     <button mat-menu-item (click)="authService.logout()">Deconnexion</button>
   </mat-menu>
 </mat-toolbar>
