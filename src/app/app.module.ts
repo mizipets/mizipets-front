@@ -24,10 +24,14 @@ import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 import { CodeInputModule } from 'angular-code-input';
 import { MessagesComponent } from './components/messages/messages.component';
+import {environment} from "../environments/environment";
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
+
+const socketIoConfig: SocketIoConfig = { url: environment.socketUrl, options: {transports: ['websocket']} };
 
 @NgModule({
     declarations: [
@@ -54,6 +58,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
+        SocketIoModule.forRoot(socketIoConfig),
         MaterialModule,
         HttpClientModule,
         ReactiveFormsModule,

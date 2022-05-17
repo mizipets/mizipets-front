@@ -9,7 +9,8 @@ import { AnimalModel } from '../models/animal.model';
     providedIn: 'root'
 })
 export class AnimalsService {
-    constructor(private http: HttpClient, private authService: AuthService) {}
+    constructor(private http: HttpClient,
+                private authService: AuthService) {}
 
     getUserAnimals(): Observable<AnimalModel[]> {
         return this.http.get<AnimalModel[]>(

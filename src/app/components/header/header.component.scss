@@ -1,12 +1,17 @@
-.icon {
-  height: 60px;
-}
+.header {
+  position: sticky;
+  top: 0;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  z-index: 1000;
 
-.home {
-  cursor: pointer;
-  padding: 5px;
-}
-
-.active-link {
-  border-bottom: solid 4px white;
+  .icon {
+    height: 60px;
+  }
+  .home {
+    cursor: pointer;
+    padding: 5px;
+  }
+  .active-link {
+    border-bottom: solid 4px white;
+  }
 }
