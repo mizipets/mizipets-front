@@ -5,7 +5,7 @@ export interface RegisterModel {
     password: string;
     firstname: string;
     lastname: string;
-    photoUrl: string;
+    photo: string;
     address: Address;
     preferences: Preferences;
     shelter: Shelter;

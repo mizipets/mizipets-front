@@ -42,7 +42,7 @@ export class AuthService {
     }
 
     register(registerData: RegisterModel): Observable<RegisterModel> {
-        registerData.photoUrl = environment.userDefaultUrl;
+        registerData.photo = environment.userDefaultUrl;
         return this.http.post<RegisterModel>(
             environment.baseUrl + 'auth/register',
             registerData
