@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     baseUrl: 'http://localhost:3000/v1/',
-    socketUrl: 'http://localhost:3001/v1/',
+    socketUrl: 'http://localhost:3001',
     userDefaultUrl: 'https://i.imgur.com/k2PZLZa.png'
 };
 

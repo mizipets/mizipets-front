@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import {MessageModel} from "../models/message.model";
+import {MessageModel, MessageToRoomModel} from "../models/message.model";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -9,19 +9,27 @@ import {Observable} from "rxjs";
 export class SocketService {
   constructor(private socket: Socket) { }
 
-  public connectToRoom(room: string): void {
-    this.socket.emit('join', room);
+  public connectToRoom(roomCode: string): void {
+    this.socket.emit('join', roomCode);
   }
 
-  public getHistoryMessage(): Observable<Array<MessageModel>> {
-    return this.socket.fromEvent('message');
+  public leaveRoom(roomCode: string) {
+    this.socket.emit('leave', roomCode)
   }
 
-  public sendMessage(message: MessageModel) {
+  public joinedRoom(): Observable<string> {
+    return this.socket.fromEvent('joined');
+  }
+
+  public sendMessage(message: MessageToRoomModel) {
     this.socket.emit('sendMsgToRoom', message);
   }
 
   public receiveMessage(): Observable<MessageModel> {
     return this.socket.fromEvent('receiveMsgToRoom');
+  }
+
+  public leftRoom(): Observable<MessageModel> {
+    return this.socket.fromEvent('left');
   }
 }

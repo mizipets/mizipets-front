@@ -3,60 +3,59 @@
     <p style="margin-top: 0;">Messagerie</p>
 
     <div *ngFor="let room of rooms">
-      <div class="justify-content-start" style="align-content: center">
+      <button class="justify-content-start" style="align-content: center" (click)="connectionToRoom(room)">
         <img src="{{room.adoptant.photo}}" class="avatar">
         <h5>{{ room.adoptant.firstname }}</h5>
-      </div>
+      </button>
     </div>
   </mat-drawer>
   <div>
     <mat-toolbar>
-      <img src="{{rooms[0].adoptant.photo}}" class="avatar">
-      <span>{{rooms[0].adoptant.firstname}}</span>
+      <div *ngIf="currentRoom">
+        <img src="{{currentRoom.adoptant.photo}}" class="avatar">
+        <span>{{currentRoom.adoptant.firstname}}</span>
+      </div>
     </mat-toolbar>
-  </div>
 
-  <div class="messages">
-    <li class="message" *ngFor="let message of rooms">
-      <div *ngIf="message.id !== 1; then incoming_msg; else outgoing_msg"></div>
-      <ng-template #incoming_msg>
-        <div class="incoming_msg">
-            <img
-              src="https://i.imgur.com/k2PZLZa.png"
-              alt="User avatar"
-              class="avatar"
-            />
-          <div class="received_msg">
-<!--                          <p>{{ message.text }}</p>-->
-          </div>
-        </div>
+    <div *ngIf="currentRoom && currentRoom.messages">
+      <ul *ngFor="let message of currentRoom.messages">
+        <li class="message">
+          <div *ngIf="message.id !== 1; then incoming_msg; else outgoing_msg"></div>
+          <ng-template #incoming_msg>
+            <div class="incoming_msg">
+              <img
+                src="https://i.imgur.com/k2PZLZa.png"
+                alt="User avatar"
+                class="avatar"
+              />
+              <div class="received_msg">
+                  <p>{{ message.text }}</p>
+              </div>
+            </div>
 
-      </ng-template>
-      <ng-template #outgoing_msg>
-        <div class="outgoing_msg">
-          <div class="sent_msg">
-<!--                        <p>{{ message.text }}</p>-->
-          </div>
-        </div>
-      </ng-template>
-    </li>
+          </ng-template>
+          <ng-template #outgoing_msg>
+            <div class="outgoing_msg">
+              <div class="sent_msg">
+                  <p>{{ message.text }}</p>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
     </div>
 
-  <div>
-    <mat-toolbar>
-      <span class="spacer"></span>
-      <form class="input_msg_write">
-        <input
-          type="text"
-          class="write_msg"
-          placeholder="Type a message"
-          name="newMessage"
-        />
-        <button class="msg_send_btn" type="button">
-          <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-        </button>
-      </form>
-      <span class="spacer"></span>
-    </mat-toolbar>
+    <div>
+      <mat-toolbar>
+        <span class="spacer"></span>
+        <div>
+          <input [(ngModel)]="message" />
+          <button (click)="sendMessage()">Send</button>
+        </div>
+        <span class="spacer"></span>
+      </mat-toolbar>
+    </div>
   </div>
+
+
 </mat-drawer-container>

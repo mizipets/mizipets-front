@@ -18,4 +18,10 @@ export class RoomService {
       this.authService.decodedToken!.id
     );
   }
+
+  getRoomById(roomId: number, animalId: number): Observable<any> {
+    return this.http.get<any>(
+    environment.baseUrl + `room/${roomId}/${animalId}/orCreate`
+    );
+  }
 }

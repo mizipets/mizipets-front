@@ -9,9 +9,17 @@ export enum MessageType {
   close = 'close'
 }
 
+export interface MessageToRoomModel {
+  roomCode: string;
+  roomId: number;
+  userId: string;
+  msg: string;
+  type: MessageType;
+}
+
 
 export interface MessageModel {
-  id: string;
+  id: number;
   text: string;
   created: Date;
   writer: number;
