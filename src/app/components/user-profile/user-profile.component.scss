@@ -1,0 +1,18 @@
+.mat-card {
+    width: 500px;
+  
+    .mat-form-field, .mat-flat-button {
+      width: 100%;
+    }
+
+    .mat-card-avatar {
+        display: flex;
+        align-items: center;
+    }
+
+    .vertical-center {
+        margin-left:25%;
+        margin-right:25%;
+    }
+
+  }

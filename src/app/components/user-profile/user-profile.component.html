@@ -1,0 +1,55 @@
+<div *ngIf="user" class="d-flex justify-content-center my-5">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title class="d-flex justify-content-center">Profile</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <mat-card-content class="mt-4">
+                <div mat-card-avatar class="d-flex justify-content-center my-5">
+                    <img mat-card-image src="{{user.photo}}" class="header-image">
+                </div>
+                <p>{{user.photo}}</p>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{user.firstname}}</mat-label>
+                    <input matInput formControlName="firstname">
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+                <br/>
+                <p>Lastname</p>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{user.lastname}}</mat-label>
+                  <input matInput formControlName="lastname">
+                  <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+                <br/>
+                <p>Email</p>
+                <mat-form-field appearance="outline" class="my-1">
+                  <mat-label>{{user.email}}</mat-label>
+                  <input matInput formControlName="email">
+                  <mat-icon matSuffix>mail</mat-icon>
+                </mat-form-field>
+                <br/>
+                <p>Account creation date</p>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{user.createDate}}</mat-label>
+                  <input matInput formControlName="createDate">
+                  <mat-icon matSuffix>visibility_off</mat-icon>
+                </mat-form-field>
+                <br/>
+                <p>Address</p>
+                <mat-form-field appearance="outline">
+                  <mat-label>Street: {{user.address.street}}</mat-label>
+                  <input matInput formControlName="street">
+                </mat-form-field>
+                <br/>
+                
+                <div class="d-flex justify-content-center my-5">
+                    <button class="button" type="submit">Update</button>
+                </div>
+              </mat-card-content>
+
+        </form>
+    </mat-card>
+    
+</div>
+
