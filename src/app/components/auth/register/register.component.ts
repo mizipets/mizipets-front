@@ -127,7 +127,7 @@ export class RegisterComponent implements OnInit {
             lastname: this.registerForm.value.lastname,
             email: this.registerForm.value.email,
             password: this.registerForm.value.password,
-            photoUrl: '',
+            photo: '',
             address,
             shelter,
             preferences
@@ -146,7 +146,8 @@ export class RegisterComponent implements OnInit {
                         this.authService.isTokenStored = true;
                         this.authService.setToken(result.token);
                         this.authService.setRefreshToken(result.refreshKey);
-                        this.authService.decodedToken = this.authService.decodeToken(result.token);
+                        this.authService.decodedToken =
+                            this.authService.decodeToken(result.token);
                         this.router.navigate(['animals']).then();
                     },
                     error: (error) => {

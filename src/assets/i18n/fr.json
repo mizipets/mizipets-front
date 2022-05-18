@@ -11,7 +11,8 @@
     "send-again": "Envoyer à nouveau le code",
     "code": "Vérification",
     "new-password": "Entrer un nouveau mot de passe",
-    "register-password": "Enregistrer"
+    "register-password": "Enregistrer",
+    "go-home": "Retour à l'accueil"
   },
   "login": {
     "title": "Connexion",

@@ -28,7 +28,7 @@ export class UserModel {
     password?: string;
     firstname?: string;
     lastname?: string;
-    photoUrl?: string | null;
+    photo?: string | null;
     address?: Address;
     preferences?: Preferences;
     shelter?: Shelter;

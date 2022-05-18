@@ -22,7 +22,9 @@ export class AuthService {
     }
 
     getToken(): string | null {
-        return this.isTokenStored ? localStorage.getItem('token') : sessionStorage.getItem('token');
+        return this.isTokenStored
+            ? localStorage.getItem('token')
+            : sessionStorage.getItem('token');
     }
 
     getRefreshToken(): string | null {
@@ -30,7 +32,9 @@ export class AuthService {
     }
 
     setToken(token: string): void {
-        this.isTokenStored ? localStorage.setItem('token', token) : sessionStorage.setItem('token', token);
+        this.isTokenStored
+            ? localStorage.setItem('token', token)
+            : sessionStorage.setItem('token', token);
     }
 
     setRefreshToken(token: string): void {
@@ -38,7 +42,7 @@ export class AuthService {
     }
 
     register(registerData: RegisterModel): Observable<RegisterModel> {
-        registerData.photoUrl = environment.userDefaultUrl;
+        registerData.photo = environment.userDefaultUrl;
         return this.http.post<RegisterModel>(
             environment.baseUrl + 'auth/register',
             registerData
@@ -54,13 +58,18 @@ export class AuthService {
 
     refreshToken(tokenKey: string): Observable<any> {
         return this.http.get<any>(
-            environment.baseUrl + 'auth/token/' + this.decodedToken!.id +
-            '/refresh?key=' + tokenKey
+            environment.baseUrl +
+                'auth/token/' +
+                this.decodedToken!.id +
+                '/refresh?key=' +
+                tokenKey
         );
     }
 
     logout(): void {
-        this.isTokenStored ? localStorage.removeItem('token') : sessionStorage.removeItem('token');
+        this.isTokenStored
+            ? localStorage.removeItem('token')
+            : sessionStorage.removeItem('token');
         localStorage.removeItem('isTokenStored');
         localStorage.removeItem('refreshKey');
         this.router.navigate(['home']).then();

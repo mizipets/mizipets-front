@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap');
+
+section {
+  overflow-y: hidden;
+  text-align: start;
+  h1, .title {
+    text-align: center;
+  }
+  h1 {
+    font-size: 38px;
+    font-family: 'Arima Madurai',cursive;
+    line-height: 38px;
+    margin-top: 0;
+  }
+  .title {
+    margin: 0;
+    font-family: 'Cookie', cursive;
+    font-size: 80px;
+  }
+  button {
+    width: 100%;
+  }
+}
+svg {
+  width: 100% !important;
+  margin-top: -7px !important;
+  margin-bottom: -7px !important;
+}
+.head-section,.end-section {
+  background-color: #05668d;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: auto !important;
+  }
+}

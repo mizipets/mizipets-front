@@ -8,6 +8,7 @@ import { AnimalsListComponent } from './components/animals/animals-list/animals-
 import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -34,7 +35,7 @@ const routes: Routes = [
       component: MessagesComponent,
       canActivate: [AuthGuardService]
     },
-    { path: '**', redirectTo: '/home', pathMatch: 'full' }
+    { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];
 
 @NgModule({

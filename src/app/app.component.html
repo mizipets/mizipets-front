@@ -1,2 +1,7 @@
-<header></header>
-<router-outlet></router-outlet>
+<div *ngIf="!isMobileDevice; else home_mobile" class="app-component">
+  <header></header>
+  <router-outlet></router-outlet>
+</div>
+<ng-template #home_mobile>
+  <app-home-mobile></app-home-mobile>
+</ng-template>
