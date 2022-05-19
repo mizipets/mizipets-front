@@ -35,8 +35,10 @@ export class UserProfileComponent implements OnInit {
         firstname: '',
         lastname: '',
         email: '',
-        creatDate: '',
-        street: ''
+        address: formBuilder.group ({
+          street: ''
+        })
+        
     });
      }
 

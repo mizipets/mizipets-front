@@ -27,4 +27,14 @@ export class UserService {
                 userData
         );
     }
+
+    closeUser(): Observable<any> {
+        return this.http.put<any>(
+            environment.baseUrl +
+                'users/' +
+                this.authService.decodedToken!.id +
+                '/close',
+                ''
+        );
+    }
 }
