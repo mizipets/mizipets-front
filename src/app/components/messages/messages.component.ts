@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {RoomService} from "../../services/room.service";
 import {RoomModel} from "../../models/room.model";
 import {SocketService} from "../../services/socket.service";
@@ -9,22 +9,21 @@ import {MessageModel, MessageToRoomModel, MessageType} from "../../models/messag
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, OnDestroy {
   rooms: RoomModel[] = [];
   currentRoom: RoomModel | undefined;
   isConnected: boolean = false;
   message: string = '';
+  // @ts-ignore
+  @ViewChild('bottom') private myScrollContainer: ElementRef;
 
   constructor(private roomService: RoomService,
               private socketService: SocketService) { }
 
   ngOnInit(): void {
+    document.documentElement.style.overflowY = 'hidden';
     this.socketService.joinedRoom().subscribe((value: string) => {
-      this.isConnected = true;
-    });
-
-    this.socketService.leftRoom().subscribe(value => {
-
+        this.isConnected = !this.currentRoom?.closed;
     });
 
     this.socketService.receiveMessage().subscribe((message: MessageModel) => {
@@ -41,6 +40,12 @@ export class MessagesComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    document.documentElement.style.overflowY = 'scroll';
+    if(this.currentRoom)
+      this.socketService.leaveRoom(this.currentRoom.code);
+  }
+
   sendMessage(): void {
     if(this.currentRoom) {
       const userId = this.currentRoom.animal.owner.id;
@@ -52,7 +57,8 @@ export class MessagesComponent implements OnInit {
         msg: this.message,
         type: MessageType.text
       }
-      this.socketService.sendMessage(message)
+      this.socketService.sendMessage(message);
+      this.scrollToBottom();
     }
   }
 
@@ -69,5 +75,13 @@ export class MessagesComponent implements OnInit {
             console.error(err);
           }
       });
+  }
+
+  scrollToBottom(): void {
+    this.myScrollContainer.nativeElement.scroll({
+      top: this.myScrollContainer.nativeElement.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }

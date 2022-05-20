@@ -6,7 +6,28 @@
     width: 360px;
   }
   .messages {
-
+    margin-top: 64px !important;
+    overflow: hidden !important;
+    border: 2px solid red;
+  }
+  .send-message {
+    width: 100%;
   }
 
+  .toolbar-bottom {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: #fafafa;
+    border: 2px solid rebeccapurple;
+  }
+
+  .toolbar-top {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    background-color: #ffffff;
+    margin-top: 64px !important;
+  }
 }

@@ -3,24 +3,27 @@
     <p style="margin-top: 0;">Messagerie</p>
 
     <div *ngFor="let room of rooms">
-      <button class="justify-content-start" style="align-content: center" (click)="connectionToRoom(room)">
+      <div class="justify-content-start " style="align-content: center" (click)="connectionToRoom(room)">
         <img src="{{room.adoptant.photo}}" class="avatar">
         <h5>{{ room.adoptant.firstname }}</h5>
-      </button>
+      </div>
     </div>
   </mat-drawer>
-  <div>
-    <mat-toolbar>
-      <div *ngIf="currentRoom">
-        <img src="{{currentRoom.adoptant.photo}}" class="avatar">
-        <span>{{currentRoom.adoptant.firstname}}</span>
-      </div>
-    </mat-toolbar>
 
-    <div *ngIf="currentRoom && currentRoom.messages">
-      <ul *ngFor="let message of currentRoom.messages">
-        <li class="message">
-          <div *ngIf="message.id !== 1; then incoming_msg; else outgoing_msg"></div>
+  <mat-toolbar *ngIf="currentRoom" class="toolbar-top">
+    <img src="{{currentRoom.adoptant.photo}}" class="avatar">
+    <span>{{currentRoom.adoptant.firstname}}</span>
+  </mat-toolbar>
+
+  <div class="messages">
+    <div *ngIf="!currentRoom">
+      <p class="text-center mt-5">Aucun message selectionné</p>
+    </div>
+
+    <div *ngIf="currentRoom && currentRoom.messages" class="container" #bottom>
+      <ul *ngFor="let message of currentRoom.messages; let last = last">
+        <li [ngClass]="{'pb-3': last}">
+          <div *ngIf="message.writer !== currentRoom.animal.owner.id; then incoming_msg; else outgoing_msg"></div>
           <ng-template #incoming_msg>
             <div class="incoming_msg">
               <img
@@ -28,34 +31,42 @@
                 alt="User avatar"
                 class="avatar"
               />
-              <div class="received_msg">
-                  <p>{{ message.text }}</p>
+              <div class="justify-content-start">
+                  <p style="margin-right: 10em;">{{ message.text }}</p>
               </div>
             </div>
 
           </ng-template>
           <ng-template #outgoing_msg>
-            <div class="outgoing_msg">
+            <div class="justify-content-end">
               <div class="sent_msg">
-                  <p>{{ message.text }}</p>
+                <p>{{ message.text }}</p>
               </div>
             </div>
           </ng-template>
         </li>
       </ul>
     </div>
-
-    <div>
-      <mat-toolbar>
-        <span class="spacer"></span>
-        <div>
-          <input [(ngModel)]="message" />
-          <button (click)="sendMessage()">Send</button>
-        </div>
-        <span class="spacer"></span>
-      </mat-toolbar>
-    </div>
   </div>
 
+  <div class="toolbar-bottom">
+    <div class="container">
+      <mat-form-field appearance="outline"
+                      floatLabel="never"
+                      class="send-message"
+                      *ngIf="isConnected">
+        <input matInput maxlength="256"
+               type="text"
+               placeholder="Bonjour, je suis interesser par ..."
+               [(ngModel)]="message">
+        <button mat-icon-button
+                matSuffix
+                color="primary"
+                (click)="sendMessage()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
 
 </mat-drawer-container>
