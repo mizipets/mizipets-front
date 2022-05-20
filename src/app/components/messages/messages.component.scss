@@ -4,30 +4,73 @@
   .sidenav {
     padding: 20px;
     width: 360px;
-  }
-  .messages {
-    margin-top: 64px !important;
-    overflow: hidden !important;
-    border: 2px solid red;
-  }
-  .send-message {
-    width: 100%;
+    //margin-top: 64px;
+
+    .room-list {
+      border-radius: 8px;
+      padding: 8px;
+
+      &:hover {
+        cursor: pointer;
+        background-color:  #E4E6EB;
+      }
+    }
+    .selected {
+      background-color: #168AAD;
+      color: #FFFFFF;
+    }
   }
 
-  .toolbar-bottom {
-    position: fixed;
-    bottom: 0;
-    z-index: 100;
-    width: 100%;
-    background-color: #fafafa;
-    border: 2px solid rebeccapurple;
-  }
+  .box {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
 
-  .toolbar-top {
-    position: fixed;
-    top: 0;
-    z-index: 100;
-    background-color: #ffffff;
-    margin-top: 64px !important;
+    .content-container {
+      padding-right: 25px;
+      padding-left: 25px;
+    }
+    .toolbar-top {
+      flex: 0 1 auto;
+      top: 0;
+      background-color: #ffffff;
+      //margin-top: 64px;
+    }
+    .content {
+      flex: 1 1 auto;
+      overflow-y: scroll;
+
+      .last-message {
+        margin-bottom: 20px;
+      }
+      .text-message {
+        max-width: 50%;
+        flex-wrap: wrap;
+        word-break: break-all;
+        padding-right: 12px;
+        padding-left: 12px;
+        border-radius: 20px;
+      }
+      .incoming {
+        background-color: #E4E6EB;
+      }
+      .outgoing {
+        background-color: #168AAD;
+        color: #FFFFFF;
+      }
+      .info {
+        background-color: #DEDEDE;
+        color: #717171;
+      }
+    }
+    .toolbar-bottom {
+      flex: 0 1 40px;
+      bottom: 0;
+      background-color: #fafafa;
+
+      .send-message {
+        width: 100%;
+      }
+    }
   }
 }

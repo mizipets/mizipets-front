@@ -3,70 +3,92 @@
     <p style="margin-top: 0;">Messagerie</p>
 
     <div *ngFor="let room of rooms">
-      <div class="justify-content-start " style="align-content: center" (click)="connectionToRoom(room)">
+      <div class="justify-content-start my-1 room-list"
+           matRipple
+           [ngClass]="{'selected': currentRoom?.id === room.id}"
+           [matRippleCentered]="true"
+           (click)="connectionToRoom(room)">
         <img src="{{room.adoptant.photo}}" class="avatar">
-        <h5>{{ room.adoptant.firstname }}</h5>
+        <p class="ml-2">{{ room.adoptant.firstname }}</p>
       </div>
     </div>
   </mat-drawer>
 
-  <mat-toolbar *ngIf="currentRoom" class="toolbar-top">
-    <img src="{{currentRoom.adoptant.photo}}" class="avatar">
-    <span>{{currentRoom.adoptant.firstname}}</span>
-  </mat-toolbar>
+  <div class="box">
+    <!-- Header top, info about adopter and animal -->
+    <mat-toolbar class="toolbar-top">
+      <div *ngIf="currentRoom">
+        <div class="justify-content-start">
+          <img src="{{currentRoom.adoptant.photo}}" class="avatar">
+          <p>{{currentRoom.adoptant.firstname}}</p>
+        </div>
 
-  <div class="messages">
-    <div *ngIf="!currentRoom">
-      <p class="text-center mt-5">Aucun message selectionné</p>
+<!--        <button mat-flat-button color="primary">donner l'animal</button>-->
+
+<!--        <div class="justify-content-start">-->
+<!--          <img src="{{currentRoom.animal.images[0]}}" class="avatar">-->
+<!--          <p>{{currentRoom.animal.name}}</p>-->
+<!--        </div>-->
+
+      </div>
+    </mat-toolbar>
+
+    <!-- Content, displaying messages -->
+    <div class="content">
+      <div *ngIf="!currentRoom">
+        <p class="text-center mt-5">Aucun message selectionné</p>
+      </div>
+
+      <div *ngIf="currentRoom && currentRoom.messages" class="content-container" #bottom>
+        <div *ngFor="let message of currentRoom.messages; let last = last">
+          <div [ngClass]="{'last-message': last}">
+            <div *ngIf="message.writer !== currentRoom.animal.owner.id; then incoming_msg; else outgoing_msg"></div>
+
+            <ng-template #incoming_msg>
+              <div class="my-1"
+                   [ngClass]="message.type === 'text' ? 'justify-content-start' : 'justify-content-center'">
+                <div class="text-message"
+                     [ngClass]="message.type === 'text' ? 'incoming' : 'info'">
+                  <p>{{ message.text }}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template #outgoing_msg>
+              <div class="my-1"
+                   [ngClass]="message.type === 'text' ? 'justify-content-end' : 'justify-content-center'">
+                <div class="text-message"
+                     [ngClass]="message.type === 'text' ? 'outgoing' : 'info'">
+                  <p>{{ message.text }}</p>
+                </div>
+              </div>
+            </ng-template>
+
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div *ngIf="currentRoom && currentRoom.messages" class="container" #bottom>
-      <ul *ngFor="let message of currentRoom.messages; let last = last">
-        <li [ngClass]="{'pb-3': last}">
-          <div *ngIf="message.writer !== currentRoom.animal.owner.id; then incoming_msg; else outgoing_msg"></div>
-          <ng-template #incoming_msg>
-            <div class="incoming_msg">
-              <img
-                src="https://i.imgur.com/k2PZLZa.png"
-                alt="User avatar"
-                class="avatar"
-              />
-              <div class="justify-content-start">
-                  <p style="margin-right: 10em;">{{ message.text }}</p>
-              </div>
-            </div>
-
-          </ng-template>
-          <ng-template #outgoing_msg>
-            <div class="justify-content-end">
-              <div class="sent_msg">
-                <p>{{ message.text }}</p>
-              </div>
-            </div>
-          </ng-template>
-        </li>
-      </ul>
+    <!-- Header bottom, send messages -->
+    <div class="toolbar-bottom">
+      <div class="content-container">
+        <mat-form-field appearance="outline"
+                        floatLabel="never"
+                        class="send-message"
+                        *ngIf="isConnected">
+          <input matInput maxlength="1300"
+                 type="text"
+                 placeholder="Bonjour, je suis interesser par ..."
+                 [(ngModel)]="message">
+          <button mat-icon-button
+                  matSuffix
+                  color="primary"
+                  [disabled]="message === ''"
+                  (click)="sendMessage()">
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
     </div>
   </div>
-
-  <div class="toolbar-bottom">
-    <div class="container">
-      <mat-form-field appearance="outline"
-                      floatLabel="never"
-                      class="send-message"
-                      *ngIf="isConnected">
-        <input matInput maxlength="256"
-               type="text"
-               placeholder="Bonjour, je suis interesser par ..."
-               [(ngModel)]="message">
-        <button mat-icon-button
-                matSuffix
-                color="primary"
-                (click)="sendMessage()">
-          <mat-icon>send</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
-  </div>
-
 </mat-drawer-container>
