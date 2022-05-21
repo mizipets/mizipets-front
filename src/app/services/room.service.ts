@@ -24,4 +24,10 @@ export class RoomService {
     environment.baseUrl + `room/${roomId}/${animalId}/orCreate`
     );
   }
+
+  giveAnimal(roomId: number): Observable<any> {
+    return this.http.put<any>(
+      environment.baseUrl + `room/${roomId}/requestGive`, {}
+    );
+  }
 }

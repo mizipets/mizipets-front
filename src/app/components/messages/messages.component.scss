@@ -1,13 +1,13 @@
 .sidenav-container {
   height: 100%;
+  margin-top: 64px !important;
 
   .sidenav {
     padding: 20px;
     width: 360px;
-    //margin-top: 64px;
 
     .room-list {
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 8px;
 
       &:hover {
@@ -34,7 +34,6 @@
       flex: 0 1 auto;
       top: 0;
       background-color: #ffffff;
-      //margin-top: 64px;
     }
     .content {
       flex: 1 1 auto;

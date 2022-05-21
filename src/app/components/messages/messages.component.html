@@ -1,36 +1,31 @@
-<mat-drawer-container class="sidenav-container" *ngIf="rooms.length > 0">
+<mat-drawer-container class="sidenav-container">
   <mat-drawer class="sidenav" mode="side" opened>
     <p style="margin-top: 0;">Messagerie</p>
 
-    <div *ngFor="let room of rooms">
-      <div class="justify-content-start my-1 room-list"
-           matRipple
-           [ngClass]="{'selected': currentRoom?.id === room.id}"
-           [matRippleCentered]="true"
-           (click)="connectionToRoom(room)">
-        <img src="{{room.adoptant.photo}}" class="avatar">
-        <p class="ml-2">{{ room.adoptant.firstname }}</p>
+    <div *ngIf="rooms.length > 0">
+      <div *ngFor="let room of rooms">
+        <div class="justify-content-start my-1 room-list"
+             matRipple
+             [ngClass]="{'selected': currentRoom?.id === room.id}"
+             [matRippleCentered]="true"
+             (click)="connectionToRoom(room)">
+          <img src="{{room.adoptant.photo}}" class="avatar">
+          <p class="ml-2">{{ room.adoptant.firstname }}</p>
+        </div>
       </div>
     </div>
   </mat-drawer>
 
   <div class="box">
     <!-- Header top, info about adopter and animal -->
-    <mat-toolbar class="toolbar-top">
-      <div *ngIf="currentRoom">
-        <div class="justify-content-start">
-          <img src="{{currentRoom.adoptant.photo}}" class="avatar">
-          <p>{{currentRoom.adoptant.firstname}}</p>
-        </div>
-
-<!--        <button mat-flat-button color="primary">donner l'animal</button>-->
-
-<!--        <div class="justify-content-start">-->
-<!--          <img src="{{currentRoom.animal.images[0]}}" class="avatar">-->
-<!--          <p>{{currentRoom.animal.name}}</p>-->
-<!--        </div>-->
-
-      </div>
+    <mat-toolbar class="toolbar-top" *ngIf="currentRoom">
+        <img src="{{currentRoom.adoptant.photo}}" class="avatar">
+        <span>{{currentRoom.adoptant.firstname}}</span>
+        <span class="spacer"></span>
+        <button mat-flat-button color="primary" (click)="giveAnimal()">donner l'animal</button>
+        <span class="spacer"></span>
+        <img src="{{currentRoom.animal.images[0]}}" class="avatar">
+        <span>{{currentRoom.animal.name}}</span>
     </mat-toolbar>
 
     <!-- Content, displaying messages -->

@@ -21,7 +21,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
               private socketService: SocketService) { }
 
   ngOnInit(): void {
-    // document.documentElement.style.overflowY = 'hidden';
     this.socketService.joinedRoom().subscribe((value: string) => {
         this.isConnected = !this.currentRoom?.closed;
     });
@@ -41,7 +40,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // document.documentElement.style.overflowY = 'scroll';
     if(this.currentRoom)
       this.socketService.leaveRoom(this.currentRoom.code);
   }
@@ -75,6 +73,18 @@ export class MessagesComponent implements OnInit, OnDestroy {
             console.error(err);
           }
       });
+  }
+
+  giveAnimal(): void {
+    if(this.currentRoom)
+      this.roomService.giveAnimal(this.currentRoom.id).subscribe({
+        next: value => {
+          console.log(value);
+        },
+        error: err => {
+          console.error(err);
+        }
+      })
   }
 
   scrollToBottom(): void {
