@@ -1,20 +1,20 @@
-export class Address {
-    street?: string;
+export interface Address {
+    street: string;
     apartment?: string;
-    zip?: number;
-    city?: string;
-    country?: string;
+    zip: number;
+    city: string;
+    country: string;
 }
 
-export class Preferences {
-    lang?: string;
-    darkMode?: boolean;
-    notifications?: boolean;
-    update?: boolean;
+export interface Preferences {
+    lang: string;
+    darkMode: boolean;
+    notifications: boolean;
+    update: boolean;
 }
 
-export class Shelter {
-    name?: string;
+export interface Shelter {
+    name: string;
 }
 
 export enum Roles {
@@ -22,18 +22,19 @@ export enum Roles {
     PRO = 'PRO'
 }
 
-export class UserModel {
-    id?: number;
-    email?: string;
-    password?: string;
-    firstname?: string;
-    lastname?: string;
-    photo?: string | null;
-    address?: Address;
-    preferences?: Preferences;
-    shelter?: Shelter;
-    role?: Roles;
-    // createDate: Date;
+
+export interface UserModel {
+    id: number;
+    email: string;
+    password: string;
+    firstname: string;
+    lastname: string;
+    photo: string;
+    address: Address;
+    preferences: Preferences;
+    shelter: Shelter;
+    role: Roles;
+    createDate: Date;
     // closeDate: Date;
     // animals: Animal[];
     // favorites: Favorites[];

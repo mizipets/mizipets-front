@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { MatDialogModule } from '@angular/material/dialog';
 import { LanguageComponent } from './components/language/language.component';
 import { LanguageService } from './components/language/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -25,6 +26,9 @@ import { AnimalsDetailComponent } from './components/animals/animals-detail/anim
 import { CodeInputModule } from 'angular-code-input';
 import { HomeMobileComponent } from './components/home-mobile/home-mobile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { CloseAccountPopUpComponent } from './components/close-account-pop-up/close-account-pop-up.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -42,7 +46,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         HomeComponent,
         AnimalsDetailComponent,
         HomeMobileComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        UserProfileComponent,
+        SettingsComponent,
+        CloseAccountPopUpComponent
     ],
     imports: [
         BrowserModule,
@@ -57,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             }
         }),
         MaterialModule,
+        MatDialogModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
