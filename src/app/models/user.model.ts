@@ -22,6 +22,7 @@ export enum Roles {
     PRO = 'PRO'
 }
 
+
 export interface UserModel {
     id: number;
     email: string;
