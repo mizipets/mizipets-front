@@ -127,7 +127,7 @@ export class RegisterComponent implements OnInit {
             lastname: this.registerForm.value.lastname,
             email: this.registerForm.value.email,
             password: this.registerForm.value.password,
-            photoUrl: '',
+            photo: '',
             address,
             shelter,
             preferences
