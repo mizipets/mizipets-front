@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <div *ngIf="user" class="justify-content-center my-5">
     <mat-card>
         <mat-card-header>
@@ -9,8 +9,9 @@
                 <div class="justify-content-center mb-4">
                     <img src="{{user.photo}}" class="profile-image" width="150" height="150">
                 </div>
-                <h3 class="justify-content-center my-1">{{user.shelter.name}}</h3>
-                <p>{{'user-profile.title' | translate}}</p>
+                <h3 class="text-center">{{user.shelter.name}}</h3>
+                <p style="color: #717171">{{'user-profile.creation' | translate}} {{user.createDate | date:'mediumDate'}}</p>
+                <p class="mt-4">{{'user-profile.title' | translate}}</p>
                 <mat-form-field appearance="outline">
                   <mat-label>{{'common.firstname' | translate}}</mat-label>
                   <input matInput type="string" formControlName="firstname">
@@ -54,20 +55,15 @@
                     <input matInput type="string" formControlName="country">
                     <mat-error>ce champs ne doit pas etre vide</mat-error>
                   </mat-form-field>
-                <br/>
-                <div class="d-flex justify-content-center my-5">
+                <div class="justify-content-center">
                     <button mat-flat-button color="primary" type="submit" [disabled]="profileForm.invalid">{{'user-profile.update-button' | translate}}</button>
                 </div>
-                <br/>
-                <p>{{'user-profile.creation' | translate}}</p>
-                <p>{{user.createDate | date:'mediumDate'}}</p>
-                <div class="d-flex justify-content-center my-5">
+                <div class="my-5">
+                    <p>Besoin de désactiver votre compte ?</p>
                     <button mat-flat-button color="warn" type="button" (click)="onCloseAccount()">{{'user-profile.close-button' | translate}}</button>
                 </div>
               </mat-card-content>
-
         </form>
     </mat-card>
-
 </div>
 
