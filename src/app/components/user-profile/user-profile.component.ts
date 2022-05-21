@@ -18,7 +18,7 @@ import { CloseAccountPopUpComponent } from '../close-account-pop-up/close-accoun
 })
 export class UserProfileComponent implements OnInit {
 
-  
+
   profileForm: FormGroup;
   firstnameCtrl: FormControl;
   lastnameCtrl: FormControl;
@@ -56,6 +56,7 @@ export class UserProfileComponent implements OnInit {
         Validators.minLength(3)
     ]);
       this.streetCtrl = formBuilder.control('', Validators.required);
+
       this.zipCtrl = formBuilder.control('', [
             Validators.required,
             Validators.pattern('^[0-9]*$'),
@@ -65,7 +66,7 @@ export class UserProfileComponent implements OnInit {
       this.cityCtrl = formBuilder.control('', Validators.required);
       this.countryCtrl = formBuilder.control('', Validators.required);
       this.apartmentCtrl = formBuilder.control('');
-      
+
       this.profileForm = formBuilder.group({
         firstname: this.firstnameCtrl,
         lastname: this.lastnameCtrl,
@@ -75,7 +76,7 @@ export class UserProfileComponent implements OnInit {
         zip: this.zipCtrl,
         city: this.cityCtrl,
         country: this.countryCtrl
-        
+
     });
      }
 
@@ -99,7 +100,7 @@ export class UserProfileComponent implements OnInit {
         this.isLoading = false;
     }
     })
-    
+
   }
 
   openSnackBar(): void {
@@ -110,7 +111,7 @@ export class UserProfileComponent implements OnInit {
     });
 }
 
-  
+
 
   onSubmit(): void {
     // Process checkout data here
@@ -134,10 +135,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   onCloseAccount(): void{
-    
+
     this.closeAccountDialog.open(CloseAccountPopUpComponent)
   }
 
-  
+
 
 }
