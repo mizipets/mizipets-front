@@ -62,7 +62,7 @@
       "update-success": "Succesfull update",
       "close-title": "Warning !",
       "close-warning": "Do you really want to close your account ?",
-      "close-warning-2": "You will no longer have access to our services",
+      "close-warning-2": "You will no longer have access to our services !",
       "creation": "Account creation date"
     }
   }
