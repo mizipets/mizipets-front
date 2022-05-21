@@ -8,11 +8,15 @@
     .mat-card-avatar {
         display: flex;
         align-items: center;
+        margin-left: 40%;
+        width: 20%;
     }
 
-    .vertical-center {
-        margin-left:25%;
-        margin-right:25%;
-    }
 
+    img {
+      border: 2px solid #000;
+      border-radius: 50%;
+    }
   }
+
+  

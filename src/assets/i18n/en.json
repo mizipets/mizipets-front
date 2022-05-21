@@ -12,7 +12,20 @@
     "code": "Verification",
     "new-password": "Enter new password",
     "register-password": "Register new password",
-    "go-home": "Back to home"
+    "go-home": "Back to home",
+    "firstname": "Prénom du responsable",
+    "lastname": "Nom du responsable",
+    "shelter": "Nom du refuge, de l'élevage ou de l'association",
+    "address": {
+      "title": "Adresse du refuge, de l'élevage ou de l'association",
+      "country": "Pays",
+      "street": "Adresse postale",
+      "apartment": "Appartement, bâtiment (facultatif)",
+      "zip": "Code postal",
+      "city": "Ville"
+    },
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   },
   "login": {
     "title": "Log in",
@@ -26,18 +39,7 @@
     "subtitle": "Je suis un refuge, un eleveur, ou une association.",
     "button": "Créer mon compte",
     "next": "Suivant",
-    "firstname": "Prénom du responsable",
-    "lastname": "Nom du responsable",
-    "shelter": "Nom du refuge, de l'élevage ou de l'association",
-    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
-    "address": {
-      "title": "Adresse du refuge, de l'élevage ou de l'association",
-      "country": "Pays",
-      "street": "Adresse postale",
-      "apartment": "Appartement, bâtiment (facultatif)",
-      "zip": "Code postal",
-      "city": "Ville"
-    }
+    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères"
   },
   "animals": {
     "no-animals": "No animals for the moment",
@@ -53,6 +55,16 @@
       "species": "Species",
       "gender": "Gender",
       "age": "Age"
+    },
+    "user-profile": {
+      "update-button": "Update",
+      "close-button": "Close account",
+      "update-success": "Succesfull update",
+      "close-title": "Warning !",
+      "close-warning": "Do you really want to close your account ?",
+      "close-warning-2": "You will no longer have access to our services",
+      "creation": "Account creation date"
     }
   }
+
 }

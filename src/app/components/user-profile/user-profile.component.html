@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <div *ngIf="user" class="d-flex justify-content-center my-5">
     <mat-card>
         <mat-card-header>
@@ -8,41 +9,51 @@
                 <div mat-card-avatar class="d-flex justify-content-center my-5">
                     <img mat-card-image src="{{user.photo}}" class="header-image">
                 </div>
-                <p>Firstname</p>
                 <mat-form-field appearance="outline">
-                    <mat-label>Firstname{{user.firstname}}</mat-label>
+                    <mat-label>{{'common.firstname' | translate}}</mat-label>
                     <input matInput formControlName="firstname">
                 </mat-form-field>
                 <br/>
-                <p>Lastname</p>
                 <mat-form-field appearance="outline">
-                  <mat-label>{{user.lastname}}</mat-label>
+                  <mat-label>{{'common.lastname' | translate}}</mat-label>
                   <input matInput formControlName="lastname">
                 </mat-form-field>
                 <br/>
-                <p>Email</p>
                 <mat-form-field appearance="outline" class="my-1">
-                  <mat-label>{{user.email}}</mat-label>
+                  <mat-label>{{'common.email' | translate}}</mat-label>
                   <input matInput formControlName="email">
                 </mat-form-field>
                 <br/>
-                <p>Address</p>
-                <mat-form-field appearance="outline">
-                  <mat-label>Street: {{user.address.street}}</mat-label>
-                  <input matInput formControlName="street">
-                </mat-form-field>
+                <p>{{'common.address.title' | translate}}</p>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.street' | translate}}</mat-label>
+                    <input matInput formControlName="street">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.apartment' | translate}}</mat-label>
+                  <input matInput formControlName="apartment">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.zip' | translate}}</mat-label>
+                  <input matInput formControlName="zip">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.city' | translate}}</mat-label>
+                    <input matInput formControlName="city">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.country' | translate}}</mat-label>
+                    <input matInput formControlName="country">
+                  </mat-form-field>         
                 <br/>
                 <div class="d-flex justify-content-center my-5">
-                    <button mat-flatt-button color="primary" type="submit">Update</button>
+                    <button mat-flat-button color="primary" type="submit">{{'user-profile.update-button' | translate}}</button>
                 </div>
                 <br/>
-                <p>Account creation date</p>
-                <mat-form-field appearance="outline">
-                  <mat-label>{{user.createDate}}</mat-label>
-                  <input matInput formControlName="createDate">
-                </mat-form-field>
+                <p>{{'user-profile.creation' | translate}}</p>
+                <p>{{user.createDate | date:'mediumDate'}}</p>
                 <div class="d-flex justify-content-center my-5">
-                    <button mat-flatt-button color="primary" type="button">Close account</button>
+                    <button mat-flat-button color="warn" type="button" (click)="onCloseAccount()">{{'user-profile.close-button' | translate}}</button>
                 </div>
               </mat-card-content>
 
