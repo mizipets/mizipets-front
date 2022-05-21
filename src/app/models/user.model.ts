@@ -32,7 +32,7 @@ export interface UserModel {
     photo: string;
     address: Address;
     preferences: Preferences;
-    shelter?: Shelter;
+    shelter: Shelter;
     role: Roles;
     createDate: Date;
     // closeDate: Date;

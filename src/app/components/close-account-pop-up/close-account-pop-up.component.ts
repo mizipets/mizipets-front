@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-close-account-pop-up',
@@ -13,10 +15,20 @@ export class CloseAccountPopUpComponent implements OnInit {
   constructor(
     public closeAccountDialog: MatDialogRef<CloseAccountPopUpComponent>,
     private userService: UserService,
-    public authService: AuthService
+    public authService: AuthService,
+    private translater: TranslateService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
+  }
+
+  openSnackBar(): void {
+    this.snackBar.open(this.translater.instant('user-profile.close-success'), '', {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+    });
   }
 
   onCancel(): void {
@@ -27,6 +39,7 @@ export class CloseAccountPopUpComponent implements OnInit {
     this.closeAccountDialog.close();
     this.userService.closeUser().subscribe({});
     this.authService.logout();
+    this.openSnackBar();
   }
   
 }

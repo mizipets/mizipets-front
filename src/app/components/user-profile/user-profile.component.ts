@@ -10,6 +10,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CloseAccountPopUpComponent } from '../close-account-pop-up/close-account-pop-up.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-profile',
@@ -41,6 +42,7 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private snackBar: MatSnackBar,
     private closeAccountDialog: MatDialog,
+    private translater: TranslateService,
     public formBuilder: FormBuilder) {
       this.firstnameCtrl = formBuilder.control('', [
         Validators.required,
@@ -54,17 +56,26 @@ export class UserProfileComponent implements OnInit {
         Validators.required,
         Validators.email,
         Validators.minLength(3)
-    ]);
-      this.streetCtrl = formBuilder.control('', Validators.required);
+      ]);
+      this.streetCtrl = formBuilder.control('', [
+        Validators.required,
+        Validators.minLength(5)
+      ]);
 
       this.zipCtrl = formBuilder.control('', [
-            Validators.required,
-            Validators.pattern('^[0-9]*$'),
-            Validators.minLength(5),
-            Validators.maxLength(5)
+        Validators.required,
+        Validators.pattern('^[0-9]*$'),
+        Validators.minLength(5),
+        Validators.maxLength(5)
       ]);
-      this.cityCtrl = formBuilder.control('', Validators.required);
-      this.countryCtrl = formBuilder.control('', Validators.required);
+      this.cityCtrl = formBuilder.control('', [
+        Validators.required,
+        Validators.minLength(2)
+      ]);
+      this.countryCtrl = formBuilder.control('', [
+        Validators.required,
+        Validators.minLength(3)
+      ]);
       this.apartmentCtrl = formBuilder.control('');
 
       this.profileForm = formBuilder.group({
@@ -78,7 +89,7 @@ export class UserProfileComponent implements OnInit {
         country: this.countryCtrl
 
     });
-     }
+    }
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -104,12 +115,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   openSnackBar(): void {
-    this.snackBar.open('user-profile.update-success', '', {
+    this.snackBar.open(this.translater.instant('user-profile.update-success'), '', {
         duration: 2000,
         horizontalPosition: 'center',
         verticalPosition: 'top'
     });
-}
+  }
 
 
 

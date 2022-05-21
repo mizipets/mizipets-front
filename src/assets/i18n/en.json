@@ -13,16 +13,16 @@
     "new-password": "Enter new password",
     "register-password": "Register new password",
     "go-home": "Back to home",
-    "firstname": "Prénom du responsable",
-    "lastname": "Nom du responsable",
-    "shelter": "Nom du refuge, de l'élevage ou de l'association",
+    "firstname": "Manager firstname",
+    "lastname": "Manager lastname",
+    "shelter": "Shelter, association or breeding's name",
     "address": {
-      "title": "Adresse du refuge, de l'élevage ou de l'association",
-      "country": "Pays",
-      "street": "Adresse postale",
-      "apartment": "Appartement, bâtiment (facultatif)",
-      "zip": "Code postal",
-      "city": "Ville"
+      "title": "Shelter, association or breeding's location",
+      "country": "Country",
+      "street": "Street",
+      "apartment": "Flat, building (optional)",
+      "zip": "Zip Code",
+      "city": "City"
     },
     "confirm": "Confirm",
     "cancel": "Cancel"
@@ -55,16 +55,18 @@
       "species": "Species",
       "gender": "Gender",
       "age": "Age"
-    },
-    "user-profile": {
-      "update-button": "Update",
-      "close-button": "Close account",
-      "update-success": "Succesfull update",
-      "close-title": "Warning !",
-      "close-warning": "Do you really want to close your account ?",
-      "close-warning-2": "You will no longer have access to our services !",
-      "creation": "Account creation date"
     }
+  },
+  "user-profile": {
+    "title": "Personal informations",
+    "update-button": "Update",
+    "close-button": "Close account",
+    "update-success": "Succesfull update",
+    "close-title": "Warning !",
+    "close-warning": "Do you really want to close your account ?",
+    "close-warning-2": "You will be disconnected and will no longer have access to our services !",
+    "close-success": "Your account is now close",
+    "creation": "Account creation date"
   }
 
 }

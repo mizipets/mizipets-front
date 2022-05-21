@@ -58,12 +58,14 @@
     }
   },
   "user-profile": {
+    "title": "Informations personnelles",
     "update-button": "Mettre à jour",
     "close-button": "Fermer votre compte",
     "update-success": "Mise à jour réussie",
     "close-title": "Attention !",
     "close-warning": "Voulez vous vraiment fermer votre compte ?",
-    "close-warning-2": "Vous n'aurez plus accès à nos services !",
+    "close-warning-2": "Vous serez déconnecté et n'aurez plus accès à nos services !",
+    "close-success": "Votre compte est désormais fermé",
     "creation": "Date de création du compte"
   }
 }
