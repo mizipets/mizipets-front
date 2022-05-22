@@ -1,0 +1,69 @@
+
+<div *ngIf="user" class="justify-content-center my-5">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title class="justify-content-center">Profile</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <mat-card-content>
+                <div class="justify-content-center mb-4">
+                    <img src="{{user.photo}}" class="profile-image" width="150" height="150">
+                </div>
+                <h3 class="text-center">{{user.shelter.name}}</h3>
+                <p style="color: #717171">{{'user-profile.creation' | translate}} {{user.createDate | date:'mediumDate'}}</p>
+                <p class="mt-4">{{'user-profile.title' | translate}}</p>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'common.firstname' | translate}}</mat-label>
+                  <input matInput type="string" formControlName="firstname">
+                  <mat-error>ce champs ne doit pas etre vide</mat-error>
+                </mat-form-field>
+                <br/>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'common.lastname' | translate}}</mat-label>
+                  <input matInput type="string" formControlName="lastname">
+                  <mat-error>ce champs ne doit pas etre vide</mat-error>
+                </mat-form-field>
+                <br/>
+                <mat-form-field appearance="outline" class="my-1">
+                  <mat-label>{{'common.email' | translate}}</mat-label>
+                  <input matInput type="email" formControlName="email">
+                  <mat-error>ce champs ne doit pas etre vide</mat-error>
+                </mat-form-field>
+                <br/>
+                <p>{{'common.address.title' | translate}}</p>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.street' | translate}}</mat-label>
+                    <input matInput type="string" formControlName="street">
+                    <mat-error>ce champs ne doit pas etre vide</mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.apartment' | translate}}</mat-label>
+                    <input matInput type="string" formControlName="apartment">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.zip' | translate}}</mat-label>
+                    <input matInput type="number" formControlName="zip" minlength="5" maxlength="5">
+                    <mat-error>ce champs ne doit pas etre vide</mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.city' | translate}}</mat-label>
+                    <input matInput type="string" formControlName="city">
+                    <mat-error>ce champs ne doit pas etre vide</mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="my-1">
+                    <mat-label>{{'common.address.country' | translate}}</mat-label>
+                    <input matInput type="string" formControlName="country">
+                    <mat-error>ce champs ne doit pas etre vide</mat-error>
+                  </mat-form-field>
+                <div class="justify-content-center">
+                    <button mat-flat-button color="primary" type="submit" [disabled]="profileForm.invalid">{{'user-profile.update-button' | translate}}</button>
+                </div>
+                <div class="my-5">
+                    <p>Besoin de désactiver votre compte ?</p>
+                    <button mat-flat-button color="warn" type="button" (click)="onCloseAccount()">{{'user-profile.close-button' | translate}}</button>
+                </div>
+              </mat-card-content>
+        </form>
+    </mat-card>
+</div>
+

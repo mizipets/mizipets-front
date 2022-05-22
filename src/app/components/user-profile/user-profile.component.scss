@@ -1,0 +1,22 @@
+.mat-card {
+    width: 500px;
+
+    .mat-form-field, .mat-flat-button {
+      width: 100%;
+    }
+
+    .mat-card-avatar {
+        display: flex;
+        align-items: center;
+        margin-left: 40%;
+        width: 20%;
+    }
+
+    .profile-image {
+      vertical-align: middle;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #168AAD;
+    }
+  }
+

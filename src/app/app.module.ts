@@ -28,6 +28,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import {environment} from "../environments/environment";
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { CloseAccountPopUpComponent } from './components/close-account-pop-up/close-account-pop-up.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -48,7 +51,10 @@ const socketIoConfig: SocketIoConfig = { url: environment.socketUrl, options: {t
         MessagesComponent,
         HomeComponent,
         HomeMobileComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        UserProfileComponent,
+        SettingsComponent,
+        CloseAccountPopUpComponent
     ],
     imports: [
         BrowserModule,
@@ -64,6 +70,7 @@ const socketIoConfig: SocketIoConfig = { url: environment.socketUrl, options: {t
         }),
         SocketIoModule.forRoot(socketIoConfig),
         MaterialModule,
+        MatDialogModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,

@@ -12,7 +12,20 @@
     "code": "Vérification",
     "new-password": "Entrer un nouveau mot de passe",
     "register-password": "Enregistrer",
-    "go-home": "Retour à l'accueil"
+    "go-home": "Retour à l'accueil",
+    "firstname": "Prénom du responsable",
+    "lastname": "Nom du responsable",
+    "shelter": "Nom du refuge, de l'élevage ou de l'association",
+    "address": {
+      "title": "Adresse du refuge, de l'élevage ou de l'association",
+      "country": "Pays",
+      "street": "Adresse postale",
+      "apartment": "Appartement, bâtiment (facultatif)",
+      "zip": "Code postal",
+      "city": "Ville"
+    },
+    "confirm": "Confirmer",
+    "cancel": "Annuler"
   },
   "login": {
     "title": "Connexion",
@@ -26,18 +39,7 @@
     "subtitle": "Je suis un refuge, un eleveur, ou une association.",
     "button": "Créer mon compte",
     "next": "Suivant",
-    "firstname": "Prénom du responsable",
-    "lastname": "Nom du responsable",
-    "shelter": "Nom du refuge, de l'élevage ou de l'association",
-    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
-    "address": {
-      "title": "Adresse du refuge, de l'élevage ou de l'association",
-      "country": "Pays",
-      "street": "Adresse postale",
-      "apartment": "Appartement, bâtiment (facultatif)",
-      "zip": "Code postal",
-      "city": "Ville"
-    }
+    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères"
   },
   "animals": {
     "no-animals": "Aucun animals pour le moment",
@@ -54,5 +56,16 @@
       "gender": "Sexe",
       "age": "Âge"
     }
+  },
+  "user-profile": {
+    "title": "Informations personnelles",
+    "update-button": "Mettre à jour",
+    "close-button": "Fermer votre compte",
+    "update-success": "Mise à jour réussie",
+    "close-title": "Attention !",
+    "close-warning": "Voulez vous vraiment fermer votre compte ?",
+    "close-warning-2": "Vous serez déconnecté et n'aurez plus accès à nos services !",
+    "close-success": "Votre compte est désormais fermé",
+    "creation": "Date de création du compte"
   }
 }

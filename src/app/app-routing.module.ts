@@ -8,6 +8,8 @@ import { AnimalsListComponent } from './components/animals/animals-list/animals-
 import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
@@ -34,6 +36,16 @@ const routes: Routes = [
       path: 'messages',
       component: MessagesComponent,
       canActivate: [AuthGuardService]
+    },
+    {
+        path: 'user',
+        component: UserProfileComponent,
+        canActivate: [AuthGuardService]
+    },
+    {
+        path: 'settings',
+        component: SettingsComponent,
+        canActivate: [AuthGuardService]
     },
     { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];
