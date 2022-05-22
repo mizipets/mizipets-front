@@ -70,7 +70,6 @@ const socketIoConfig: SocketIoConfig = { url: environment.socketUrl, options: {t
         }),
         SocketIoModule.forRoot(socketIoConfig),
         MaterialModule,
-        MatDialogModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,

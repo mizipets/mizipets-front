@@ -1,6 +1,6 @@
 {
   "common": {
-    "title": "Mizipets",
+    "title": "Mizipets Pro",
     "email": "Email",
     "password": "Password",
     "or": "or",
@@ -27,6 +27,15 @@
     "confirm": "Confirm",
     "cancel": "Cancel"
   },
+  "header": {
+    "animals": "My animals",
+    "add":  "Create a post",
+    "messages": "Messages",
+    "profile":  "Profile",
+    "settings": "Settings",
+    "connection": "Sign in",
+    "logout": "Sign out"
+  },
   "login": {
     "title": "Log in",
     "button": "Log in",
@@ -39,7 +48,8 @@
     "subtitle": "Je suis un refuge, un eleveur, ou une association.",
     "button": "Créer mon compte",
     "next": "Suivant",
-    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères"
+    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
+    "success": "Account created"
   },
   "animals": {
     "no-animals": "No animals for the moment",
@@ -67,6 +77,13 @@
     "close-warning-2": "You will be disconnected and will no longer have access to our services !",
     "close-success": "Your account is now close",
     "creation": "Account creation date"
+  },
+  "messages": {
+    "inbox": "Messages",
+    "give": "Give animal",
+    "empty": "No message",
+    "default": "Type a message",
+    "for": "for",
+    "animal-detail": "Click to have animal detail"
   }
-
 }

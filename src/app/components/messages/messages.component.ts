@@ -14,8 +14,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   currentRoom: RoomModel | undefined;
   isConnected: boolean = false;
   message: string = '';
-  // @ts-ignore
-  @ViewChild('bottom') private myScrollContainer: ElementRef;
+
+  // @ViewChild('bottom') private myScrollContainer: ElementRef;
 
   constructor(private roomService: RoomService,
               private socketService: SocketService) { }
@@ -27,11 +27,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     this.socketService.receiveMessage().subscribe((message: MessageModel) => {
           this.currentRoom?.messages?.push(message);
+          if(message.type === 'close')
+              this.isConnected = false;
     });
 
     this.roomService.getUserRooms().subscribe({
-      next: (value: RoomModel[]) => {
-          this.rooms = value;
+      next: (rooms: RoomModel[]) => {
+          this.rooms = rooms;
       },
       error: err => {
           console.error(err);
@@ -45,7 +47,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   sendMessage(): void {
-    if(this.currentRoom) {
+    if(this.currentRoom && this.message !== '') {
+      console.log("pressed")
       const userId = this.currentRoom.animal.owner.id;
 
       const message: MessageToRoomModel = {
@@ -56,7 +59,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
         type: MessageType.text
       }
       this.socketService.sendMessage(message);
-      this.scrollToBottom();
+      // this.scrollToBottom();
+      this.message = '';
     }
   }
 
@@ -87,11 +91,15 @@ export class MessagesComponent implements OnInit, OnDestroy {
       })
   }
 
-  scrollToBottom(): void {
-    this.myScrollContainer.nativeElement.scroll({
-      top: this.myScrollContainer.nativeElement.scrollHeight,
-      left: 0,
-      behavior: 'smooth'
-    });
+  // scrollToBottom(): void {
+  //   this.myScrollContainer.nativeElement.scroll({
+  //     top: this.myScrollContainer.nativeElement.scrollHeight,
+  //     left: 0,
+  //     behavior: 'smooth'
+  //   });
+  // }
+
+  onKeydown() {
+    this.sendMessage();
   }
 }

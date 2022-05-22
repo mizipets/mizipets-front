@@ -1,7 +1,7 @@
 <mat-toolbar color="accent" class="header">
   <img src="assets/images/logo.png" class="icon">
   <span routerLink="/home" class="home"  matRipple
-        [matRippleCentered]="true">Mizipets Pro</span>
+        [matRippleCentered]="true">{{'common.title' | translate}}</span>
 
   <span class="spacer"></span>
 
@@ -9,12 +9,12 @@
         routerLink="/animals"
         routerLinkActive="active-link"
         *ngIf="authService.isLogged()">
-    Mes animaux
+    {{'header.animals' | translate}}
   </button>
 
   <button mat-button  class="mx-5"
         *ngIf="authService.isLogged()">
-    Ajouter une annonce
+    {{'header.add' | translate}}
   </button>
 
   <button mat-button class="mx-4"
@@ -24,7 +24,7 @@
         routerLink="/messages"
         routerLinkActive="active-link"
         *ngIf="authService.isLogged()">
-    Messagerie
+    {{'header.messages' | translate}}
   </button>
 
   <span class="spacer"></span>
@@ -33,7 +33,7 @@
   <button mat-flat-button class="ml-2"
           routerLink="/login"
           *ngIf="!authService.isLogged()">
-    Connexion
+    {{'header.connection' | translate}}
   </button>
 
   <button mat-flat-button class="ml-2"
@@ -42,10 +42,18 @@
     <mat-icon>person_outlined</mat-icon><mat-icon>expand_more</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
-    <button mat-menu-item
-    routerLink="/user">Profile</button>
-    <button mat-menu-item
-    routerLink="/settings">Paramètres</button>
-    <button mat-menu-item (click)="authService.logout()">Deconnexion</button>
+    <button mat-menu-item routerLink="/user">
+      <mat-icon>account_circle</mat-icon>
+      {{'header.profile' | translate}}
+    </button>
+    <button mat-menu-item routerLink="/settings">
+      <mat-icon>settings</mat-icon>
+      {{'header.settings' | translate}}
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="authService.logout()">
+      <mat-icon>logout</mat-icon>
+      {{'header.logout' | translate}}
+    </button>
   </mat-menu>
 </mat-toolbar>

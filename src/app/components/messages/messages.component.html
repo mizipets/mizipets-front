@@ -1,6 +1,6 @@
 <mat-drawer-container class="sidenav-container">
   <mat-drawer class="sidenav" mode="side" opened>
-    <p style="margin-top: 0;">Messagerie</p>
+    <p style="margin-top: 0;">{{'messages.inbox' | translate }}</p>
 
     <div *ngIf="rooms.length > 0">
       <div *ngFor="let room of rooms">
@@ -9,7 +9,7 @@
              [ngClass]="{'selected': currentRoom?.id === room.id}"
              [matRippleCentered]="true"
              (click)="connectionToRoom(room)">
-          <img src="{{room.adoptant.photo}}" class="avatar">
+          <img src="{{room.adoptant.photo}}" class="avatar" alt="avatar">
           <p class="ml-2">{{ room.adoptant.firstname }}</p>
         </div>
       </div>
@@ -19,22 +19,29 @@
   <div class="box">
     <!-- Header top, info about adopter and animal -->
     <mat-toolbar class="toolbar-top" *ngIf="currentRoom">
-        <img src="{{currentRoom.adoptant.photo}}" class="avatar">
-        <span>{{currentRoom.adoptant.firstname}}</span>
-        <span class="spacer"></span>
-        <button mat-flat-button color="primary" (click)="giveAnimal()">donner l'animal</button>
-        <span class="spacer"></span>
-        <img src="{{currentRoom.animal.images[0]}}" class="avatar">
+        <img src="{{currentRoom.adoptant.photo}}" class="avatar" alt="avatar">
+        <span class="ml-2">{{currentRoom.adoptant.firstname}}</span>
+        <span class="mx-1">{{'messages.for' | translate}}</span>
         <span>{{currentRoom.animal.name}}</span>
+
+        <span class="spacer"></span>
+
+        <img src="{{currentRoom.animal.images[0]}}"
+             style="cursor: pointer;"
+             matTooltip="{{'messages.animal-detail' | translate }}"
+             class="avatar" alt="animal image">
+
+        <button mat-flat-button color="primary"
+                class="ml-3"
+                (click)="giveAnimal()">
+          {{'messages.give' | translate}}
+        </button>
     </mat-toolbar>
 
     <!-- Content, displaying messages -->
     <div class="content">
-      <div *ngIf="!currentRoom">
-        <p class="text-center mt-5">Aucun message selectionné</p>
-      </div>
-
-      <div *ngIf="currentRoom && currentRoom.messages" class="content-container" #bottom>
+      <p class="text-center mt-5" *ngIf="!currentRoom">{{'messages.empty' | translate}}</p>
+      <div *ngIf="currentRoom && currentRoom.messages" class="content-container">
         <div *ngFor="let message of currentRoom.messages; let last = last">
           <div [ngClass]="{'last-message': last}">
             <div *ngIf="message.writer !== currentRoom.animal.owner.id; then incoming_msg; else outgoing_msg"></div>
@@ -73,8 +80,9 @@
                         *ngIf="isConnected">
           <input matInput maxlength="1300"
                  type="text"
-                 placeholder="Bonjour, je suis interesser par ..."
-                 [(ngModel)]="message">
+                 placeholder="{{'messages.default' | translate}}"
+                 [(ngModel)]="message"
+                 (keydown.enter)="onKeydown()">
           <button mat-icon-button
                   matSuffix
                   color="primary"

@@ -18,8 +18,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-
-
   profileForm: FormGroup;
   firstnameCtrl: FormControl;
   lastnameCtrl: FormControl;
@@ -36,13 +34,13 @@ export class UserProfileComponent implements OnInit {
   /**
    * User based on user model
    */
-  user = {} as UserModel;
+  user: UserModel = {} as UserModel;
 
   constructor(
     private userService: UserService,
     private snackBar: MatSnackBar,
     private closeAccountDialog: MatDialog,
-    private translater: TranslateService,
+    private translate: TranslateService,
     public formBuilder: FormBuilder) {
       this.firstnameCtrl = formBuilder.control('', [
         Validators.required,
@@ -115,7 +113,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   openSnackBar(): void {
-    this.snackBar.open(this.translater.instant('user-profile.update-success'), '', {
+    this.snackBar.open(this.translate.instant('user-profile.update-success'), '', {
         duration: 2000,
         horizontalPosition: 'center',
         verticalPosition: 'top'

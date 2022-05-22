@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Address, Preferences, Shelter } from '../../../models/user.model';
 import { RegisterModel } from '../../../models/register.model';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-register',
@@ -37,7 +38,8 @@ export class RegisterComponent implements OnInit {
         public formBuilder: FormBuilder,
         private authService: AuthService,
         private router: Router,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private translate: TranslateService,
     ) {
         /**
          * Form controls with validators
@@ -95,7 +97,7 @@ export class RegisterComponent implements OnInit {
     }
 
     openSnackBar(): void {
-        this.snackBar.open('register.success', '', {
+        this.snackBar.open(this.translate.instant('register.success'), '', {
             duration: 2000,
             horizontalPosition: 'center',
             verticalPosition: 'top'
