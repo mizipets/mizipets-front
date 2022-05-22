@@ -13,18 +13,14 @@ export class UserService {
 
     getUser(): Observable<UserModel> {
         return this.http.get<UserModel>(
-            environment.baseUrl +
-                'users/' +
-                this.authService.decodedToken!.id
+            environment.baseUrl + 'users/' + this.authService.decodedToken!.id
         );
     }
 
     updateUser(userData: UserModel): Observable<UserModel> {
         return this.http.put<UserModel>(
-            environment.baseUrl +
-                'users/' +
-                this.authService.decodedToken!.id,
-                userData
+            environment.baseUrl + 'users/' + this.authService.decodedToken!.id,
+            userData
         );
     }
 
@@ -34,7 +30,7 @@ export class UserService {
                 'users/' +
                 this.authService.decodedToken!.id +
                 '/close',
-                ''
+            ''
         );
     }
 }

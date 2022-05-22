@@ -26,7 +26,7 @@ import { CodeInputModule } from 'angular-code-input';
 import { HomeMobileComponent } from './components/home-mobile/home-mobile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import {environment} from "../environments/environment";
+import { environment } from '../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -36,7 +36,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
 
-const socketIoConfig: SocketIoConfig = { url: environment.socketUrl, options: {transports: ['websocket']} };
+const socketIoConfig: SocketIoConfig = {
+    url: environment.socketUrl,
+    options: { transports: ['websocket'] }
+};
 
 @NgModule({
     declarations: [

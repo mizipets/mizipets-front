@@ -33,9 +33,9 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
-      path: 'messages',
-      component: MessagesComponent,
-      canActivate: [AuthGuardService]
+        path: 'messages',
+        component: MessagesComponent,
+        canActivate: [AuthGuardService]
     },
     {
         path: 'user',

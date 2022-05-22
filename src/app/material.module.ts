@@ -41,7 +41,7 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatTooltipModule,
         MatProgressSpinnerModule,
         MatExpansionModule,
-        MatDialogModule,
+        MatDialogModule
     ]
 })
 export class MaterialModule {}
