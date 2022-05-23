@@ -25,7 +25,8 @@
       "city": "City"
     },
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "error": "This field cannot be empty"
   },
   "login": {
     "title": "Log in",
@@ -58,15 +59,17 @@
     }
   },
   "user-profile": {
-    "title": "Personal informations",
+    "title": "Profile",
+    "information": "Personal informations",
     "update-button": "Update",
-    "close-button": "Close account",
+    "close-title":"Need to disable your account ?",
+    "close-button": "Disable account",
     "update-success": "Succesfull update",
-    "close-title": "Warning !",
-    "close-warning": "Do you really want to close your account ?",
+    "close-pop-up-title": "Warning !",
+    "close-warning": "Do you really want to disable your account ?",
     "close-warning-2": "You will be disconnected and will no longer have access to our services !",
-    "close-success": "Your account is now close",
-    "creation": "Account creation date"
+    "close-success": "Your account is now disable",
+    "creation": "Member since"
   }
 
 }
