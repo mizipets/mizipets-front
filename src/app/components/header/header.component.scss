@@ -1,12 +1,21 @@
-.icon {
-  height: 60px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
 
-.home {
-  cursor: pointer;
-  padding: 5px;
-}
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
 
-.active-link {
-  border-bottom: solid 4px white;
+  .icon {
+    height: 60px;
+  }
+  .home {
+    cursor: pointer;
+    padding: 5px;
+    margin: 0;
+    font-family: 'Cookie', cursive;
+    font-size: 36px;
+  }
+  .active-link {
+    border-bottom: solid 4px white;
+  }
 }

@@ -1,0 +1,75 @@
+.sidenav-container {
+  height: 100%;
+  margin-top: 64px !important;
+
+  .sidenav {
+    padding: 20px;
+    width: 360px;
+
+    .room-list {
+      border-radius: 12px;
+      padding: 8px;
+
+      &:hover {
+        cursor: pointer;
+        background-color:  #E4E6EB;
+      }
+    }
+    .selected {
+      background-color: #168AAD;
+      color: #FFFFFF;
+    }
+  }
+
+  .box {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+
+    .content-container {
+      padding-right: 25px;
+      padding-left: 25px;
+    }
+    .toolbar-top {
+      flex: 0 1 auto;
+      top: 0;
+      background-color: #ffffff;
+    }
+    .content {
+      flex: 1 1 auto;
+      overflow-y: scroll;
+
+      .last-message {
+        margin-bottom: 20px;
+      }
+      .text-message {
+        max-width: 50%;
+        flex-wrap: wrap;
+        word-break: break-all;
+        padding-right: 12px;
+        padding-left: 12px;
+        border-radius: 20px;
+      }
+      .incoming {
+        background-color: #E4E6EB;
+      }
+      .outgoing {
+        background-color: #168AAD;
+        color: #FFFFFF;
+      }
+      .info {
+        background-color: #DEDEDE;
+        color: #717171;
+      }
+    }
+    .toolbar-bottom {
+      flex: 0 1 40px;
+      bottom: 0;
+      background-color: #fafafa;
+
+      .send-message {
+        width: 100%;
+      }
+    }
+  }
+}

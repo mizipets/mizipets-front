@@ -5,7 +5,8 @@
 export const environment = {
     production: false,
     baseUrl: 'http://localhost:3000/v1/',
-    userDefaultUrl: 'https://mizipets.s3.eu-west-3.amazonaws.com/avatar_default'
+    socketUrl: 'http://localhost:3001',
+    userDefaultUrl: 'http://49.12.198.51:9000/mizipets/avatar_default.jpg'
 };
 
 /*
