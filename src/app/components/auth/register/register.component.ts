@@ -115,7 +115,7 @@ export class RegisterComponent implements OnInit {
         const address: Address = {
             street: this.registerForm.value.street,
             apartment: this.registerForm.value.apartment,
-            zip: this.registerForm.value.zip,
+            zip: parseInt(this.registerForm.value.zip),
             city: this.registerForm.value.city,
             country: this.registerForm.value.country
         };
