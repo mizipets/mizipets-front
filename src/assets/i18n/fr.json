@@ -25,7 +25,8 @@
       "city": "Ville"
     },
     "confirm": "Confirmer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "error": "Ce champs ne doit pas etre vide"
   },
   "header": {
     "animals": "Mes animaux",
@@ -68,12 +69,14 @@
     }
   },
   "user-profile": {
-    "title": "Informations personnelles",
+    "title": "Profile",
+    "information": "Informations personnelles",
     "update-button": "Mettre à jour",
-    "close-button": "Fermer votre compte",
+    "close-title":"Besoin de désactiver votre compte ?",
+    "close-button": "Désactiver votre compte",
     "update-success": "Mise à jour réussie",
-    "close-title": "Attention !",
-    "close-warning": "Voulez vous vraiment fermer votre compte ?",
+    "close-pop-up-title": "Attention !",
+    "close-warning": "Voulez vous vraiment désactiver votre compte ?",
     "close-warning-2": "Vous serez déconnecté et n'aurez plus accès à nos services !",
     "close-success": "Votre compte est désormais fermé",
     "creation": "Date de création du compte"
@@ -85,5 +88,7 @@
     "default": "Saisissez un message",
     "for": "pour",
     "animal-detail": "Clique pour voir le detail"
+    "close-success": "Votre compte est désormais désactivé",
+    "creation": "Membre depuis"
   }
 }
