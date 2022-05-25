@@ -1,6 +1,7 @@
 {
   "common": {
-    "title": "Mizipets Pro",
+    "title": "Mizipets",
+    "welcome": "Welcome to Mizipets",
     "email": "Email",
     "password": "Password",
     "or": "or",
@@ -74,7 +75,7 @@
     "update-button": "Update",
     "close-title":"Need to disable your account ?",
     "close-button": "Disable account",
-    "update-success": "Succesfull update",
+    "update-success": "Successful update",
     "close-pop-up-title": "Warning !",
     "close-warning": "Do you really want to disable your account ?",
     "close-warning-2": "You will be disconnected and will no longer have access to our services !",
@@ -87,7 +88,7 @@
     "empty": "No message",
     "default": "Type a message",
     "for": "for",
-    "animal-detail": "Click to have animal detail"
+    "animal-detail": "Click to have animal detail",
     "close-success": "Your account is now disabled",
     "creation": "Member since"
   }

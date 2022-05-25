@@ -1,6 +1,7 @@
 {
   "common": {
-    "title": "Mizipets Pro",
+    "title": "Mizipets",
+    "welcome": "Bienvenue sur Mizipets",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "or": "ou",
@@ -87,7 +88,7 @@
     "empty": "Aucun message",
     "default": "Saisissez un message",
     "for": "pour",
-    "animal-detail": "Clique pour voir le detail"
+    "animal-detail": "Clique pour voir le detail",
     "close-success": "Votre compte est désormais désactivé",
     "creation": "Membre depuis"
   }
