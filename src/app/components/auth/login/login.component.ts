@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
         if (this.authService.isLogged()) {
             this.router.navigate(['animals']).then();
         }
-        console.log(this.deviceService.getDeviceInfo());
     }
 
     onSubmit(): void {
