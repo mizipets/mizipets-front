@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// @ts-ignore
-import device_detect from 'device-detect';
-
-const deviceDetect = device_detect();
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
     selector: 'app-root',
@@ -11,19 +8,13 @@ const deviceDetect = device_detect();
 })
 export class AppComponent implements OnInit {
     isMobileDevice: boolean = false;
-    mobileDevices: string[] = [
-        'iPhone',
-        'iPad',
-        'iPod',
-        'Blackberry',
-        'WindowsMobile',
-        'Android'
-    ];
+    
+    constructor (
+        private deviceService: DeviceDetectorService) {}
 
     ngOnInit(): void {
-        const currentDevice = deviceDetect.device;
-        this.mobileDevices.includes(currentDevice)
-            ? (this.isMobileDevice = true)
-            : (this.isMobileDevice = false);
+        if (this.deviceService.isMobile() || this.deviceService.isTablet())
+            this.isMobileDevice = true;
+        else this.isMobileDevice = false;
     }
 }

@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { RegisterModel } from '../models/register.model';
+import { map } from 'rxjs/operators'
 
 @Injectable({
     providedIn: 'root'
@@ -49,7 +50,7 @@ export class AuthService {
         );
     }
 
-    login(credential: any): Observable<any> {
+    login(credential: any): Observable<any> {      
         return this.http.post<any>(
             environment.baseUrl + 'auth/login',
             credential
