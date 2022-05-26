@@ -8,7 +8,7 @@
                 <div class="justify-content-center mb-4">
                     <img src="{{user.photo}}" class="profile-image" width="150" height="150">
                 </div>
-                <h3 class="text-center">{{user.shelter.name}}</h3>
+                <h3 class="text-center">{{user.shelter?.name}}</h3>
                 <p class="text-center" style="color: #717171">{{'user-profile.creation' | translate}} {{user.createDate | date:'MMMM y'}}</p>
                 <p class="mt-4">{{'user-profile.information' | translate}}</p>
                 <mat-form-field appearance="outline">

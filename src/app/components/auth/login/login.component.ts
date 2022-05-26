@@ -7,7 +7,15 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
+export interface Device {
+    browser: string;
+    browser_version: string;
+    deviceType: string;
+    os: string;
+    os_version: string;
+}
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -28,6 +36,7 @@ export class LoginComponent implements OnInit {
     constructor(
         public formBuilder: FormBuilder,
         private authService: AuthService,
+        private deviceService: DeviceDetectorService,
         private router: Router
     ) {
         this.emailCtrl = formBuilder.control('', Validators.required);
@@ -47,7 +56,15 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.authService.login(this.loginForm.value).subscribe({
+        const device: Device = {} as Device;
+        device.browser = this.deviceService.browser;
+        device.browser_version = this.deviceService.browser_version;
+        device.deviceType = this.deviceService.deviceType;
+        device.os = this.deviceService.os;
+        device.os_version = this.deviceService.os_version;
+        const credential = Object.assign (this.loginForm.value, device)
+        
+        this.authService.login(credential).subscribe({
             next: (result: { token: string; refreshKey: string }) => {
                 localStorage.setItem(
                     'isTokenStored',
