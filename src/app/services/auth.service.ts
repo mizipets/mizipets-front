@@ -50,9 +50,9 @@ export class AuthService {
         );
     }
 
-    login(credential: any): Observable<any> {      
+    login(credential: any): Observable<any> {
         return this.http.post<any>(
-            environment.baseUrl + 'auth/login',
+            environment.baseUrl + 'auth/login?onlyRole=PRO',
             credential
         );
     }

@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
         device.deviceType = this.deviceService.deviceType;
         device.os = this.deviceService.os;
         device.os_version = this.deviceService.os_version;
-        const credential = Object.assign (this.loginForm.value, device)
-        
+        const credential = Object.assign(this.loginForm.value, device);
+
         this.authService.login(credential).subscribe({
             next: (result: { token: string; refreshKey: string }) => {
                 localStorage.setItem(
