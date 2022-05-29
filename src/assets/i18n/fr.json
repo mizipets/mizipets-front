@@ -1,6 +1,7 @@
 {
   "common": {
-    "title": "Mizipets Pro",
+    "title": "Mizipets",
+    "welcome": "Bienvenue sur Mizipets",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "or": "ou",

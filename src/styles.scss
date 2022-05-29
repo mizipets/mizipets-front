@@ -89,17 +89,38 @@ $custom-theme: mat.define-light-theme((
   )
 ));
 
+/* ======== Global style ======== */
+@import url('https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
 @include mat.all-component-themes($custom-theme);
 
-/* ======== Global style ======== */
 html, body {
   height: 100% !important;
 }
 body {
   margin: 0 !important;
+  background-color: #fafafa !important;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #fafafa;
 }
+
+/* ======== Font style ======== */
+h1, .title {
+  font-size: 36px !important;
+  font-family: 'Arima Madurai',cursive !important;
+  line-height: 40px !important;
+}
+.cookie {
+  font-family: 'Cookie', cursive !important;
+  font-size: 80px !important;
+  line-height: 70px !important;
+  font-weight: 400 !important;
+}
+p {
+  font-size: 16px !important;
+  line-height: 30px !important;
+}
+
+/* ======== Colors style ======== */
 .warn {
   color: mat.get-color-from-palette($custom-warn) !important;
 }
@@ -109,6 +130,8 @@ body {
 .accent {
   color: mat.get-color-from-palette($custom-accent) !important;
 }
+
+/* ======== Content style ======== */
 .m-auto {
   margin: auto !important;
 }

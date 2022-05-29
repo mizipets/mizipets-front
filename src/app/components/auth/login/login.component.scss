@@ -1,47 +1,48 @@
-.mat-card {
-  width: 500px;
 
-  .mat-form-field, .mat-flat-button {
-    width: 100%;
-  }
+  .mat-card {
+    width: 500px;
 
-  .mat-hint, a {
-    color: #3f51b5;
-    cursor:pointer;
-  }
-
-  .or {
-    font-size: 14px;
-    line-height: 1.45;
-    display: flex;
-    align-items: center;
-    margin: 16px 0;
-
-    &:before {
-      content: '';
-      display: block;
+    .mat-form-field, .mat-flat-button {
       width: 100%;
-      height: 1px;
-      background-color: #DDDDDD;
-      margin-right: 16px;
     }
 
-    &:after {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 1px;
-      background-color: #DDDDDD;
-      margin-left: 16px;
+    .mat-hint, a {
+      color: #3f51b5;
+      cursor:pointer;
     }
-  }
 
-  ::ng-deep code-input {
-    padding-top: 24px;
-    padding-bottom: 24px;
-    span {
-      margin-right: 8px;
-      margin-left: 8px;
+    .or {
+      font-size: 14px;
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+
+      &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: #DDDDDD;
+        margin-right: 16px;
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: #DDDDDD;
+        margin-left: 16px;
+      }
+    }
+
+    ::ng-deep code-input {
+      padding-top: 24px;
+      padding-bottom: 24px;
+      span {
+        margin-right: 8px;
+        margin-left: 8px;
+      }
     }
   }
-}

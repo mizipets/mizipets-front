@@ -17,7 +17,6 @@ import {
 import { LoginComponent } from './components/auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptor } from './token.interceptor';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AnimalsListComponent } from './components/animals/animals-list/animals-list.component';
 import { HomeComponent } from './components/home/home.component';
@@ -47,7 +46,6 @@ const socketIoConfig: SocketIoConfig = {
         HeaderComponent,
         LanguageComponent,
         LoginComponent,
-        DashboardComponent,
         RegisterComponent,
         AnimalsListComponent,
         AnimalsDetailComponent,

@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center my-5">
   <mat-card>
     <mat-card-header class="d-flex justify-content-center">
-      <mat-card-title>{{'register.title' | translate}}</mat-card-title>
+      <mat-card-title class="title">{{'register.title' | translate}}</mat-card-title>
     </mat-card-header>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -9,13 +9,13 @@
       <mat-card-content *ngIf="!next" class="mt-4">
         <p>{{'register.subtitle' | translate}}</p>
         <mat-form-field appearance="outline">
-          <mat-label>{{'register.lastname' | translate}}</mat-label>
+          <mat-label>{{'common.lastname' | translate}}</mat-label>
           <input matInput formControlName="lastname" required>
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
         <br/>
         <mat-form-field appearance="outline">
-          <mat-label>{{'register.firstname' | translate}}</mat-label>
+          <mat-label>{{'common.firstname' | translate}}</mat-label>
           <input matInput formControlName="firstname" required>
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
