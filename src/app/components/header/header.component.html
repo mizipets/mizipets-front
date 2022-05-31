@@ -13,6 +13,7 @@
   </button>
 
   <button mat-button  class="mx-5"
+        routerLink="/animal-create"
         *ngIf="authService.isLogged()">
     {{'header.add' | translate}}
   </button>

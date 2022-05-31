@@ -140,13 +140,13 @@ export class UserProfileComponent implements OnInit {
     onSubmit(): void {
         // Process checkout data here
         (this.user.firstname = this.profileForm.value.firstname),
-            (this.user.lastname = this.profileForm.value.lastname),
-            (this.user.email = this.profileForm.value.email),
-            (this.user.address.street = this.profileForm.value.street),
-            (this.user.address.apartment = this.profileForm.value.apartment),
-            (this.user.address.zip = this.profileForm.value.zip),
-            (this.user.address.city = this.profileForm.value.city),
-            (this.user.address.country = this.profileForm.value.country);
+        (this.user.lastname = this.profileForm.value.lastname),
+        (this.user.email = this.profileForm.value.email),
+        (this.user.address.street = this.profileForm.value.street),
+        (this.user.address.apartment = this.profileForm.value.apartment),
+        (this.user.address.zip = this.profileForm.value.zip),
+        (this.user.address.city = this.profileForm.value.city),
+        (this.user.address.country = this.profileForm.value.country);
 
         this.userService.updateUser(this.user).subscribe({
             next: () => {

@@ -31,6 +31,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { CloseAccountPopUpComponent } from './components/close-account-pop-up/close-account-pop-up.component';
+import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -57,7 +58,8 @@ const socketIoConfig: SocketIoConfig = {
         NotFoundComponent,
         UserProfileComponent,
         SettingsComponent,
-        CloseAccountPopUpComponent
+        CloseAccountPopUpComponent,
+        AnimalsCreateComponent
     ],
     imports: [
         BrowserModule,

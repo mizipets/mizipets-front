@@ -25,3 +25,11 @@ export interface AnimalModel {
     owner: UserModel;
     race: RaceModel;
 }
+
+export interface CreateAdoption {
+    name: string;
+    comment: string;
+    birthDate: Date;
+    sex: string;
+    raceId: number;
+}
