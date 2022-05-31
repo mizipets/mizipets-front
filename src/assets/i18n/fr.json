@@ -25,6 +25,7 @@
       "city": "Ville"
     },
     "confirm": "Confirmer",
+    "next": "Suivant",
     "cancel": "Annuler",
     "error": "Ce champs ne doit pas etre vide"
   },
@@ -48,7 +49,6 @@
     "title": "Inscription",
     "subtitle": "Je suis un refuge, un eleveur, ou une association.",
     "button": "Créer mon compte",
-    "next": "Suivant",
     "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
     "success": "Compte créé"
   },
@@ -67,6 +67,14 @@
       "gender": "Sexe",
       "age": "Âge"
     }
+  },
+  "animals-add": {
+    "title": "Ajouter une annonce",
+    "information": "Donnez les informations de votre animal",
+    "photo": "Ajoutez une image de votre animal",
+    "name": "Nom de l'animal",
+    "comment": "Commentaire",
+    "button": "Créer l'annonce"
   },
   "user-profile": {
     "title": "Profile",

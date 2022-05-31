@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from 'src/app/models/user.model';
-import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 import {
     FormBuilder,
     FormControl,
@@ -23,6 +22,8 @@ import { AnimalModel, CreateAdoption } from '../../../models/animal.model';
   styleUrls: ['./animals-create.component.scss']
 })
 export class AnimalsCreateComponent implements OnInit {
+
+  isLoading: boolean = false;
 
   next = false;
 
@@ -56,7 +57,7 @@ export class AnimalsCreateComponent implements OnInit {
     name: this.nameCtrl,
     comment: this.commentCtrl,
     birthDate: this.birthDateCtrl,
-    images: ['', Validators.required],
+    //images: ['', Validators.required],
     sex: this.sexCtrl,
     specie: this.specieCtrl,
     race: this.raceCtrl,
@@ -67,6 +68,9 @@ export class AnimalsCreateComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService,
+    private router: Router,
     private animalService: AnimalsService,
     private specieService: SpeciesService,
     private s3Service: S3Service
@@ -95,26 +99,32 @@ export class AnimalsCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isLoading = true;
     (this.newAnimal.name = this.animalForm.value.name);
     (this.newAnimal.comment = this.animalForm.value.comment);
     (this.newAnimal.birthDate = this.animalForm.value.birthDate);
     (this.newAnimal.sex = this.animalForm.value.sex);
     (this.newAnimal.raceId = this.animalForm.value.race.id);
 
-    /*this.animalService.createAdoption(this.newAnimal).subscribe({
+    this.animalService.createAdoption(this.newAnimal).subscribe({
       next: (animal: AnimalModel) => {
         console.log(animal)
-      }
-    })*/
-
-    const formData = new FormData();
-    formData.append('file', this.file);
-
-    this.s3Service.uploadImage('animal', formData).subscribe({
-      error: (error) => {
-        console.error(error);
+        const formData = new FormData();
+        formData.append('file', this.file);
+        this.s3Service.uploadImage(animal.id, 'animal', formData).subscribe({
+          next: () => {
+            this.openSnackBar();
+            this.isLoading = false;
+            this.router.navigateByUrl('/animals')
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        })
+        
       }
     })
+    
   }
 
   onChange(event: any) {
@@ -130,6 +140,10 @@ export class AnimalsCreateComponent implements OnInit {
     }
   }
 
+  async delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
   onNext() {
     this.next = true;
   }
@@ -137,5 +151,17 @@ export class AnimalsCreateComponent implements OnInit {
   onBack() {
     this.next = false;
   }
+
+  openSnackBar(): void {
+    this.snackBar.open(
+        this.translate.instant('Annonce créée'),
+        '',
+        {
+            duration: 2000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+        }
+    );
+}
 
 }

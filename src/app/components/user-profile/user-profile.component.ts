@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CloseAccountPopUpComponent } from '../close-account-pop-up/close-account-pop-up.component';
 import { TranslateService } from '@ngx-translate/core';
+import { S3Service } from '../../services/s3.service';
 
 @Component({
     selector: 'app-user-profile',
@@ -36,11 +37,16 @@ export class UserProfileComponent implements OnInit {
      */
     user: UserModel = {} as UserModel;
 
+    file: File = {} as File;
+
+    fileName = "";
+
     constructor(
         private userService: UserService,
         private snackBar: MatSnackBar,
         private closeAccountDialog: MatDialog,
         private translate: TranslateService,
+        private s3Service: S3Service,
         public formBuilder: FormBuilder
     ) {
         this.firstnameCtrl = formBuilder.control('', [
@@ -117,6 +123,7 @@ export class UserProfileComponent implements OnInit {
                 this.profileForm.controls['country'].setValue(
                     this.user.address.country
                 );
+                this.fileName = this.user.photo;
             },
             error: (error) => {
                 console.error(error);
@@ -137,6 +144,19 @@ export class UserProfileComponent implements OnInit {
         );
     }
 
+    onChange(event: any) {
+        if (event.target.files) {
+          var reader = new FileReader();
+          this.file = event.target.files[0];
+          reader.readAsDataURL(this.file);
+          reader.onload = (e: any) => {
+            this.fileName = e.target.result;
+          }
+          //this.img = event.target.files;
+          console.log(event.target.files);  
+        }
+    }
+
     onSubmit(): void {
         // Process checkout data here
         (this.user.firstname = this.profileForm.value.firstname),
@@ -149,7 +169,14 @@ export class UserProfileComponent implements OnInit {
         (this.user.address.country = this.profileForm.value.country);
 
         this.userService.updateUser(this.user).subscribe({
-            next: () => {
+            next: (user: UserModel) => {
+                const formData = new FormData();
+                formData.append('file', this.file);
+                this.s3Service.uploadImage(user.id, 'avatar', formData).subscribe({
+                    error: (error) => {
+                        console.error(error);
+                    }
+                })
                 this.openSnackBar();
             },
             error: (error) => {

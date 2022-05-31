@@ -6,7 +6,8 @@
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
             <mat-card-content>
                 <div class="justify-content-center mb-4">
-                    <img src="{{user.photo}}" class="profile-image" width="150" height="150">
+                    <img src="{{fileName}}" class="profile-image" (click)="selectFile.click()" width="150" height="150">
+                    <input type="file" class="file-upload " (change)="onChange($event)" style="display: none" #selectFile>
                 </div>
                 <h3 class="text-center">{{user.shelter?.name}}</h3>
                 <p class="text-center" style="color: #717171">{{'user-profile.creation' | translate}} {{user.createDate | date:'MMMM y'}}</p>
