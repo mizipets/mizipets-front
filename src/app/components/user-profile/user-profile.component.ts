@@ -146,14 +146,23 @@ export class UserProfileComponent implements OnInit {
 
     onChange(event: any) {
         if (event.target.files) {
-          var reader = new FileReader();
-          this.file = event.target.files[0];
-          reader.readAsDataURL(this.file);
-          reader.onload = (e: any) => {
-            this.fileName = e.target.result;
-          }
-          //this.img = event.target.files;
-          console.log(event.target.files);  
+            var reader = new FileReader();
+            this.file = event.target.files[0];
+            reader.readAsDataURL(this.file);
+            reader.onload = (e: any) => {
+                this.fileName = e.target.result;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', this.file);
+            this.s3Service.uploadImage(this.user.id, 'avatar', formData).subscribe({
+                next: (_) => {
+                    this.openSnackBar();
+                },
+                error: (error) => {
+                    console.error(error);
+                }
+            })
         }
     }
 
@@ -170,13 +179,6 @@ export class UserProfileComponent implements OnInit {
 
         this.userService.updateUser(this.user).subscribe({
             next: (user: UserModel) => {
-                const formData = new FormData();
-                formData.append('file', this.file);
-                this.s3Service.uploadImage(user.id, 'avatar', formData).subscribe({
-                    error: (error) => {
-                        console.error(error);
-                    }
-                })
                 this.openSnackBar();
             },
             error: (error) => {
