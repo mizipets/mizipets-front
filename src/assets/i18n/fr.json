@@ -74,7 +74,10 @@
     "photo": "Ajoutez une image de votre animal",
     "name": "Nom de l'animal",
     "comment": "Commentaire",
-    "button": "Créer l'annonce"
+    "button": "Créer l'annonce",
+    "success": "Annonce créée",
+    "image-error": "Cette image n'a pas pu être sauvegardé",
+    "animal-error": "Votre animal n'a pas pu être enregistré"
   },
   "user-profile": {
     "title": "Profile",

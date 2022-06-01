@@ -74,7 +74,10 @@
     "photo": "Add a picture of your animal",
     "name": "Name",
     "comment": "Comment",
-    "button": "Create ad"
+    "button": "Create ad",
+    "success": "Ad created",
+    "image-error": "This picture couldn't be saved",
+    "animal-error": "Your animal couldn't be saved"
   },
   "user-profile": {
     "title": "Profile",

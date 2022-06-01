@@ -12,7 +12,7 @@
                 <div class="justify-content-center mb-4">
                     <input type="file" class="file-upload " (change)="onChange($event)">
                 </div>
-                <button mat-flat-button color="primary" type="next" (click)="onNext()">{{'common.next' | translate}}</button>
+                <button mat-flat-button color="primary" type="next" (click)="onNext()" [disabled]="!newImage">{{'common.next' | translate}}</button>
             </mat-card-content>
 
             <mat-card-content *ngIf="next">

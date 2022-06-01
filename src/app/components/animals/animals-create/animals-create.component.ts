@@ -25,6 +25,8 @@ export class AnimalsCreateComponent implements OnInit {
 
   isLoading: boolean = false;
 
+  newImage: boolean = false;
+
   next = false;
 
   file: File = {} as File;
@@ -113,15 +115,19 @@ export class AnimalsCreateComponent implements OnInit {
         formData.append('file', this.file);
         this.s3Service.uploadImage(animal.id, 'animal', formData).subscribe({
           next: () => {
-            this.openSnackBar();
+            this.openSnackBar('animals-add.button');
             this.isLoading = false;
             this.router.navigateByUrl('/animals')
           },
           error: (error) => {
             console.error(error);
+            this.openSnackBar('animals-add.image-error');
           }
-        })
-        
+        }) 
+      },
+      error: (error) => {
+        console.error(error);
+        this.openSnackBar('animals-add.animal-error');
       }
     })
     
@@ -137,6 +143,7 @@ export class AnimalsCreateComponent implements OnInit {
       }
       //this.img = event.target.files;
       console.log(event.target.files);  
+      this.newImage = true;
     }
   }
 
@@ -152,9 +159,9 @@ export class AnimalsCreateComponent implements OnInit {
     this.next = false;
   }
 
-  openSnackBar(): void {
+  openSnackBar(text: string): void {
     this.snackBar.open(
-        this.translate.instant('Annonce créée'),
+        this.translate.instant(text),
         '',
         {
             duration: 2000,
