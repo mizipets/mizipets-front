@@ -2,28 +2,27 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { SpecieModel } from '../models/specie.model';
 import { AuthService } from './auth.service';
-import { AnimalModel, CreateAdoption } from '../models/animal.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AnimalsService {
+export class SpeciesService {
     constructor(private http: HttpClient, private authService: AuthService) {}
 
-    getUserAnimals(): Observable<AnimalModel[]> {
-        return this.http.get<AnimalModel[]>(
+    getSpecies(): Observable<SpecieModel[]> {
+        return this.http.get<SpecieModel[]>(
             environment.baseUrl +
-                'animals?ownerId=' +
-                this.authService.decodedToken!.id
+                'species'
         );
     }
 
-    createAdoption(animalData: CreateAdoption): Observable<any> {
-        return this.http.post<any>(
+    getSpecieById(id: number): Observable<SpecieModel> {
+        return this.http.get<SpecieModel>(
             environment.baseUrl +
-            'animals/adoption',
-            animalData
+                'species/' +
+                id
         );
     }
 }

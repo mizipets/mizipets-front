@@ -26,6 +26,7 @@
       "city": "City"
     },
     "confirm": "Confirm",
+    "next": "Next",
     "cancel": "Cancel",
     "error": "This field cannot be empty"
   },
@@ -49,7 +50,6 @@
     "title": "Sign up",
     "subtitle": "Je suis un refuge, un eleveur, ou une association.",
     "button": "Créer mon compte",
-    "next": "Suivant",
     "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
     "success": "Account created"
   },
@@ -68,6 +68,17 @@
       "gender": "Gender",
       "age": "Age"
     }
+  },
+  "animals-add": {
+    "title": "Post an ad",
+    "information": "Give your animal's informations",
+    "photo": "Add a picture of your animal",
+    "name": "Name",
+    "comment": "Comment",
+    "button": "Create ad",
+    "success": "Ad created",
+    "image-error": "This picture couldn't be saved",
+    "animal-error": "Your animal couldn't be saved"
   },
   "user-profile": {
     "title": "Profile",

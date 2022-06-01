@@ -1,0 +1,77 @@
+<div class="justify-content-center my-5">
+    <mat-card>
+        <mat-card-header>
+            <div class="justify-content-start align-items-center">
+                <button *ngIf="next" mat-icon-button matPrefix (click)="onBack()"><mat-icon>arrow_back</mat-icon></button>
+                <mat-card-title class="mt-2 justify-content-center">{{'animals-add.title' | translate}}</mat-card-title>
+            </div>
+        </mat-card-header>
+        <form [formGroup]="animalForm" (ngSubmit)="onSubmit()">
+            <mat-card-content *ngIf="!next">
+                <div class="justify-content-center mb-4">
+                    <img [src]="fileName" height="100">
+                </div>
+                <p class="text-center mt-3">{{'animals-add.photo' | translate}}</p>
+                <div class="justify-content-center mb-4">
+                    <input type="file" class="file-upload " (change)="onChange($event)">
+                </div>
+                <button mat-flat-button color="primary" type="next" (click)="onNext()" [disabled]="!newImage">{{'common.next' | translate}}</button>
+            </mat-card-content>
+
+            <mat-card-content *ngIf="next">
+                <p class="mt-3">{{'animals-add.information' | translate}}</p>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'animals-add.name' | translate}}</mat-label>
+                    <input matInput type="string" formControlName="name" minlength="3">
+                    <mat-error>{{'common.error' | translate}}</mat-error>
+                </mat-form-field>
+                <br/>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'animals-add.comment' | translate}}</mat-label>
+                    <input matInput type="string" formControlName="comment">
+                    <mat-error>{{'common.error' | translate}}</mat-error>
+                </mat-form-field>
+                <br/>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'animals.born' | translate}}</mat-label>
+                    <input matInput type="date" formControlName="birthDate">
+                    <mat-error>{{'common.error' | translate}}</mat-error>
+                </mat-form-field>
+                <br/>
+                <mat-form-field appearance="outline">
+                    <mat-label value="">{{'animals.filter.gender' | translate}}</mat-label>
+                    <mat-select type="string" formControlName="sex">
+                        <mat-option *ngFor="let sex of Sex" [value]="sex">
+                            {{ sex }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'common.error' | translate}}</mat-error>
+                </mat-form-field> 
+                <br/>
+                <mat-form-field appearance="outline">
+                    <mat-label value="">{{'animals.filter.species' | translate}}</mat-label>
+                    <mat-select type="string" formControlName="specie" (selectionChange)="onSpecieChange($event)">
+                        <mat-option *ngFor="let specie of species" [value]="specie">
+                            {{ specie.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'common.error' | translate}}</mat-error>
+                </mat-form-field>
+                <br/>
+                <mat-form-field appearance="outline">
+                    <mat-label value="">{{'animals.filter.breeds' | translate}}</mat-label>
+                    <mat-select type="string" formControlName="race">
+                        <mat-option *ngFor="let race of races" [value]="race">
+                            {{ race.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'common.error' | translate}}</mat-error>
+                </mat-form-field>
+                <div class="justify-content-center">
+                    <button *ngIf="!isLoading" mat-flat-button color="primary" type="submit" [disabled]="animalForm.invalid">{{'animals-add.button' | translate}}</button>
+                    <mat-spinner *ngIf="isLoading"></mat-spinner>
+                </div>
+            </mat-card-content>
+        </form>
+    </mat-card>
+</div>

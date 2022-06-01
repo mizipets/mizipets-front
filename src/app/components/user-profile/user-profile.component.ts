@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CloseAccountPopUpComponent } from '../close-account-pop-up/close-account-pop-up.component';
 import { TranslateService } from '@ngx-translate/core';
+import { S3Service } from '../../services/s3.service';
 
 @Component({
     selector: 'app-user-profile',
@@ -36,11 +37,16 @@ export class UserProfileComponent implements OnInit {
      */
     user: UserModel = {} as UserModel;
 
+    file: File = {} as File;
+
+    fileName = "";
+
     constructor(
         private userService: UserService,
         private snackBar: MatSnackBar,
         private closeAccountDialog: MatDialog,
         private translate: TranslateService,
+        private s3Service: S3Service,
         public formBuilder: FormBuilder
     ) {
         this.firstnameCtrl = formBuilder.control('', [
@@ -117,6 +123,7 @@ export class UserProfileComponent implements OnInit {
                 this.profileForm.controls['country'].setValue(
                     this.user.address.country
                 );
+                this.fileName = this.user.photo;
             },
             error: (error) => {
                 console.error(error);
@@ -137,19 +144,41 @@ export class UserProfileComponent implements OnInit {
         );
     }
 
+    onChange(event: any) {
+        if (event.target.files) {
+            var reader = new FileReader();
+            this.file = event.target.files[0];
+            reader.readAsDataURL(this.file);
+            reader.onload = (e: any) => {
+                this.fileName = e.target.result;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', this.file);
+            this.s3Service.uploadImage(this.user.id, 'avatar', formData).subscribe({
+                next: (_) => {
+                    this.openSnackBar();
+                },
+                error: (error) => {
+                    console.error(error);
+                }
+            })
+        }
+    }
+
     onSubmit(): void {
         // Process checkout data here
         (this.user.firstname = this.profileForm.value.firstname),
-            (this.user.lastname = this.profileForm.value.lastname),
-            (this.user.email = this.profileForm.value.email),
-            (this.user.address.street = this.profileForm.value.street),
-            (this.user.address.apartment = this.profileForm.value.apartment),
-            (this.user.address.zip = this.profileForm.value.zip),
-            (this.user.address.city = this.profileForm.value.city),
-            (this.user.address.country = this.profileForm.value.country);
+        (this.user.lastname = this.profileForm.value.lastname),
+        (this.user.email = this.profileForm.value.email),
+        (this.user.address.street = this.profileForm.value.street),
+        (this.user.address.apartment = this.profileForm.value.apartment),
+        (this.user.address.zip = this.profileForm.value.zip),
+        (this.user.address.city = this.profileForm.value.city),
+        (this.user.address.country = this.profileForm.value.country);
 
         this.userService.updateUser(this.user).subscribe({
-            next: () => {
+            next: (user: UserModel) => {
                 this.openSnackBar();
             },
             error: (error) => {

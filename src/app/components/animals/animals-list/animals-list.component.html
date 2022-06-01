@@ -88,7 +88,7 @@
 
     <mat-grid-list [cols]="valueCols" rowHeight="500px" *ngIf="filteredAnimals.length > 0">
       <mat-grid-tile *ngFor="let animal of filteredAnimals">
-        <mat-card>
+        <mat-card class="mx-1">
           <img mat-card-image src="{{animal.images[0]}}" alt="animal image">
           <mat-card-content>
             <div class="d-flex justify-content-between">

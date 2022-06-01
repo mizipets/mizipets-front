@@ -21,7 +21,21 @@ export interface AnimalModel {
     images: string[];
     isAdoption: boolean;
     isLost: boolean;
-    sex: string;
+    sex: Sex;
     owner: UserModel;
     race: RaceModel;
+}
+
+export interface CreateAdoption {
+    name: string;
+    comment: string;
+    birthDate: Date;
+    sex: string;
+    raceId: number;
+}
+
+export enum Sex {
+    male = 'male',
+    female = 'female',
+    unknown = 'unknown'
 }
