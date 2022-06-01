@@ -3,18 +3,16 @@ import { Router } from '@angular/router';
 import {
     FormBuilder,
     FormControl,
-    FormGroup,
     Validators
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { RaceModel } from '../../../models/race.model';
 import { SpecieModel } from '../../../models/specie.model';
 import { SpeciesService } from '../../../services/species.service';
 import { AnimalsService } from '../../../services/animals.service';
 import { S3Service } from '../../../services/s3.service';
-import { AnimalModel, CreateAdoption } from '../../../models/animal.model';
+import { AnimalModel, CreateAdoption, Sex } from '../../../models/animal.model';
 
 @Component({
   selector: 'app-animals-create',
@@ -35,7 +33,7 @@ export class AnimalsCreateComponent implements OnInit {
 
   newAnimal: CreateAdoption = {} as CreateAdoption;
 
-  Sex: string[] = ["Unknown", "Male", "Female"];
+  Sex: string[] = Object.values(Sex);;
 
   nameCtrl: FormControl = this.formBuilder.control('', [
     Validators.required, 
@@ -59,7 +57,6 @@ export class AnimalsCreateComponent implements OnInit {
     name: this.nameCtrl,
     comment: this.commentCtrl,
     birthDate: this.birthDateCtrl,
-    //images: ['', Validators.required],
     sex: this.sexCtrl,
     specie: this.specieCtrl,
     race: this.raceCtrl,
@@ -110,7 +107,6 @@ export class AnimalsCreateComponent implements OnInit {
 
     this.animalService.createAdoption(this.newAnimal).subscribe({
       next: (animal: AnimalModel) => {
-        console.log(animal)
         const formData = new FormData();
         formData.append('file', this.file);
         this.s3Service.uploadImage(animal.id, 'animal', formData).subscribe({
@@ -141,8 +137,6 @@ export class AnimalsCreateComponent implements OnInit {
       reader.onload = (e: any) => {
         this.fileName = e.target.result;
       }
-      //this.img = event.target.files;
-      console.log(event.target.files);  
       this.newImage = true;
     }
   }

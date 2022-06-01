@@ -1,7 +1,10 @@
 <div class="justify-content-center my-5">
     <mat-card>
         <mat-card-header>
-            <mat-card-title class="justify-content-center">{{'animals-add.title' | translate}}</mat-card-title>
+            <div class="justify-content-start align-items-center">
+                <button *ngIf="next" mat-icon-button matPrefix (click)="onBack()"><mat-icon>arrow_back</mat-icon></button>
+                <mat-card-title class="mt-2 justify-content-center">{{'animals-add.title' | translate}}</mat-card-title>
+            </div>
         </mat-card-header>
         <form [formGroup]="animalForm" (ngSubmit)="onSubmit()">
             <mat-card-content *ngIf="!next">
@@ -65,11 +68,8 @@
                     <mat-error>{{'common.error' | translate}}</mat-error>
                 </mat-form-field>
                 <div class="justify-content-center">
-                    <button mat-flat-button color="primary" type="submit" [disabled]="animalForm.invalid">{{'animals-add.button' | translate}}</button>
+                    <button *ngIf="!isLoading" mat-flat-button color="primary" type="submit" [disabled]="animalForm.invalid">{{'animals-add.button' | translate}}</button>
                     <mat-spinner *ngIf="isLoading"></mat-spinner>
-                </div>
-                <div class="justify-content-center my-4">
-                    <button mat-flat-button color="warn" type="back" (click)="onBack()" >{{'common.cancel' | translate}}</button>
                 </div>
             </mat-card-content>
         </form>

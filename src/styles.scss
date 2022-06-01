@@ -223,6 +223,10 @@ body {
   top: 0 !important;
   z-index: 999;
 }
+.align-items-center {
+  display: flex !important;
+  align-items: center !important;
+}
 .justify-content-start {
   display: flex !important;
   justify-content: flex-start !important;
