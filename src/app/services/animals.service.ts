@@ -21,8 +21,7 @@ export class AnimalsService {
 
     createAdoption(animalData: CreateAdoption): Observable<any> {
         return this.http.post<any>(
-            environment.baseUrl +
-            'animals/adoption',
+            environment.baseUrl + 'animals/adoption',
             animalData
         );
     }

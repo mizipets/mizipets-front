@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { RegisterModel } from '../models/register.model';
-import { map } from 'rxjs/operators'
 
 @Injectable({
     providedIn: 'root'
