@@ -36,21 +36,21 @@ export class AnimalsCreateComponent implements OnInit {
   Sex: string[] = Object.values(Sex);;
 
   nameCtrl: FormControl = this.formBuilder.control('', [
-    Validators.required, 
+    Validators.required,
     Validators.minLength(3)]);
 
   commentCtrl: FormControl = this.formBuilder.control('');
 
-  birthDateCtrl: FormControl = this.formBuilder.control('', 
-    Validators.required);
-  
-  sexCtrl: FormControl = this.formBuilder.control('', 
+  birthDateCtrl: FormControl = this.formBuilder.control('',
     Validators.required);
 
-  specieCtrl: FormControl = this.formBuilder.control('', 
+  sexCtrl: FormControl = this.formBuilder.control('',
     Validators.required);
 
-  raceCtrl: FormControl = this.formBuilder.control('', 
+  specieCtrl: FormControl = this.formBuilder.control('',
+    Validators.required);
+
+  raceCtrl: FormControl = this.formBuilder.control('',
     Validators.required);
 
   animalForm = this.formBuilder.group({
@@ -113,25 +113,25 @@ export class AnimalsCreateComponent implements OnInit {
           next: () => {
             this.openSnackBar('animals-add.button');
             this.isLoading = false;
-            this.router.navigateByUrl('/animals')
+            this.router.navigateByUrl('/animals');
           },
           error: (error) => {
             console.error(error);
             this.openSnackBar('animals-add.image-error');
           }
-        }) 
+        })
       },
       error: (error) => {
         console.error(error);
         this.openSnackBar('animals-add.animal-error');
       }
     })
-    
+
   }
 
   onChange(event: any) {
     if (event.target.files) {
-      var reader = new FileReader();
+      let reader = new FileReader();
       this.file = event.target.files[0];
       reader.readAsDataURL(this.file);
       reader.onload = (e: any) => {
