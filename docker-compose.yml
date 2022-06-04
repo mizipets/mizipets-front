@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  front:
+    build: .
+    container_name: mizipets-front
+    ports:
+      - "2999:80"
+    restart: always
