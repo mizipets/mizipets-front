@@ -18,8 +18,6 @@ import { AnimalModel, CreateAdoption, Sex } from '../../../models/animal.model';
 export class AnimalsCreateComponent implements OnInit {
     isLoading: boolean = false;
 
-    isLoading: boolean = false;
-
     newImage: boolean = false;
 
     next = false;
