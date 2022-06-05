@@ -23,18 +23,6 @@ export class AnimalsListComponent implements OnInit {
      * Filter checkbox to display adopted animals
      */
     adoptionChecked: boolean = false;
-    /**
-    * Filter checkbox to display adopted animals
-    */
-    isMale: boolean = false;
-   /**
-     * Filter checkbox to display adopted animals
-     */
-    isFemale: boolean = false;
-    /**
-     * Filter checkbox to display adopted animals
-     */
-    isUnknown: boolean = false;
 
     checked: boolean = false;
 
@@ -63,16 +51,15 @@ export class AnimalsListComponent implements OnInit {
     Sex: string[] = Object.values(Sex);
     genderCheckList: GenderCheck[] = [];
 
-    
+
     races: RaceModel[] = [];
     racesCheckList: RaceCheck[] = [];
     species: SpecieModel[] = [];
     speciesCheckList: SpecieCheck[] = [];
-    currentDate: Date = new Date();
     Age: string[] = Object.values(Age);
     agesCheckList: AgeCheck[] = [];
 
-    
+
     constructor(private animalService: AnimalsService,
         private specieService: SpeciesService) {}
 
@@ -86,7 +73,6 @@ export class AnimalsListComponent implements OnInit {
                 this.animals = animals;
                 this.filterList(true);
                 this.isLoading = false;
-                console.log(animals[0])
             },
             error: (error) => {
                 console.error(error);
@@ -104,25 +90,23 @@ export class AnimalsListComponent implements OnInit {
             }
         });
         this.setupGenderList();
-        this.setupAgeList(); 
+        this.setupAgeList();
     }
 
     onSpecieChange(val: SpecieCheck) {
-        console.log(val);
-        console.log(this.storedSpecieID);
         if (this.storedSpecieID === val.specie.id) {
-            this.storedSpecieID = -1; 
+            this.storedSpecieID = -1;
             this.races = [];
             val.checked = false;
                 for (let specieC of this.speciesCheckList) {
                     if (specieC.specie !== val.specie) {
                         specieC.disabled = false;
-                    } 
+                    }
                 }
             this.filterList(!this.adoptionChecked);
-            if (this.storedGenderID !== "") 
+            if (this.storedGenderID !== "")
                 this.filterListGender(this.storedGenderID);
-            if (this.storedRange !== "") 
+            if (this.storedRange !== "")
                 this.filterListAge(this.storedRange);
         }
         else {
@@ -135,7 +119,7 @@ export class AnimalsListComponent implements OnInit {
                     for (let specieC of this.speciesCheckList) {
                         if (specieC.specie !== val.specie) {
                             specieC.disabled = true;
-                        } 
+                        }
                     this.filterListSpecie(val.specie.id)
                     }
                 },
@@ -144,26 +128,22 @@ export class AnimalsListComponent implements OnInit {
                 }
             });
         }
-        
-        console.log(this.speciesCheckList);
     }
 
     onRaceChange(val: RaceCheck) {
-        console.log(val);
-        console.log(this.storedRaceID);
         if (this.storedRaceID === val.race.id) {
             this.storedRaceID = -1;
             val.checked = false;
                 for (let raceC of this.racesCheckList) {
                     if (raceC.race !== val.race) {
                         raceC.disabled = false;
-                    } 
+                    }
                 }
             this.filterList(!this.adoptionChecked);
             this.filterListSpecie(this.storedSpecieID);
-            if (this.storedGenderID !== "") 
+            if (this.storedGenderID !== "")
                 this.filterListGender(this.storedGenderID);
-            if (this.storedRange !== "") 
+            if (this.storedRange !== "")
                 this.filterListAge(this.storedRange);
         }
         else {
@@ -172,33 +152,29 @@ export class AnimalsListComponent implements OnInit {
             for (let raceC of this.racesCheckList) {
                 if (raceC.race !== val.race) {
                     raceC.disabled = true;
-                } 
+                }
             }
             this.filterListRace(val.race.id)
         }
-        
-        console.log(this.racesCheckList);
     }
 
     onGenderChange(val: GenderCheck) {
-        console.log(val);
-        console.log(this.storedGenderID);
         if (this.storedGenderID === val.sex) {
             this.storedGenderID = "";
             val.checked = false;
                 for (let sexC of this.genderCheckList) {
                     if (sexC.sex !== val.sex) {
                         sexC.disabled = false;
-                    } 
+                    }
                 }
             this.filterList(!this.adoptionChecked);
             if (this.storedSpecieID !== -1) {
                 this.filterListSpecie(this.storedSpecieID);
                 if (this.storedRaceID !== -1) {
-                    this.filterListRace(this.storedRaceID);  
+                    this.filterListRace(this.storedRaceID);
                 }
             }
-            if (this.storedRange !== "") 
+            if (this.storedRange !== "")
                 this.filterListAge(this.storedRange);
         }
         else {
@@ -206,33 +182,29 @@ export class AnimalsListComponent implements OnInit {
             for (let sexC of this.genderCheckList) {
                 if (sexC.sex !== val.sex) {
                     sexC.disabled = true;
-                } 
+                }
             }
             this.filterListGender(val.sex);
         }
-        
-        console.log(this.speciesCheckList);
     }
 
     onAgeChange(val: AgeCheck) {
-        console.log(val);
-        console.log(this.storedGenderID);
         if (this.storedRange === val.range) {
             this.storedRange = "";
             val.checked = false;
                 for (let rangeC of this.agesCheckList) {
                     if (rangeC.range !== val.range) {
                         rangeC.disabled = false;
-                    } 
+                    }
                 }
             this.filterList(!this.adoptionChecked);
             if (this.storedSpecieID !== -1) {
                 this.filterListSpecie(this.storedSpecieID);
                 if (this.storedRaceID !== -1) {
-                    this.filterListRace(this.storedRaceID);  
+                    this.filterListRace(this.storedRaceID);
                 }
             }
-            if (this.storedGenderID !== "") 
+            if (this.storedGenderID !== "")
                 this.filterListGender(this.storedGenderID);
         }
         else {
@@ -240,12 +212,10 @@ export class AnimalsListComponent implements OnInit {
             for (let rangeC of this.agesCheckList) {
                 if (rangeC.range !== val.range) {
                     rangeC.disabled = true;
-                } 
+                }
             }
             this.filterListAge(val.range);
         }
-        
-        console.log(this.speciesCheckList);
     }
 
     setValueColsToStorage(): number {
@@ -273,14 +243,12 @@ export class AnimalsListComponent implements OnInit {
     }
 
     filterListGender(sex: string): void {
-        console.log(sex);
         this.filteredAnimals = this.filteredAnimals.filter(
             (animal) => (animal.sex === sex)
-        );  
+        );
     }
 
     filterListAge(range: string): void {
-        console.log(range);
         let lowerLimit = new Date();
         let upperLimit = new Date();
         switch(range) {
@@ -307,13 +275,9 @@ export class AnimalsListComponent implements OnInit {
                 break;
             }
         }
-        console.log(this.currentDate)
-        console.log(lowerLimit)
-        console.log(upperLimit)
-        console.log(this.animals[0].birthDate)
         this.filteredAnimals = this.filteredAnimals.filter(
             (animal) => (new Date(animal.birthDate).getTime() < lowerLimit.getTime()) && (new Date(animal.birthDate).getTime() > upperLimit.getTime())
-        );  
+        );
     }
 
     setupSpeciesList(species: SpecieModel[]) {
@@ -322,7 +286,6 @@ export class AnimalsListComponent implements OnInit {
             let disabled = false;
             this.speciesCheckList.push({specie, checked, disabled})
         }
-        console.log(this.speciesCheckList);
     }
 
     setupRacesList(races: RaceModel[]) {
@@ -331,7 +294,6 @@ export class AnimalsListComponent implements OnInit {
             let disabled = false;
             this.racesCheckList.push({race, checked, disabled})
         }
-        console.log(this.speciesCheckList);
     }
 
     setupGenderList() {
@@ -340,18 +302,14 @@ export class AnimalsListComponent implements OnInit {
             let disabled = false;
             this.genderCheckList.push({sex, checked, disabled})
         }
-        console.log(this.speciesCheckList);
     }
 
     setupAgeList() {
         let checked = false;
         let disabled = false;
         for (let range of this.Age) {
-            /*date = this.currentDate;
-            date.setFullYear(this.currentDate.getFullYear() - range)*/
             this.agesCheckList.push({range, checked, disabled})
         }
-        console.log(this.speciesCheckList);
     }
 }
 

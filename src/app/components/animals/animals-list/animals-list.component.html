@@ -26,14 +26,6 @@
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              {{'animals.filter.location' | translate}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel class="mb-3">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
               {{'animals.filter.species' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -41,12 +33,11 @@
             <mat-checkbox
               class="my-1"
               [checked]="specieCheck.checked"
-              [disabled]="specieCheck.disabled" 
+              [disabled]="specieCheck.disabled"
               (change)="onSpecieChange(specieCheck)">
               {{ specieCheck.specie.name }}
             </mat-checkbox>
           </div>
-          <p>I'm visible because I am open</p>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
@@ -63,7 +54,7 @@
               {{ raceCheck.race.name }}
             </mat-checkbox>
           </div>
-          <p>I'm visible because I am open</p>
+          <p *ngIf="storedSpecieID === -1">{{'animals.filter.breeds-empty' | translate}}</p>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
@@ -80,7 +71,6 @@
               {{ genderCheck.sex }}
             </mat-checkbox>
           </div>
-          <p>I'm visible because I am open</p>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
@@ -97,7 +87,6 @@
               {{ ageCheck.range }}
             </mat-checkbox>
           </div>
-          <p>I'm visible because I am open</p>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
