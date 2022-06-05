@@ -131,7 +131,7 @@ export class AnimalsCreateComponent implements OnInit {
 
   onChange(event: any) {
     if (event.target.files) {
-      var reader = new FileReader();
+      let reader = new FileReader();
       this.file = event.target.files[0];
       reader.readAsDataURL(this.file);
       reader.onload = (e: any) => {

@@ -37,6 +37,15 @@
               {{'animals.filter.species' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div *ngFor="let specieCheck of speciesCheckList">
+            <mat-checkbox
+              class="my-1"
+              [checked]="specieCheck.checked"
+              [disabled]="specieCheck.disabled" 
+              (change)="onSpecieChange(specieCheck)">
+              {{ specieCheck.specie.name }}
+            </mat-checkbox>
+          </div>
           <p>I'm visible because I am open</p>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
@@ -45,6 +54,15 @@
               {{'animals.filter.breeds' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div style="max-height: 50px !important;" *ngFor="let raceCheck of racesCheckList">
+            <mat-checkbox
+              class="my-1"
+              [checked]="raceCheck.checked"
+              [disabled]="raceCheck.disabled"
+              (change)="onRaceChange(raceCheck)">
+              {{ raceCheck.race.name }}
+            </mat-checkbox>
+          </div>
           <p>I'm visible because I am open</p>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
@@ -53,6 +71,15 @@
               {{'animals.filter.gender' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div *ngFor="let genderCheck of genderCheckList">
+            <mat-checkbox
+              class="my-1"
+              [checked]="genderCheck.checked"
+              [disabled]="genderCheck.disabled"
+              (change)="onGenderChange(genderCheck)">
+              {{ genderCheck.sex }}
+            </mat-checkbox>
+          </div>
           <p>I'm visible because I am open</p>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
@@ -61,6 +88,15 @@
               {{'animals.filter.age' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div *ngFor="let ageCheck of agesCheckList">
+            <mat-checkbox
+              class="my-1"
+              [checked]="ageCheck.checked"
+              [disabled]="ageCheck.disabled"
+              (change)="onAgeChange(ageCheck)">
+              {{ ageCheck.range }}
+            </mat-checkbox>
+          </div>
           <p>I'm visible because I am open</p>
         </mat-expansion-panel>
       </mat-accordion>
