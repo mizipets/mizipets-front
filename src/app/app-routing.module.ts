@@ -10,7 +10,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component'
+import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },

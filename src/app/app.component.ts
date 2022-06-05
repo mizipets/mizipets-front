@@ -8,13 +8,10 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class AppComponent implements OnInit {
     isMobileDevice: boolean = false;
-    
-    constructor (
-        private deviceService: DeviceDetectorService) {}
+
+    constructor(private deviceService: DeviceDetectorService) {}
 
     ngOnInit(): void {
-        if (this.deviceService.isMobile() || this.deviceService.isTablet())
-            this.isMobileDevice = true;
-        else this.isMobileDevice = false;
+        this.isMobileDevice = this.deviceService.isMobile() || this.deviceService.isTablet();
     }
 }

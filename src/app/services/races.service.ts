@@ -11,9 +11,6 @@ export class RacesService {
     constructor(private http: HttpClient) {}
 
     getRaces(): Observable<RaceModel[]> {
-        return this.http.get<RaceModel[]>(
-            environment.baseUrl +
-                'races'
-        );
+        return this.http.get<RaceModel[]>(environment.baseUrl + 'races');
     }
 }
