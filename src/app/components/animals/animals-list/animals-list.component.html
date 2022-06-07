@@ -18,7 +18,7 @@
       <mat-checkbox
         class="my-3"
         [(ngModel)]="adoptionChecked"
-        (click)="filterList(adoptionChecked)">
+        (click)="filter(adoptionChecked)">
         {{'animals.filter.adopted' | translate}}
       </mat-checkbox>
 
@@ -26,18 +26,18 @@
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              {{'animals.filter.location' | translate}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel class="mb-3">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
               {{'animals.filter.species' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <div *ngFor="let specieCheck of speciesCheckList">
+            <mat-checkbox
+              class="my-1"
+              [checked]="specieCheck.checked"
+              [disabled]="specieCheck.disabled"
+              (change)="onChange(specieCheck, 'specie')">
+              {{ specieCheck.specie.name }}
+            </mat-checkbox>
+          </div>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
@@ -45,7 +45,16 @@
               {{'animals.filter.breeds' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <div style="max-height: 50px !important;" *ngFor="let raceCheck of racesCheckList">
+            <mat-checkbox
+              class="my-1"
+              [checked]="raceCheck.checked"
+              [disabled]="raceCheck.disabled"
+              (change)="onChange(raceCheck, 'race')">
+              {{ raceCheck.race.name }}
+            </mat-checkbox>
+          </div>
+          <p *ngIf="storedNumbers[0] === -1">{{'animals.filter.breeds-empty' | translate}}</p>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
@@ -53,7 +62,15 @@
               {{'animals.filter.gender' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <div *ngFor="let genderCheck of genderCheckList">
+            <mat-checkbox
+              class="my-1"
+              [checked]="genderCheck.checked"
+              [disabled]="genderCheck.disabled"
+              (change)="onChange(genderCheck, 'sex')">
+              {{ genderCheck.type }}
+            </mat-checkbox>
+          </div>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
@@ -61,7 +78,15 @@
               {{'animals.filter.age' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <div *ngFor="let ageCheck of agesCheckList">
+            <mat-checkbox
+              class="my-1"
+              [checked]="ageCheck.checked"
+              [disabled]="ageCheck.disabled"
+              (change)="onChange(ageCheck, 'age')">
+              {{ ageCheck.type }}
+            </mat-checkbox>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
@@ -82,7 +107,7 @@
       <p class="text-center" *ngIf="!adoptionChecked">{{'animals.no-animals' | translate}}</p>
       <p class="text-center" *ngIf="adoptionChecked">{{'animals.no-adopted-animals' | translate}}</p>
       <div class="d-flex justify-content-center">
-        <button mat-flat-button color="primary" type="button">{{'animals.add' | translate}}</button>
+        <button mat-flat-button color="primary" type="button"   routerLink="/animal-create">{{'animals.add' | translate}}</button>
       </div>
     </div>
 
@@ -113,7 +138,7 @@
 
           <mat-card-actions class="d-flex" [ngClass]="{'justify-content-between': !animal.isAdoption, 'justify-content-end': animal.isAdoption}">
             <button mat-icon-button color="warn" *ngIf="!animal.isAdoption" disableRipple style="cursor: default">
-              <mat-icon>verified</mat-icon> Adopté
+              <mat-icon>verified</mat-icon> {{'animals.adopted' | translate}}
             </button>
             <button mat-flat-button [routerLink]="['/animal', animal.id]">{{'animals.edit' | translate}}</button>
           </mat-card-actions>
