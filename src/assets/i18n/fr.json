@@ -68,7 +68,8 @@
       "breeds-empty": "Vous devez d'abord choisir une espèce avant de choisir une race",
       "species": "Espèces",
       "gender": "Sexe",
-      "age": "Âge"
+      "age": "Âge",
+      "breeds-empty": "Vous devez d'abord sélectionner une espèce"
     }
   },
   "animals-add": {

@@ -89,7 +89,8 @@ export class AnimalsListComponent implements OnInit {
     ngOnInit(): void {
         this.isLoading = true;
         const storageValue = localStorage.getItem('valueCols');
-        if (storageValue) this.valueCols = parseInt(storageValue);
+        if (storageValue)
+          this.valueCols = parseInt(storageValue);
 
         this.animalService.getUserAnimals().subscribe({
             next: (animals: AnimalModel[]) => {
@@ -117,7 +118,7 @@ export class AnimalsListComponent implements OnInit {
     }
 
     onChange (val: SpecieCheck | RaceCheck | TypeCheck, tag: string): void {
-        let idx = 0;   
+        let idx = 0;
         if (tag === "specie") {
             val = val as SpecieCheck;
             if (this.storedNumbers[0] === -1) {
@@ -134,7 +135,7 @@ export class AnimalsListComponent implements OnInit {
                     }
                 });
             }
-            else 
+            else
                 this.storedNumbers[0] = -1;
                 this.racesCheckList = [];
         }
@@ -143,14 +144,14 @@ export class AnimalsListComponent implements OnInit {
             val = val as RaceCheck;
             if (this.storedNumbers[1] === -1)
                 this.storedNumbers[1] = val.race.id;
-            else 
+            else
                 this.storedNumbers[1] = -1;
         }
 
         else {
             val = val as TypeCheck;
-            
-            if (tag === "sex") 
+
+            if (tag === "sex")
                 idx = 2;
 
             else if (tag === "age") {
@@ -160,7 +161,7 @@ export class AnimalsListComponent implements OnInit {
 
             if (this.storedNumbers[idx] === "")
                 this.storedNumbers[idx] = val.type as string;
-            else 
+            else
                 this.storedNumbers[idx] = "";
         }
 
@@ -195,7 +196,7 @@ export class AnimalsListComponent implements OnInit {
             this.filter(val, tag)
             count++;
         }
-        
+
     }
 
     setValueColsToStorage(): number {
@@ -225,8 +226,8 @@ export class AnimalsListComponent implements OnInit {
             }
             else if (argument != "") console.error("wrong tag");
 
-            
-            
+
+
         }
         else if (typeof argument === 'number')
             if (tag == "specie") {
@@ -234,8 +235,8 @@ export class AnimalsListComponent implements OnInit {
                     this.filteredAnimals = this.filteredAnimals.filter(
                         (animal) => animal.race.specie.id === argument
                     );
-                console.log(tag)    
-                this.checkBoxHandler(this.speciesCheckList, argument, tag); 
+                console.log(tag)
+                this.checkBoxHandler(this.speciesCheckList, argument, tag);
             }
 
             else if (tag == "race") {
@@ -243,9 +244,9 @@ export class AnimalsListComponent implements OnInit {
                     this.filteredAnimals = this.filteredAnimals.filter(
                         (animal) => animal.race.id === argument
                     );
-                this.checkBoxHandler(this.racesCheckList, argument, tag); 
+                this.checkBoxHandler(this.racesCheckList, argument, tag);
             }
-                
+
 
             else console.error("wrong tag")
 
@@ -253,7 +254,7 @@ export class AnimalsListComponent implements OnInit {
 
     checkBoxHandler(list: SpecieCheck[] | RaceCheck[] | TypeCheck[], id : number | string, tag: string = ""): void {
         if (typeof id === 'number') {
-            if (id != -1) {            
+            if (id != -1) {
                 if (tag === "specie") {
                     list = list as SpecieCheck[];
                     for (let value of list) {
@@ -263,9 +264,9 @@ export class AnimalsListComponent implements OnInit {
                         else {
                             value.checked = false;
                             value.disabled = true;
-                        } 
+                        }
                     }
-            
+
                 }
                 else if (tag === "race") {
                     list = list as RaceCheck[];
@@ -276,7 +277,7 @@ export class AnimalsListComponent implements OnInit {
                         else {
                             value.checked = false;
                             value.disabled = true;
-                        } 
+                        }
                     }
                 }
             }
@@ -297,7 +298,7 @@ export class AnimalsListComponent implements OnInit {
                     else {
                         value.checked = false;
                         value.disabled = true;
-                    } 
+                    }
                 }
             }
             else {
@@ -346,22 +347,22 @@ export class AnimalsListComponent implements OnInit {
         let disabled = false;
         if (typeof type === 'string') {
             if (tag === "age")
-                for (let type of this.Age) 
+                for (let type of this.Age)
                     this.agesCheckList.push({type, checked, disabled});
 
             else if (tag === "sex")
-                for (let type of this.Sex)                 
+                for (let type of this.Sex)
                     this.genderCheckList.push({type, checked, disabled});
 
             else console.error("wrong tag")
         }
         else {
             if (tag === "specie")
-                for (let specie of type as SpecieModel[]) 
+                for (let specie of type as SpecieModel[])
                 this.speciesCheckList.push({specie, checked, disabled});
 
             else if (tag === "race")
-                for (let race of type as RaceModel[])                 
+                for (let race of type as RaceModel[])
                     this.racesCheckList.push({race, checked, disabled});
 
             else console.error("wrong tag")

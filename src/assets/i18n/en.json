@@ -68,7 +68,8 @@
       "breeds-empty": "You must choose a specie first before choosing a race",
       "species": "Species",
       "gender": "Gender",
-      "age": "Age"
+      "age": "Age",
+      "breeds-empty": "You must first select a species"
     }
   },
   "animals-add": {

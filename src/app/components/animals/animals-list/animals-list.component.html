@@ -107,7 +107,7 @@
       <p class="text-center" *ngIf="!adoptionChecked">{{'animals.no-animals' | translate}}</p>
       <p class="text-center" *ngIf="adoptionChecked">{{'animals.no-adopted-animals' | translate}}</p>
       <div class="d-flex justify-content-center">
-        <button mat-flat-button color="primary" type="button">{{'animals.add' | translate}}</button>
+        <button mat-flat-button color="primary" type="button"   routerLink="/animal-create">{{'animals.add' | translate}}</button>
       </div>
     </div>
 
