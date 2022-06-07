@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { Address, Preferences, Shelter } from '../../../models/user.model';
 import { RegisterModel } from '../../../models/register.model';
 import { TranslateService } from '@ngx-translate/core';
+import { Device } from '../login/login.component';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
     selector: 'app-register',
@@ -39,7 +41,8 @@ export class RegisterComponent implements OnInit {
         private authService: AuthService,
         private router: Router,
         private snackBar: MatSnackBar,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private deviceService: DeviceDetectorService
     ) {
         /**
          * Form controls with validators
@@ -142,7 +145,15 @@ export class RegisterComponent implements OnInit {
                     email: this.registerForm.value.email,
                     password: this.registerForm.value.password
                 };
-                this.authService.login(loginForm).subscribe({
+                const device: Device = {} as Device;
+                device.browser = this.deviceService.browser;
+                device.browser_version = this.deviceService.browser_version;
+                device.deviceType = this.deviceService.deviceType;
+                device.os = this.deviceService.os;
+                device.os_version = this.deviceService.os_version;
+                const credential = Object.assign(loginForm, device);
+
+                this.authService.login(credential).subscribe({
                     next: (result: { token: string; refreshKey: string }) => {
                         localStorage.setItem('isTokenStored', 'true');
                         this.authService.isTokenStored = true;

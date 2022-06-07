@@ -42,13 +42,13 @@
       <!-- Step two -->
       <mat-card-content *ngIf="next" class="mt-4">
         <mat-form-field appearance="outline" class="my-1">
-          <mat-label>{{'register.shelter' | translate}}</mat-label>
+          <mat-label>{{'common.shelter' | translate}}</mat-label>
           <input matInput formControlName="shelter" required>
         </mat-form-field>
         <br/>
-        <p>{{'register.address.title' | translate}}</p>
+        <p>{{'common.address.title' | translate}}</p>
         <mat-form-field appearance="outline">
-          <mat-label>{{'register.address.country' | translate}}</mat-label>
+          <mat-label>{{'common.address.country' | translate}}</mat-label>
           <mat-select  formControlName="country" required>
             <mat-option *ngFor="let country of countries" [value]="country.value">
               {{country.display}}
@@ -57,27 +57,27 @@
         </mat-form-field>
         <br/>
         <mat-form-field appearance="outline" class="my-1">
-          <mat-label>{{'register.address.street' | translate}}</mat-label>
+          <mat-label>{{'common.address.street' | translate}}</mat-label>
           <input matInput formControlName="street" required>
         </mat-form-field>
         <br/>
         <mat-form-field appearance="outline" class="my-1">
-          <mat-label>{{'register.address.apartment' | translate}}</mat-label>
+          <mat-label>{{'common.address.apartment' | translate}}</mat-label>
           <input matInput formControlName="apartment">
         </mat-form-field>
         <div class="d-flex justify-content-center">
           <mat-form-field appearance="outline" class="my-1 mr-2">
-            <mat-label>{{'register.address.zip' | translate}}</mat-label>
+            <mat-label>{{'common.address.zip' | translate}}</mat-label>
             <input matInput formControlName="zip" maxlength="5" required>
           </mat-form-field>
           <mat-form-field appearance="outline" class="my-1">
-            <mat-label>{{'register.address.city' | translate}}</mat-label>
+            <mat-label>{{'common.address.city' | translate}}</mat-label>
             <input matInput formControlName="city" required>
           </mat-form-field>
         </div>
 
         <mat-checkbox color="primary" class="my-3" [checked]="check">
-          J'ai lu et j'accèpte les <a routerLink="/legal">conditions générales d'utilisation</a>
+          {{'register.condition' | translate}}<a routerLink="/legal">{{'register.condition-link' | translate}}</a>
         </mat-checkbox>
         <button mat-flat-button color="primary" type="submit" class="mt-1" [disabled]="registerForm.invalid">{{'register.button' | translate}}</button>
       </mat-card-content>

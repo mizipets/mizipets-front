@@ -51,7 +51,9 @@
     "subtitle": "Je suis un refuge, un eleveur, ou une association.",
     "button": "Créer mon compte",
     "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
-    "success": "Compte créé"
+    "success": "Compte créé",
+    "condition": "J'ai lu et j'accepte les ",
+    "condition-link": "conditions générales d'utilisation"
   },
   "animals": {
     "no-animals": "Aucun animals pour le moment",
@@ -65,7 +67,6 @@
       "adopted": "Adopté",
       "location": "Localisation",
       "breeds": "Races",
-      "breeds-empty": "Vous devez d'abord choisir une espèce avant de choisir une race",
       "species": "Espèces",
       "gender": "Sexe",
       "age": "Âge",
