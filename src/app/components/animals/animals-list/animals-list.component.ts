@@ -24,16 +24,10 @@ export class AnimalsListComponent implements OnInit {
      */
     adoptionChecked: boolean = false;
 
-    checked: boolean = false;
-
-    storedSpecieID: number = -1;
-
-    storedRaceID: number = -1;
-
-    storedGenderID: string = "";
-
-    storedRange: string = "";
-
+    /**
+     * All checkbox id checked, -1 or "" if all checkbox are unchecked
+     */
+    storedNumbers: Array<number | string> = [-1, -1, "", ""];
 
     /**
      * Number of animals on grid line
@@ -48,16 +42,45 @@ export class AnimalsListComponent implements OnInit {
      */
     filteredAnimals: AnimalModel[] = [];
 
+    /**
+     * Sex enum as string list
+     */
     Sex: string[] = Object.values(Sex);
-    genderCheckList: GenderCheck[] = [];
 
-
-    races: RaceModel[] = [];
-    racesCheckList: RaceCheck[] = [];
-    species: SpecieModel[] = [];
-    speciesCheckList: SpecieCheck[] = [];
+    /**
+     * Age enum as string list
+     */
     Age: string[] = Object.values(Age);
-    agesCheckList: AgeCheck[] = [];
+
+    /**
+     * Gender checkbox list
+     */
+    genderCheckList: TypeCheck[] = [];
+
+    /**
+     * Age checkbox list
+     */
+    agesCheckList: TypeCheck[] = [];
+
+    /**
+     * Species list
+     */
+    species: SpecieModel[] = [];
+
+    /**
+     * Species checkbox list
+     */
+    speciesCheckList: SpecieCheck[] = [];
+
+    /**
+     * Races list, empty until a specie is setted
+     */
+    races: RaceModel[] = [];
+
+    /**
+     * Races checkbox list
+     */
+    racesCheckList: RaceCheck[] = [];
 
 
     constructor(private animalService: AnimalsService,
@@ -71,7 +94,7 @@ export class AnimalsListComponent implements OnInit {
         this.animalService.getUserAnimals().subscribe({
             next: (animals: AnimalModel[]) => {
                 this.animals = animals;
-                this.filterList(true);
+                this.filter(true);
                 this.isLoading = false;
             },
             error: (error) => {
@@ -83,139 +106,96 @@ export class AnimalsListComponent implements OnInit {
         this.specieService.getSpecies().subscribe({
             next: (species: SpecieModel[]) => {
               this.species = species;
-              this.setupSpeciesList(species);
+              this.setupList(species, "specie");
             },
             error: (error) => {
               console.error(error);
             }
         });
-        this.setupGenderList();
-        this.setupAgeList();
+        this.setupList("", "sex");
+        this.setupList("", "age");
     }
 
-    onSpecieChange(val: SpecieCheck) {
-        if (this.storedSpecieID === val.specie.id) {
-            this.storedSpecieID = -1;
-            this.races = [];
-            val.checked = false;
-                for (let specieC of this.speciesCheckList) {
-                    if (specieC.specie !== val.specie) {
-                        specieC.disabled = false;
+    onChange (val: SpecieCheck | RaceCheck | TypeCheck, tag: string): void {
+        let idx = 0;   
+        if (tag === "specie") {
+            val = val as SpecieCheck;
+            if (this.storedNumbers[0] === -1) {
+                this.storedNumbers[0] = val.specie.id;
+                console.log(this.storedNumbers[0])
+                this.specieService.getSpecieById(val.specie.id).subscribe({
+                    next: (specie: SpecieModel) => {
+                        val = val as SpecieCheck;
+                        this.races = specie.races ?? [];
+                        this.setupList(this.races, "race")
+                    },
+                    error: (error) => {
+                        console.error(error);
                     }
-                }
-            this.filterList(!this.adoptionChecked);
-            if (this.storedGenderID !== "")
-                this.filterListGender(this.storedGenderID);
-            if (this.storedRange !== "")
-                this.filterListAge(this.storedRange);
+                });
+            }
+            else 
+                this.storedNumbers[0] = -1;
+                this.racesCheckList = [];
         }
+
+        else if (tag === "race") {
+            val = val as RaceCheck;
+            if (this.storedNumbers[1] === -1)
+                this.storedNumbers[1] = val.race.id;
+            else 
+                this.storedNumbers[1] = -1;
+        }
+
         else {
-            this.storedSpecieID = val.specie.id
-            this.specieService.getSpecieById(val.specie.id).subscribe({
-                next: (specie: SpecieModel) => {
-                    this.races = specie.races ?? [];
-                    this.setupRacesList(this.races)
-                    val.checked = true;
-                    for (let specieC of this.speciesCheckList) {
-                        if (specieC.specie !== val.specie) {
-                            specieC.disabled = true;
-                        }
-                    this.filterListSpecie(val.specie.id)
-                    }
-                },
-                error: (error) => {
-                    console.error(error);
-                }
-            });
+            val = val as TypeCheck;
+            
+            if (tag === "sex") 
+                idx = 2;
+
+            else if (tag === "age") {
+                idx = 3;
+            }
+            else console.error("wrong tag");
+
+            if (this.storedNumbers[idx] === "")
+                this.storedNumbers[idx] = val.type as string;
+            else 
+                this.storedNumbers[idx] = "";
         }
+
+        this.loadFilters(this.storedNumbers);
+
     }
 
-    onRaceChange(val: RaceCheck) {
-        if (this.storedRaceID === val.race.id) {
-            this.storedRaceID = -1;
-            val.checked = false;
-                for (let raceC of this.racesCheckList) {
-                    if (raceC.race !== val.race) {
-                        raceC.disabled = false;
-                    }
+    loadFilters(numbers: Array<number | string>) {
+        this.filter(!this.adoptionChecked);
+        let count: number = 0;
+        let tag;
+        for (let val of numbers) {
+            switch (count) {
+                case 0: {
+                    tag = "specie";
+                    break;
                 }
-            this.filterList(!this.adoptionChecked);
-            this.filterListSpecie(this.storedSpecieID);
-            if (this.storedGenderID !== "")
-                this.filterListGender(this.storedGenderID);
-            if (this.storedRange !== "")
-                this.filterListAge(this.storedRange);
-        }
-        else {
-            this.storedRaceID = val.race.id
-            val.checked = true;
-            for (let raceC of this.racesCheckList) {
-                if (raceC.race !== val.race) {
-                    raceC.disabled = true;
+                case 1: {
+                    tag = "race";
+                    break;
                 }
+                case 2: {
+                    tag = "sex";
+                    break;
+                }
+                case 3: {
+                    tag = "age";
+                    break;
+                }
+                default: break;
             }
-            this.filterListRace(val.race.id)
+            this.filter(val, tag)
+            count++;
         }
-    }
-
-    onGenderChange(val: GenderCheck) {
-        if (this.storedGenderID === val.sex) {
-            this.storedGenderID = "";
-            val.checked = false;
-                for (let sexC of this.genderCheckList) {
-                    if (sexC.sex !== val.sex) {
-                        sexC.disabled = false;
-                    }
-                }
-            this.filterList(!this.adoptionChecked);
-            if (this.storedSpecieID !== -1) {
-                this.filterListSpecie(this.storedSpecieID);
-                if (this.storedRaceID !== -1) {
-                    this.filterListRace(this.storedRaceID);
-                }
-            }
-            if (this.storedRange !== "")
-                this.filterListAge(this.storedRange);
-        }
-        else {
-            this.storedGenderID = val.sex
-            for (let sexC of this.genderCheckList) {
-                if (sexC.sex !== val.sex) {
-                    sexC.disabled = true;
-                }
-            }
-            this.filterListGender(val.sex);
-        }
-    }
-
-    onAgeChange(val: AgeCheck) {
-        if (this.storedRange === val.range) {
-            this.storedRange = "";
-            val.checked = false;
-                for (let rangeC of this.agesCheckList) {
-                    if (rangeC.range !== val.range) {
-                        rangeC.disabled = false;
-                    }
-                }
-            this.filterList(!this.adoptionChecked);
-            if (this.storedSpecieID !== -1) {
-                this.filterListSpecie(this.storedSpecieID);
-                if (this.storedRaceID !== -1) {
-                    this.filterListRace(this.storedRaceID);
-                }
-            }
-            if (this.storedGenderID !== "")
-                this.filterListGender(this.storedGenderID);
-        }
-        else {
-            this.storedRange = val.range
-            for (let rangeC of this.agesCheckList) {
-                if (rangeC.range !== val.range) {
-                    rangeC.disabled = true;
-                }
-            }
-            this.filterListAge(val.range);
-        }
+        
     }
 
     setValueColsToStorage(): number {
@@ -223,29 +203,110 @@ export class AnimalsListComponent implements OnInit {
         return 0;
     }
 
+    filter(argument: boolean | number | string, tag: string = ""): void {
+        if (typeof argument === 'boolean')
+            this.filteredAnimals = this.animals.filter(
+                (animal) => animal.isAdoption === argument
+            );
 
-    filterList(isAdoption: boolean): void {
-        this.filteredAnimals = this.animals.filter(
-            (animal) => animal.isAdoption === isAdoption
-        );
+        else if (typeof argument === 'string' ) {
+            if (tag === 'age') {
+                if (argument != "")
+                    this.filterListAge(argument);
+                this.checkBoxHandler(this.agesCheckList, argument);
+            }
+
+            else if (tag === 'sex') {
+                if (argument != "")
+                    this.filteredAnimals = this.filteredAnimals.filter(
+                        (animal) => (animal.sex === argument)
+                    );
+                this.checkBoxHandler(this.genderCheckList, argument);
+            }
+            else if (argument != "") console.error("wrong tag");
+
+            
+            
+        }
+        else if (typeof argument === 'number')
+            if (tag == "specie") {
+                if (argument != -1)
+                    this.filteredAnimals = this.filteredAnimals.filter(
+                        (animal) => animal.race.specie.id === argument
+                    );
+                console.log(tag)    
+                this.checkBoxHandler(this.speciesCheckList, argument, tag); 
+            }
+
+            else if (tag == "race") {
+                if (argument != -1)
+                    this.filteredAnimals = this.filteredAnimals.filter(
+                        (animal) => animal.race.id === argument
+                    );
+                this.checkBoxHandler(this.racesCheckList, argument, tag); 
+            }
+                
+
+            else console.error("wrong tag")
+
     }
 
-    filterListSpecie(specie: number): void {
-        this.filteredAnimals = this.filteredAnimals.filter(
-            (animal) => animal.race.specie.id === specie
-        );
-    }
-
-    filterListRace(race: number): void {
-        this.filteredAnimals = this.filteredAnimals.filter(
-            (animal) => animal.race.id === race
-        );
-    }
-
-    filterListGender(sex: string): void {
-        this.filteredAnimals = this.filteredAnimals.filter(
-            (animal) => (animal.sex === sex)
-        );
+    checkBoxHandler(list: SpecieCheck[] | RaceCheck[] | TypeCheck[], id : number | string, tag: string = ""): void {
+        if (typeof id === 'number') {
+            if (id != -1) {            
+                if (tag === "specie") {
+                    list = list as SpecieCheck[];
+                    for (let value of list) {
+                        if (value.specie.id === id) {
+                            value.disabled = false;
+                        }
+                        else {
+                            value.checked = false;
+                            value.disabled = true;
+                        } 
+                    }
+            
+                }
+                else if (tag === "race") {
+                    list = list as RaceCheck[];
+                    for (let value of list) {
+                        if (value.race.id === id) {
+                            value.disabled = false;
+                        }
+                        else {
+                            value.checked = false;
+                            value.disabled = true;
+                        } 
+                    }
+                }
+            }
+            else {
+                for (let value of list) {
+                        value.checked = false;
+                        value.disabled = false;
+                }
+            }
+        }
+        else {
+            list = list as TypeCheck[]
+            if (id != "") {
+                for (let value of list) {
+                    if (value.type as string === id) {
+                        value.disabled = false;
+                    }
+                    else {
+                        value.checked = false;
+                        value.disabled = true;
+                    } 
+                }
+            }
+            else {
+                for (let value of list) {
+                        value.checked = false;
+                        value.disabled = false;
+                }
+            }
+        }
     }
 
     filterListAge(range: string): void {
@@ -280,37 +341,38 @@ export class AnimalsListComponent implements OnInit {
         );
     }
 
-    setupSpeciesList(species: SpecieModel[]) {
-        for (let specie of species) {
-            let checked = false;
-            let disabled = false;
-            this.speciesCheckList.push({specie, checked, disabled})
-        }
-    }
-
-    setupRacesList(races: RaceModel[]) {
-        for (let race of races) {
-            let checked = false;
-            let disabled = false;
-            this.racesCheckList.push({race, checked, disabled})
-        }
-    }
-
-    setupGenderList() {
-        for (let sex of this.Sex) {
-            let checked = false;
-            let disabled = false;
-            this.genderCheckList.push({sex, checked, disabled})
-        }
-    }
-
-    setupAgeList() {
+    setupList(type: SpecieModel[] | RaceModel[] | string, tag: string): void {
         let checked = false;
         let disabled = false;
-        for (let range of this.Age) {
-            this.agesCheckList.push({range, checked, disabled})
+        if (typeof type === 'string') {
+            if (tag === "age")
+                for (let type of this.Age) 
+                    this.agesCheckList.push({type, checked, disabled});
+
+            else if (tag === "sex")
+                for (let type of this.Sex)                 
+                    this.genderCheckList.push({type, checked, disabled});
+
+            else console.error("wrong tag")
+        }
+        else {
+            if (tag === "specie")
+                for (let specie of type as SpecieModel[]) 
+                this.speciesCheckList.push({specie, checked, disabled});
+
+            else if (tag === "race")
+                for (let race of type as RaceModel[])                 
+                    this.racesCheckList.push({race, checked, disabled});
+
+            else console.error("wrong tag")
         }
     }
+}
+
+export interface TypeCheck {
+    type: SpecieModel | RaceModel | string
+    checked: boolean
+    disabled: boolean
 }
 
 export interface SpecieCheck {
@@ -321,18 +383,6 @@ export interface SpecieCheck {
 
 export interface RaceCheck {
     race: RaceModel
-    checked: boolean
-    disabled: boolean
-}
-
-export interface GenderCheck {
-    sex: string
-    checked: boolean
-    disabled: boolean
-}
-
-export interface AgeCheck {
-    range: string
     checked: boolean
     disabled: boolean
 }

@@ -55,6 +55,7 @@
   },
   "animals": {
     "no-animals": "Aucun animals pour le moment",
+    "adopted": "Adopté",
     "no-adopted-animals": "Aucun animal adopter, vous pouvez décocher le filter \"Adopter\"",
     "add": "Ajouter une annonce",
     "born": "Né le",
@@ -64,6 +65,7 @@
       "adopted": "Adopté",
       "location": "Localisation",
       "breeds": "Races",
+      "breeds-empty": "Vous devez d'abord choisir une espèce avant de choisir une race",
       "species": "Espèces",
       "gender": "Sexe",
       "age": "Âge"

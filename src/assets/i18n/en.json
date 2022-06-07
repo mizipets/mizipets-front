@@ -55,6 +55,7 @@
   },
   "animals": {
     "no-animals": "No animals for the moment",
+    "adopted": "Adopted",
     "no-adopted-animals": "No animals to adopt, you can uncheck the \"Adopt\" filter",
     "add": "Post an ad",
     "born": "Born on",
@@ -64,6 +65,7 @@
       "adopted": "Adopted",
       "location": "Location",
       "breeds": "Breeds",
+      "breeds-empty": "You must choose a specie first before choosing a race",
       "species": "Species",
       "gender": "Gender",
       "age": "Age"
