@@ -40,7 +40,9 @@
 
       <!-- Content, displaying messages -->
       <div class="content">
+
         <p class="text-center mt-5" *ngIf="!currentRoom">{{'messages.empty' | translate}}</p>
+
         <div *ngIf="currentRoom && currentRoom.messages" class="content-container">
           <div *ngFor="let message of currentRoom.messages; let last = last">
             <div [ngClass]="{'last-message': last}">

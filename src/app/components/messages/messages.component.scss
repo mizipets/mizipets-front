@@ -1,25 +1,19 @@
 .sidenav-container {
   height: 100%;
 
-  .sidenav {
-    padding: 20px;
-    width: 360px;
+  .room-list {
+    border-radius: 12px;
+    padding: 8px;
 
-    .room-list {
-      border-radius: 12px;
-      padding: 8px;
-
-      &:hover {
-        cursor: pointer;
-        background-color:  #E4E6EB;
-      }
-    }
-    .selected {
-      background-color: #168AAD;
-      color: #FFFFFF;
+    &:hover {
+      cursor: pointer;
+      background-color:  #E4E6EB;
     }
   }
-
+  .selected {
+    background-color: #168AAD;
+    color: #FFFFFF;
+  }
   .box {
     display: flex;
     flex-flow: column;
@@ -32,6 +26,7 @@
     .toolbar-top {
       flex: 0 1 auto;
       top: 0;
+      padding: 12px;
       background-color: #ffffff;
     }
     .content {
