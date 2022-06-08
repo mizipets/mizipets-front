@@ -1,22 +1,19 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap');
-
 .home {
   background-color: #168AAD;
   width: 100% !important;
-  height: 35vh;
   box-sizing: border-box;
 
   .cookie {
-    text-align: center !important;
-    margin: 0 !important;
-    color: #fafafa !important;
-    padding-top: 200px;
+    text-align: center;
+    margin: 0;
+    color: #fafafa;
+    padding-bottom: 30px;
+    padding-top: 30px;
   }
 }
 
 .box-content {
-  background-color: #9FF07A;
+  background-color: #FED08B;
   min-height: 215px;
   padding: 10px;
   border-radius: 20px;
