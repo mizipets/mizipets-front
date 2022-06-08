@@ -25,4 +25,12 @@ export class AnimalsService {
             animalData
         );
     }
+
+    deleteAdoption(): Observable<any> {
+        return this.http.delete<any>(
+            environment.baseUrl +
+            'animals/' +
+            this.authService.decodedToken!.id
+        )
+    }
 }

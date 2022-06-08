@@ -140,7 +140,7 @@
             <button mat-icon-button color="warn" *ngIf="!animal.isAdoption" disableRipple style="cursor: default">
               <mat-icon>verified</mat-icon> {{'animals.adopted' | translate}}
             </button>
-            <button mat-flat-button [routerLink]="['/animal', animal.id]">{{'animals.edit' | translate}}</button>
+            <button mat-flat-button [routerLink]="['/animal', animal.id]" [state]="animal">{{'animals.edit' | translate}}</button>
           </mat-card-actions>
         </mat-card>
       </mat-grid-tile>

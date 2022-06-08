@@ -1,1 +1,29 @@
-<p>animals-detail works!</p>
+
+<div *ngIf="animal" class="justify-content-center my-5">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title class="justify-content-center">animals-detail works!</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <div class="mb-4">
+                    <img src="{{animal.images}}" class="profile-image" width="150" height="150">
+                    <p> Nom : {{animal.name}}</p>
+                    <p> Sex : {{animal.sex}}</p>
+                    <p> Race : {{animal.race.name}}</p>
+                    <p> Age : {{ageString}} ans</p>
+                    <p> Location : {{animal.owner.shelter.name}} {{animal.owner.address.zip}} {{animal.owner.address.city}}</p>
+                    <mat-checkbox
+                        class="my-3"
+                        [(ngModel)]="urgentChecked">
+                        Urgent
+                    </mat-checkbox>
+                    <p> Commentaire : {{animal.comment}}</p>
+                    <p> Annonce postée le {{animal.createDate | date:'dd MMMM y'}}</p>
+                    <button mat-icon-button ><mat-icon>delete</mat-icon></button>
+                </div>
+            </div>
+            
+        </mat-card-content>
+    </mat-card>
+</div>
