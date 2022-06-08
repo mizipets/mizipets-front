@@ -1,9 +1,7 @@
 import {
     Component,
-    ElementRef,
     OnDestroy,
     OnInit,
-    ViewChild
 } from '@angular/core';
 import { RoomService } from '../../services/room.service';
 import { RoomModel } from '../../models/room.model';
@@ -25,7 +23,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
     isConnected: boolean = false;
     message: string = '';
 
-    // @ViewChild('bottom') private myScrollContainer: ElementRef;
 
     constructor(
         private roomService: RoomService,
@@ -105,14 +102,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
                 }
             });
     }
-
-    // scrollToBottom(): void {
-    //   this.myScrollContainer.nativeElement.scroll({
-    //     top: this.myScrollContainer.nativeElement.scrollHeight,
-    //     left: 0,
-    //     behavior: 'smooth'
-    //   });
-    // }
 
     onKeydown() {
         this.sendMessage();
