@@ -27,6 +27,8 @@ export class AnimalsDetailComponent implements OnInit {
 
     displayedImage: string = "";
 
+    today: Date = new Date();
+
     newImage: boolean = false;
 
     animal: AnimalModel = {} as AnimalModel;

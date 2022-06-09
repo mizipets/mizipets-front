@@ -24,6 +24,8 @@ export class AnimalsCreateComponent implements OnInit {
 
     file: File = {} as File;
 
+    today: Date = new Date();
+
     fileName = './assets/images/logo.png';
 
     newAnimal: CreateAdoption = {} as CreateAdoption;
