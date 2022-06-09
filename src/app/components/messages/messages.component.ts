@@ -43,6 +43,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
         this.socketService.receiveMessage().subscribe((message: MessageModel) => {
             this.currentRoom?.messages?.push(message);
+            this.scrollToBottom();
             if (message.type === 'close')
                 this.isConnected = false;
         });
@@ -75,6 +76,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
             };
             this.socketService.sendMessage(message);
             this.message = '';
+            this.scrollToBottom();
         }
     }
 
