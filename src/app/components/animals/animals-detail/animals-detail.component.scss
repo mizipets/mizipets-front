@@ -10,15 +10,17 @@
     }
     
     .mat-card-image {
-        height: 280px;
-        object-fit: cover;
+      vertical-align: middle;
+      border-radius: 0%;
+      object-fit: cover;
+      border: 5px solid #168AAD;
     }
 
     .profile-image-picker {
       background-color: white;
       position: absolute;
-      top: 290px;
-      transform: translateX(300px);
+      top: 240px;
+      transform: translateX(200px);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     }
   }

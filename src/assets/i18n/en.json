@@ -84,6 +84,12 @@
     "image-error": "This picture couldn't be saved",
     "animal-error": "Your animal couldn't be saved"
   },
+  "animal-details": {
+    "name": "Name",
+    "age": "Age",
+    "location": "Location",
+    "creation": "Ad posted on"
+  },
   "animal-delete": {
     "title": "Delete this animal",
     "warning": "Do you really want to delete this animal ?"

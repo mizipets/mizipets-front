@@ -1,9 +1,10 @@
 
 <div *ngIf="animal" class="justify-content-center my-5">
     <mat-card>
-        <mat-card-header class="mb-3">
-            <mat-card-title class="justify-content-center">animals-detail works!</mat-card-title>
-            <button mat-icon-button (click)="onUpdateButton()"><mat-icon>settings</mat-icon></button>
+        <mat-card-header class="d-flex justify-content-end">
+            <button mat-icon-button matPrefix [routerLink]="['/animals']"><mat-icon>arrow_back</mat-icon></button>
+            <button mat-icon-button *ngIf="!modify" (click)="onUpdateButton()"><mat-icon>settings</mat-icon></button>
+            <button mat-icon-button *ngIf="modify" (click)="onUpdateButton()"><mat-icon>not_interested</mat-icon></button>
             <button mat-icon-button *ngIf="modify" (click)="onDeleteAnimal()"><mat-icon>delete</mat-icon></button>
         </mat-card-header>
         <mat-card-content>
@@ -13,17 +14,17 @@
                         <img mat-card-image *ngIf="!modify" src="{{displayedImage}}">
                     </div>
                     <div class="ml-5">
-                        <p> Nom : {{animal.name}}</p>
-                        <p> Age : {{ageString}} ans</p>
-                        <p> Location : {{animal.owner.shelter.name}} {{animal.owner.address.zip}} {{animal.owner.address.city}}</p>
-                        <p> Commentaire : {{animal.comment}}</p>
+                        <p> {{'animal-details.name' | translate}} : {{animal.name}}</p>
+                        <p> {{'animal-details.age' | translate}} : {{ageString}} ans</p>
+                        <p> {{'animal-details.location' | translate}} : {{animal.owner.shelter.name}} {{animal.owner.address.zip}} {{animal.owner.address.city}}</p>
+                        <p> {{'animals-add.comment' | translate}} : {{animal.comment}}</p>
                     </div>
                     <div class="ml-4">
-                        <p> Sex : {{animal.sex}}</p>
-                        <p> Race : {{animal.race.name}}</p>
+                        <p> {{'animals.filter.gender' | translate}} : {{animal.sex}}</p>
+                        <p> {{'animals.filter.breeds' | translate}} : {{animal.race.name}}</p>
                     </div> 
                 </div>
-                <p> Annonce postée le {{animal.createDate | date:'dd MMMM y'}}</p>
+                <p> {{'animal-details.creation' | translate}} {{animal.createDate | date:'dd MMMM y'}}</p>
             </div>
             <div *ngIf="modify">
                 <form [formGroup]="animalForm">
