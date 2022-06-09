@@ -84,6 +84,10 @@
     "image-error": "Cette image n'a pas pu être sauvegardé",
     "animal-error": "Votre animal n'a pas pu être enregistré"
   },
+  "animal-delete": {
+    "title": "Supprimer cet animal",
+    "warning": "Voulez-vous vraiment supprimer cet animal ?"
+  },
   "user-profile": {
     "title": "Profile",
     "information": "Informations personnelles",

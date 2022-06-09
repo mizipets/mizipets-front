@@ -84,6 +84,10 @@
     "image-error": "This picture couldn't be saved",
     "animal-error": "Your animal couldn't be saved"
   },
+  "animal-delete": {
+    "title": "Delete this animal",
+    "warning": "Do you really want to delete this animal ?"
+  },
   "user-profile": {
     "title": "Profile",
     "information": "Personal informations",

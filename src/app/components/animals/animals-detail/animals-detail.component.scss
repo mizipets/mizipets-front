@@ -1,0 +1,24 @@
+.mat-card {
+    width: 900px;
+
+    .mat-form-field{
+      width: 100%;
+    }
+
+    .mat-flat-button {
+        width: 60%;
+    }
+    
+    .mat-card-image {
+        height: 280px;
+        object-fit: cover;
+    }
+
+    .profile-image-picker {
+      background-color: white;
+      position: absolute;
+      top: 290px;
+      transform: translateX(300px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+  }

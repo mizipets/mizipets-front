@@ -26,11 +26,18 @@ export class AnimalsService {
         );
     }
 
-    deleteAdoption(): Observable<any> {
+    updateAdoption(id: number, animalData: CreateAdoption): Observable<AnimalModel> {
+        return this.http.put<AnimalModel>(
+            environment.baseUrl + 'animals/' + id,
+            animalData
+        );
+    }
+
+    deleteAdoption(animalID: number): Observable<any> {
         return this.http.delete<any>(
             environment.baseUrl +
             'animals/' +
-            this.authService.decodedToken!.id
+            animalID
         )
     }
 }
