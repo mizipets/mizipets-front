@@ -1,6 +1,6 @@
 <mat-drawer-container class="sidenav-container app-content">
     <mat-drawer class="sidenav" mode="side" opened>
-      <p style="margin-top: 0;">{{'messages.inbox' | translate }}</p>
+      <h3>{{'messages.inbox' | translate }}</h3>
 
       <div *ngIf="rooms.length > 0">
         <div *ngFor="let room of rooms">
@@ -39,14 +39,15 @@
       </mat-toolbar>
 
       <!-- Content, displaying messages -->
-      <div class="content">
+      <div class="content" #scroll_frame>
 
         <p class="text-center mt-5" *ngIf="!currentRoom">{{'messages.empty' | translate}}</p>
 
         <div *ngIf="currentRoom && currentRoom.messages" class="content-container">
-          <div *ngFor="let message of currentRoom.messages; let last = last">
-            <div [ngClass]="{'last-message': last}">
-              <div *ngIf="message.writer !== currentRoom.animal.owner.id; then incoming_msg; else outgoing_msg"></div>
+          <div *ngFor="let message of currentRoom.messages">
+              <ng-container
+                *ngIf="message.writer !== currentRoom.animal.owner.id; then incoming_msg; else outgoing_msg">
+              </ng-container>
 
               <ng-template #incoming_msg>
                 <div class="my-1"
@@ -68,7 +69,6 @@
                 </div>
               </ng-template>
 
-            </div>
           </div>
         </div>
       </div>

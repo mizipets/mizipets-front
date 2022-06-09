@@ -1,8 +1,9 @@
 import {
-    Component,
-    OnDestroy,
-    OnInit,
-} from '@angular/core';
+  AfterViewInit,
+  Component, ElementRef,
+  OnDestroy,
+  OnInit, ViewChild
+} from "@angular/core";
 import { RoomService } from '../../services/room.service';
 import { RoomModel } from '../../models/room.model';
 import { SocketService } from '../../services/socket.service';
@@ -18,28 +19,33 @@ import {
     styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit, OnDestroy {
+    @ViewChild('scroll_frame', { static: false })
+    private scrollFrame: ElementRef;
+
     rooms: RoomModel[] = [];
     currentRoom: RoomModel | undefined;
     isConnected: boolean = false;
     message: string = '';
 
-
     constructor(
         private roomService: RoomService,
-        private socketService: SocketService
-    ) {}
+        private socketService: SocketService,
+        elementRef: ElementRef
+    ) {
+      this.scrollFrame = elementRef;
+    }
 
     ngOnInit(): void {
-        this.socketService.joinedRoom().subscribe((value: string) => {
+        this.socketService.joinedRoom().subscribe(() => {
             this.isConnected = !this.currentRoom?.closed;
+            this.scrollToBottom();
         });
 
-        this.socketService
-            .receiveMessage()
-            .subscribe((message: MessageModel) => {
-                this.currentRoom?.messages?.push(message);
-                if (message.type === 'close') this.isConnected = false;
-            });
+        this.socketService.receiveMessage().subscribe((message: MessageModel) => {
+            this.currentRoom?.messages?.push(message);
+            if (message.type === 'close')
+                this.isConnected = false;
+        });
 
         this.roomService.getUserRooms().subscribe({
             next: (rooms: RoomModel[]) => {
@@ -58,7 +64,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     sendMessage(): void {
         if (this.currentRoom && this.message !== '') {
-            console.log('pressed');
             const userId = this.currentRoom.animal.owner.id;
 
             const message: MessageToRoomModel = {
@@ -69,7 +74,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
                 type: MessageType.text
             };
             this.socketService.sendMessage(message);
-            // this.scrollToBottom();
             this.message = '';
         }
     }
@@ -105,5 +109,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     onKeydown() {
         this.sendMessage();
+    }
+
+    private scrollToBottom(): void {
+      this.scrollFrame.nativeElement.scroll({
+        top: this.scrollFrame.nativeElement.scrollHeight,
+        left: 0,
+        behavior: 'smooth'
+      });
     }
 }
