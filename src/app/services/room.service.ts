@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { MessageModel } from '../models/message.model';
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +29,15 @@ export class RoomService {
         return this.http.put<any>(
             environment.baseUrl + `room/${roomId}/requestGive`,
             {}
+        );
+    }
+
+    getOffsetMessages(
+        roomId: number,
+        offset: number
+    ): Observable<MessageModel[]> {
+        return this.http.get<MessageModel[]>(
+            environment.baseUrl + `room/${roomId}/messages?offset=${offset}`
         );
     }
 }

@@ -9,6 +9,12 @@ export interface AdopterModel {
     shelter: Shelter;
 }
 
+export enum RoomStatus {
+    OPENED = 'OPENED',
+    GIVED = 'GIVED',
+    CLOSED = 'CLOSED'
+}
+
 export interface RoomModel {
     id: number;
     adoptant: AdopterModel;
@@ -18,4 +24,5 @@ export interface RoomModel {
     created: string;
     closed: boolean;
     requestGive: boolean;
+    status: RoomStatus;
 }

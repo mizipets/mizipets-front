@@ -23,6 +23,7 @@ export interface AnimalModel {
     isLost: boolean;
     sex: Sex;
     owner: UserModel;
+    lastOwner?: number;
     race: RaceModel;
 }
 
