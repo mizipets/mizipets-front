@@ -15,7 +15,7 @@ export class CloseAccountPopUpComponent implements OnInit {
         public closeAccountDialog: MatDialogRef<CloseAccountPopUpComponent>,
         private userService: UserService,
         public authService: AuthService,
-        private translater: TranslateService,
+        private translate: TranslateService,
         private snackBar: MatSnackBar
     ) {}
 
@@ -23,7 +23,7 @@ export class CloseAccountPopUpComponent implements OnInit {
 
     openSnackBar(): void {
         this.snackBar.open(
-            this.translater.instant('user-profile.close-success'),
+            this.translate.instant('user-profile.close-success'),
             '',
             {
                 duration: 2000,

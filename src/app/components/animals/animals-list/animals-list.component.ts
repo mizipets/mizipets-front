@@ -123,7 +123,6 @@ export class AnimalsListComponent implements OnInit {
             val = val as SpecieCheck;
             if (this.storedNumbers[0] === -1) {
                 this.storedNumbers[0] = val.specie.id;
-                console.log(this.storedNumbers[0])
                 this.specieService.getSpecieById(val.specie.id).subscribe({
                     next: (specie: SpecieModel) => {
                         val = val as SpecieCheck;
@@ -235,7 +234,6 @@ export class AnimalsListComponent implements OnInit {
                     this.filteredAnimals = this.filteredAnimals.filter(
                         (animal) => animal.race.specie.id === argument
                     );
-                console.log(tag)
                 this.checkBoxHandler(this.speciesCheckList, argument, tag);
             }
 

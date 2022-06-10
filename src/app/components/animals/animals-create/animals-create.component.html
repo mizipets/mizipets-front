@@ -34,7 +34,10 @@
                 <br/>
                 <mat-form-field appearance="outline">
                     <mat-label>{{'animals.born' | translate}}</mat-label>
-                    <input matInput type="date" formControlName="birthDate">
+                    <input matInput [max]="today" formControlName="birthDate" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker #picker></mat-datepicker>
                     <mat-error>{{'common.error' | translate}}</mat-error>
                 </mat-form-field>
                 <br/>

@@ -31,6 +31,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { SettingsComponent } from './components/settings/settings.component';
 import { CloseAccountPopUpComponent } from './components/close-account-pop-up/close-account-pop-up.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
+import { AnimalDeleteModalComponent } from './components/animals/animal-delete-modal/animal-delete-modal.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -57,7 +60,8 @@ const socketIoConfig: SocketIoConfig = {
         UserProfileComponent,
         SettingsComponent,
         CloseAccountPopUpComponent,
-        AnimalsCreateComponent
+        AnimalsCreateComponent,
+        AnimalDeleteModalComponent
     ],
     imports: [
         BrowserModule,
@@ -76,7 +80,9 @@ const socketIoConfig: SocketIoConfig = {
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
-        CodeInputModule
+        CodeInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     providers: [
         LanguageService,

@@ -28,7 +28,8 @@
     "confirm": "Confirmer",
     "next": "Suivant",
     "cancel": "Annuler",
-    "error": "Ce champs ne doit pas etre vide"
+    "error": "Ce champs ne doit pas etre vide",
+    "years": "ans"
   },
   "header": {
     "animals": "Mes animaux",
@@ -83,6 +84,16 @@
     "success": "Annonce créée",
     "image-error": "Cette image n'a pas pu être sauvegardé",
     "animal-error": "Votre animal n'a pas pu être enregistré"
+  },
+  "animal-details": {
+    "name": "Nom",
+    "age": "Age",
+    "location": "Localisation",
+    "creation": "Annonce postée le"
+  },
+  "animal-delete": {
+    "title": "Supprimer cet animal",
+    "warning": "Voulez-vous vraiment supprimer cet animal ?"
   },
   "user-profile": {
     "title": "Profile",
