@@ -28,7 +28,8 @@
     "confirm": "Confirmer",
     "next": "Suivant",
     "cancel": "Annuler",
-    "error": "Ce champs ne doit pas etre vide"
+    "error": "Ce champs ne doit pas etre vide",
+    "years": "ans"
   },
   "header": {
     "animals": "Mes animaux",

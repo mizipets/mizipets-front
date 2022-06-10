@@ -28,7 +28,8 @@
     "confirm": "Confirm",
     "next": "Next",
     "cancel": "Cancel",
-    "error": "This field cannot be empty"
+    "error": "This field cannot be empty",
+    "years": "years old"
   },
   "header": {
     "animals": "My animals",

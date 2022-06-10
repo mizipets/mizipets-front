@@ -84,7 +84,7 @@
               [checked]="ageCheck.checked"
               [disabled]="ageCheck.disabled"
               (change)="onChange(ageCheck, 'age')">
-              {{ ageCheck.type }}
+              {{ ageCheck.type }} {{'common.years' | translate}}
             </mat-checkbox>
           </div>
         </mat-expansion-panel>

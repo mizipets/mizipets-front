@@ -79,7 +79,6 @@ export class AnimalsDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.animal = history.state;
-        console.log(this.animal);
         this.age = new Date().getFullYear()  - new Date(this.animal.birthDate).getFullYear();
         if (this.age === 0) this.ageString = "<1";
         else this.ageString = this.age.toString();
@@ -98,7 +97,6 @@ export class AnimalsDetailComponent implements OnInit {
         this.animalForm.controls['birthDate'].setValue(this.animal.birthDate);
         this.animalForm.controls['race'].setValue(this.animal.race);
         this.animalForm.controls['comment'].setValue(this.animal.comment);
-        console.log(this.animalForm.value.race);
     }
 
     onUpdateButton(): void {
