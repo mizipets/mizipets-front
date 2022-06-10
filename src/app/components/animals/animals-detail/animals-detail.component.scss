@@ -14,13 +14,15 @@
       border-radius: 0%;
       object-fit: cover;
       border: 5px solid #168AAD;
+      height: 200px;
+      width: 200px;
     }
 
     .profile-image-picker {
       background-color: white;
       position: absolute;
-      top: 240px;
-      transform: translateX(200px);
+      top: 200px;
+      transform: translateX(150px);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     }
   }
