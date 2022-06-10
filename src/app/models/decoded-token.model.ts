@@ -1,5 +1,5 @@
 export interface DecodedTokenModel {
-    id: string;
+    id: number;
     email: string;
     firstname: string;
     lastname: string;

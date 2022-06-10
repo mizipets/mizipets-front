@@ -1,4 +1,4 @@
-<mat-drawer-container class="sidenav-container">
+<mat-drawer-container class="app-content">
   <mat-drawer #drawer class="sidenav" mode="side" [(opened)]="isOpen">
     <h3>{{'animals.filter.title' | translate}}</h3>
     <div class="mx-2">
@@ -84,7 +84,7 @@
               [checked]="ageCheck.checked"
               [disabled]="ageCheck.disabled"
               (change)="onChange(ageCheck, 'age')">
-              {{ ageCheck.type }} {{'common.years' | translate}}
+              {{ ageCheck.type }}
             </mat-checkbox>
           </div>
         </mat-expansion-panel>
@@ -92,8 +92,9 @@
     </div>
   </mat-drawer>
 
-  <div>
-    <button type="button" mat-icon-button (click)="drawer.toggle()">
+    <button type="button" mat-mini-fab color="accent"
+            class="fab-btn mx-1 my-1"
+            (click)="drawer.toggle()">
       <mat-icon *ngIf="!isOpen">chevron_right</mat-icon>
       <mat-icon *ngIf="isOpen">chevron_left</mat-icon>
     </button>
@@ -101,7 +102,6 @@
     <div class="spinner" *ngIf="isLoading">
       <mat-spinner></mat-spinner>
     </div>
-
 
     <div *ngIf="filteredAnimals.length <= 0">
       <p class="text-center" *ngIf="!adoptionChecked">{{'animals.no-animals' | translate}}</p>
@@ -112,7 +112,7 @@
     </div>
 
     <mat-grid-list [cols]="valueCols" rowHeight="500px" *ngIf="filteredAnimals.length > 0">
-      <mat-grid-tile *ngFor="let animal of filteredAnimals">
+      <mat-grid-tile *ngFor="let animal of filteredAnimals.reverse()">
         <mat-card class="mx-1">
           <img mat-card-image src="{{animal.images[0]}}" alt="animal image">
           <mat-card-content>
@@ -136,14 +136,22 @@
             </div>
           </mat-card-content>
 
-          <mat-card-actions class="d-flex" [ngClass]="{'justify-content-between': !animal.isAdoption, 'justify-content-end': animal.isAdoption}">
-            <button mat-icon-button color="warn" *ngIf="!animal.isAdoption" disableRipple style="cursor: default">
+          <mat-card-actions class="d-flex" [ngClass]="{'justify-content-start': !animal.isAdoption, 'justify-content-end': animal.isAdoption}">
+            <button mat-icon-button
+                    color="warn"
+                    *ngIf="!animal.isAdoption"
+                    disableRipple style="cursor: default">
               <mat-icon>verified</mat-icon> {{'animals.adopted' | translate}}
             </button>
-            <button mat-flat-button [routerLink]="['/animal', animal.id]" [state]="animal">{{'animals.edit' | translate}}</button>
+            <button mat-flat-button
+                    *ngIf="animal.isAdoption"
+                    [routerLink]="['/animal', animal.id]"
+                    [state]="animal">
+              {{'animals.edit' | translate}}
+            </button>
           </mat-card-actions>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
-  </div>
+
 </mat-drawer-container>

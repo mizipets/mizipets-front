@@ -1,10 +1,9 @@
-.sidenav-container {
+.app-content {
   height: 100%;
-  margin-top: 64px;
 
-  .sidenav {
-    padding: 20px;
-    width: 300px;
+  .fab-btn {
+    position: fixed;
+    z-index: 100;
   }
 
   mat-card {

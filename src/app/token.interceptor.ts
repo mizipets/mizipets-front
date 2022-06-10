@@ -40,6 +40,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 ) {
                     return this.handle401Error(request, next);
                 }
+
                 return throwError(error);
             })
         );
@@ -50,6 +51,7 @@ export class TokenInterceptor implements HttpInterceptor {
             this.isRefreshing = true;
             this.refreshTokenSubject.next(null);
             const token = this.authService.getRefreshToken();
+
             if (token)
                 return this.authService.refreshToken(token).pipe(
                     switchMap(
@@ -64,20 +66,21 @@ export class TokenInterceptor implements HttpInterceptor {
                     ),
                     catchError((err) => {
                         this.isRefreshing = false;
-                        this.authService.logout();
-                        this.snackBar.open(
-                            'Session expired, please sign in',
-                            '',
-                            {
-                                duration: 2000,
-                                horizontalPosition: 'center',
-                                verticalPosition: 'top'
-                            }
-                        );
                         return throwError(err);
                     })
                 );
         }
+        if (request.url.includes('auth/token')) {
+            this.isRefreshing = false;
+            this.authService.logout();
+            this.snackBar.open('Session expired, please sign in', '', {
+                duration: 2000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top'
+            });
+            return throwError(request.body);
+        }
+
         return this.refreshTokenSubject.pipe(
             filter((token) => token !== null),
             take(1),

@@ -13,6 +13,7 @@ import {
     MessageToRoomModel,
     MessageType
 } from '../../models/message.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-messages',
@@ -20,28 +21,37 @@ import {
     styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit, OnDestroy {
+    @ViewChild('scroll_frame', { static: false })
+    private scrollFrame: ElementRef;
+    isLoading: boolean = false;
     rooms: RoomModel[] = [];
     currentRoom: RoomModel | undefined;
-    isConnected: boolean = false;
+    currentUserId: number;
     message: string = '';
-
-    // @ViewChild('bottom') private myScrollContainer: ElementRef;
 
     constructor(
         private roomService: RoomService,
-        private socketService: SocketService
-    ) {}
+        private socketService: SocketService,
+        private authService: AuthService,
+        elementRef: ElementRef
+    ) {
+        this.scrollFrame = elementRef;
+        this.currentUserId = this.authService.decodedToken?.id ?? 0;
+    }
 
     ngOnInit(): void {
-        this.socketService.joinedRoom().subscribe((value: string) => {
-            this.isConnected = !this.currentRoom?.closed;
+        this.socketService.joinedRoom().subscribe(() => {
+            this.scrollToBottom();
         });
 
         this.socketService
             .receiveMessage()
             .subscribe((message: MessageModel) => {
+                if (this.isInfoMessage(message.type))
+                    this.connectionToRoom(this.currentRoom!);
+
                 this.currentRoom?.messages?.push(message);
-                if (message.type === 'close') this.isConnected = false;
+                this.scrollToBottom();
             });
 
         this.roomService.getUserRooms().subscribe({
@@ -61,19 +71,16 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     sendMessage(): void {
         if (this.currentRoom && this.message !== '') {
-            console.log('pressed');
-            const userId = this.currentRoom.animal.owner.id;
-
             const message: MessageToRoomModel = {
                 roomCode: this.currentRoom.code,
                 roomId: this.currentRoom.id,
-                userId: userId ? userId.toString() : '',
+                userId: this.currentUserId,
                 msg: this.message,
                 type: MessageType.text
             };
             this.socketService.sendMessage(message);
-            // this.scrollToBottom();
             this.message = '';
+            this.scrollToBottom();
         }
     }
 
@@ -97,24 +104,74 @@ export class MessagesComponent implements OnInit, OnDestroy {
     giveAnimal(): void {
         if (this.currentRoom)
             this.roomService.giveAnimal(this.currentRoom.id).subscribe({
-                next: (value) => {
-                    console.log(value);
-                },
                 error: (err) => {
                     console.error(err);
                 }
             });
     }
 
-    // scrollToBottom(): void {
-    //   this.myScrollContainer.nativeElement.scroll({
-    //     top: this.myScrollContainer.nativeElement.scrollHeight,
-    //     left: 0,
-    //     behavior: 'smooth'
-    //   });
-    // }
-
     onKeydown() {
         this.sendMessage();
+    }
+
+    onScroll(event: any) {
+        if (event.target.scrollTop === 0) {
+            this.getOffsetMessages().then();
+        }
+    }
+
+    getInterlocutor(room: RoomModel) {
+        if (
+            this.currentUserId == room.animal.owner.id ||
+            this.currentUserId == room.animal.lastOwner
+        )
+            return room.adoptant;
+
+        return room.animal.owner;
+    }
+
+    private scrollToBottom(): void {
+        this.scrollFrame.nativeElement.scroll({
+            top: this.scrollFrame.nativeElement.scrollHeight,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    private async getOffsetMessages(): Promise<void> {
+        const offset: number =
+          this.currentRoom?.messages?.length ? (this.currentRoom?.messages?.length + 1) : 0;
+        this.isLoading = true;
+        await new Promise((f) => setTimeout(f, 1000));
+        this.roomService
+            .getOffsetMessages(
+                this.currentRoom!.id,
+                offset
+            )
+            .subscribe({
+                next: (messages: MessageModel[]) => {
+                    if (messages.length >= 1)
+                        messages
+                            .reverse()
+                            .map((message) =>
+                                this.currentRoom?.messages?.unshift(message)
+                            );
+                    this.isLoading = false;
+                },
+                error: (err) => {
+                    console.error(err);
+                    this.isLoading = false;
+                }
+            });
+    }
+
+    private isInfoMessage(type: MessageType): boolean {
+        return (
+            type === MessageType.init ||
+            type === MessageType.accepted ||
+            type === MessageType.refused ||
+            type === MessageType.close ||
+            type === MessageType.give
+        );
     }
 }

@@ -12,7 +12,7 @@ export enum MessageType {
 export interface MessageToRoomModel {
     roomCode: string;
     roomId: number;
-    userId: string;
+    userId: number;
     msg: string;
     type: MessageType;
 }

@@ -95,15 +95,21 @@ $custom-theme: mat.define-light-theme((
 @include mat.all-component-themes($custom-theme);
 
 html, body {
-  height: 100% !important;
-}
-body {
-  margin: 0 !important;
-  background-color: #fafafa !important;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fafafa;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 /* ======== Font style ======== */
+.app-content {
+  padding-top: 64px;
+}
+.sidenav {
+  padding: 65px 20px 20px 20px;
+  width: 360px;
+}
 h1, .title {
   font-size: 36px !important;
   font-family: 'Arima Madurai',cursive !important;
@@ -288,9 +294,10 @@ p {
 }
 .avatar {
   vertical-align: middle;
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 /* ======== Mobile ======== */

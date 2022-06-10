@@ -1,26 +1,33 @@
-<mat-drawer-container class="sidenav-container">
-  <mat-drawer class="sidenav" mode="side" opened>
-    <p style="margin-top: 0;">{{'messages.inbox' | translate }}</p>
+<mat-drawer-container class="sidenav-container app-content">
+    <mat-drawer class="sidenav" mode="side" opened>
+      <h3>{{'messages.inbox' | translate }}</h3>
 
-    <div *ngIf="rooms.length > 0">
-      <div *ngFor="let room of rooms">
-        <div class="justify-content-start my-1 room-list"
-             matRipple
-             [ngClass]="{'selected': currentRoom?.id === room.id}"
-             [matRippleCentered]="true"
-             (click)="connectionToRoom(room)">
-          <img src="{{room.adoptant.photo}}" class="avatar" alt="avatar">
-          <p class="ml-2">{{ room.adoptant.firstname }}</p>
+      <div *ngIf="rooms.length > 0">
+        <div *ngFor="let room of rooms">
+          <div class="justify-content-start my-1 room-list"
+               matRipple
+               [ngClass]="{'selected': currentRoom?.id === room.id}"
+               [matRippleCentered]="true"
+               (click)="connectionToRoom(room)">
+            <img src="{{ getInterlocutor(room).photo }}" class="avatar" alt="avatar">
+            <p class="ml-2">
+              {{ getInterlocutor(room).firstname }}
+              {{'messages.for' | translate}}
+              {{ room.animal.name }}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </mat-drawer>
+    </mat-drawer>
 
-  <div class="box">
-    <!-- Header top, info about adopter and animal -->
-    <mat-toolbar class="toolbar-top" *ngIf="currentRoom">
-        <img src="{{currentRoom.adoptant.photo}}" class="avatar" alt="avatar">
-        <span class="ml-2">{{currentRoom.adoptant.firstname}}</span>
+    <p class="text-center mt-5" *ngIf="!currentRoom">{{'messages.empty' | translate}}</p>
+
+    <div class="box" *ngIf="currentRoom">
+
+      <!-- Header top, info about adopter and animal -->
+      <mat-toolbar class="toolbar-top">
+        <img src="{{getInterlocutor(currentRoom).photo}}" class="avatar" alt="avatar">
+        <span class="ml-2">{{getInterlocutor(currentRoom).firstname}}</span>
         <span class="mx-1">{{'messages.for' | translate}}</span>
         <span>{{currentRoom.animal.name}}</span>
 
@@ -31,67 +38,74 @@
              matTooltip="{{'messages.animal-detail' | translate }}"
              class="avatar" alt="animal image">
 
-        <button mat-flat-button color="primary"
+        <button mat-flat-button
+                color="primary"
                 class="ml-3"
+                [disabled]="currentRoom.status !== 'OPENED' || currentRoom.requestGive"
                 (click)="giveAnimal()">
           {{'messages.give' | translate}}
         </button>
-    </mat-toolbar>
+      </mat-toolbar>
 
-    <!-- Content, displaying messages -->
-    <div class="content">
-      <p class="text-center mt-5" *ngIf="!currentRoom">{{'messages.empty' | translate}}</p>
-      <div *ngIf="currentRoom && currentRoom.messages" class="content-container">
-        <div *ngFor="let message of currentRoom.messages; let last = last">
-          <div [ngClass]="{'last-message': last}">
-            <div *ngIf="message.writer !== currentRoom.animal.owner.id; then incoming_msg; else outgoing_msg"></div>
+      <!-- Content, displaying messages -->
+      <div class="content" #scroll_frame (scroll)="onScroll($event)">
+        <div class="justify-content-center my-1" *ngIf="isLoading">
+          <mat-spinner diameter="35"></mat-spinner>
+        </div>
+        <div *ngIf="currentRoom && currentRoom.messages" class="content-container">
+          <div *ngFor="let message of currentRoom.messages">
+              <ng-container
+                *ngIf="message.writer === currentUserId then outgoing_msg; else incoming_msg">
+              </ng-container>
 
-            <ng-template #incoming_msg>
-              <div class="my-1"
-                   [ngClass]="message.type === 'text' ? 'justify-content-start' : 'justify-content-center'">
-                <div class="text-message"
-                     [ngClass]="message.type === 'text' ? 'incoming' : 'info'">
-                  <p>{{ message.text }}</p>
+              <ng-template #incoming_msg>
+                <div class="my-1"
+                     [ngClass]="message.type === 'text' ? 'justify-content-start' : 'justify-content-center'">
+                  <div class="text-message"
+                       [ngClass]="message.type === 'text' ? 'incoming' : 'info'">
+                    <p>{{ message.text }}</p>
+                  </div>
                 </div>
-              </div>
-            </ng-template>
+              </ng-template>
 
-            <ng-template #outgoing_msg>
-              <div class="my-1"
-                   [ngClass]="message.type === 'text' ? 'justify-content-end' : 'justify-content-center'">
-                <div class="text-message"
-                     [ngClass]="message.type === 'text' ? 'outgoing' : 'info'">
-                  <p>{{ message.text }}</p>
+              <ng-template #outgoing_msg>
+                <div class="my-1"
+                     [ngClass]="message.type === 'text' ? 'justify-content-end' : 'justify-content-center'">
+                  <div class="text-message"
+                       [ngClass]="message.type === 'text' ? 'outgoing' : 'info'">
+                    <p>{{ message.text }}</p>
+                  </div>
                 </div>
-              </div>
-            </ng-template>
+              </ng-template>
 
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Header bottom, send messages -->
-    <div class="toolbar-bottom">
-      <div class="content-container">
-        <mat-form-field appearance="outline"
-                        floatLabel="never"
-                        class="send-message"
-                        *ngIf="isConnected">
-          <input matInput maxlength="1300"
-                 type="text"
-                 placeholder="{{'messages.default' | translate}}"
-                 [(ngModel)]="message"
-                 (keydown.enter)="onKeydown()">
-          <button mat-icon-button
-                  matSuffix
-                  color="primary"
-                  [disabled]="message === ''"
-                  (click)="sendMessage()">
-            <mat-icon>send</mat-icon>
-          </button>
-        </mat-form-field>
+      <!-- Header bottom, send messages -->
+      <div class="toolbar-bottom">
+        <div class="content-container" *ngIf="currentRoom.status !== 'CLOSED'">
+          <mat-form-field appearance="outline"
+                          floatLabel="never"
+                          class="send-message">
+            <input matInput maxlength="1300"
+                   type="text"
+                   placeholder="{{'messages.default' | translate}}"
+                   [(ngModel)]="message"
+                   (keydown.enter)="onKeydown()">
+            <button mat-icon-button
+                    matSuffix
+                    color="primary"
+                    [disabled]="message === ''"
+                    (click)="sendMessage()">
+              <mat-icon>send</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
       </div>
     </div>
-  </div>
 </mat-drawer-container>
+
+
+
+
