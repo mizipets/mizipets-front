@@ -19,8 +19,11 @@
         </div>
       </div>
     </mat-drawer>
+
     <p class="text-center mt-5" *ngIf="!currentRoom">{{'messages.empty' | translate}}</p>
+
     <div class="box" *ngIf="currentRoom">
+
       <!-- Header top, info about adopter and animal -->
       <mat-toolbar class="toolbar-top">
         <img src="{{getInterlocutor(currentRoom).photo}}" class="avatar" alt="avatar">
@@ -38,7 +41,7 @@
         <button mat-flat-button
                 color="primary"
                 class="ml-3"
-                [disabled]="currentRoom.status !== 'OPENED'"
+                [disabled]="currentRoom.status !== 'OPENED' || currentRoom.requestGive"
                 (click)="giveAnimal()">
           {{'messages.give' | translate}}
         </button>
@@ -84,8 +87,7 @@
         <div class="content-container" *ngIf="currentRoom.status !== 'CLOSED'">
           <mat-form-field appearance="outline"
                           floatLabel="never"
-                          class="send-message"
-                          *ngIf="isConnected">
+                          class="send-message">
             <input matInput maxlength="1300"
                    type="text"
                    placeholder="{{'messages.default' | translate}}"

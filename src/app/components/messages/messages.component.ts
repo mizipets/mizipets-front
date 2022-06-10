@@ -6,7 +6,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { RoomService } from '../../services/room.service';
-import { AdopterModel, RoomModel } from '../../models/room.model';
+import { RoomModel } from '../../models/room.model';
 import { SocketService } from '../../services/socket.service';
 import {
     MessageModel,
@@ -27,7 +27,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
     rooms: RoomModel[] = [];
     currentRoom: RoomModel | undefined;
     currentUserId: number;
-    isConnected: boolean = false;
     message: string = '';
 
     constructor(
@@ -42,20 +41,17 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.socketService.joinedRoom().subscribe(() => {
-            this.isConnected = !this.currentRoom?.closed;
             this.scrollToBottom();
         });
 
         this.socketService
             .receiveMessage()
             .subscribe((message: MessageModel) => {
-                console.log(message.writer);
-                if (this.isInfoMessage(message.type)) {
+                if (this.isInfoMessage(message.type))
                     this.connectionToRoom(this.currentRoom!);
-                }
+
                 this.currentRoom?.messages?.push(message);
                 this.scrollToBottom();
-                if (message.type === 'close') this.isConnected = false;
             });
 
         this.roomService.getUserRooms().subscribe({
@@ -143,12 +139,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
 
     private async getOffsetMessages(): Promise<void> {
+        const offset: number =
+          this.currentRoom?.messages?.length ? (this.currentRoom?.messages?.length + 1) : 0;
         this.isLoading = true;
         await new Promise((f) => setTimeout(f, 1000));
         this.roomService
             .getOffsetMessages(
                 this.currentRoom!.id,
-                this.currentRoom?.messages?.length!
+                offset
             )
             .subscribe({
                 next: (messages: MessageModel[]) => {
