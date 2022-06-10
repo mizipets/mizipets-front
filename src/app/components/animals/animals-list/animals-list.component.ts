@@ -94,9 +94,6 @@ export class AnimalsListComponent implements OnInit {
         this.animalService.getUserAnimals().subscribe({
             next: (animals: AnimalModel[]) => {
                 this.animals = animals;
-                for(let i=0;i<20;i++){
-                  this.animals.push(animals[0]);
-                }
                 this.filter(true);
                 this.isLoading = false;
             },
