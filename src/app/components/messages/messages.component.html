@@ -9,18 +9,22 @@
                [ngClass]="{'selected': currentRoom?.id === room.id}"
                [matRippleCentered]="true"
                (click)="connectionToRoom(room)">
-            <img src="{{room.adoptant.photo}}" class="avatar" alt="avatar">
-            <p class="ml-2">{{ room.adoptant.firstname }}</p>
+            <img src="{{ getInterlocutor(room).photo }}" class="avatar" alt="avatar">
+            <p class="ml-2">
+              {{ getInterlocutor(room).firstname }}
+              {{'messages.for' | translate}}
+              {{ room.animal.name }}
+            </p>
           </div>
         </div>
       </div>
     </mat-drawer>
-
-    <div class="box">
+    <p class="text-center mt-5" *ngIf="!currentRoom">{{'messages.empty' | translate}}</p>
+    <div class="box" *ngIf="currentRoom">
       <!-- Header top, info about adopter and animal -->
-      <mat-toolbar class="toolbar-top" *ngIf="currentRoom">
-        <img src="{{currentRoom.adoptant.photo}}" class="avatar" alt="avatar">
-        <span class="ml-2">{{currentRoom.adoptant.firstname}}</span>
+      <mat-toolbar class="toolbar-top">
+        <img src="{{getInterlocutor(currentRoom).photo}}" class="avatar" alt="avatar">
+        <span class="ml-2">{{getInterlocutor(currentRoom).firstname}}</span>
         <span class="mx-1">{{'messages.for' | translate}}</span>
         <span>{{currentRoom.animal.name}}</span>
 
@@ -31,20 +35,24 @@
              matTooltip="{{'messages.animal-detail' | translate }}"
              class="avatar" alt="animal image">
 
-        <button mat-flat-button color="primary"
+        <button mat-flat-button
+                color="primary"
                 class="ml-3"
+                [disabled]="currentRoom.status !== 'OPENED'"
                 (click)="giveAnimal()">
           {{'messages.give' | translate}}
         </button>
       </mat-toolbar>
 
       <!-- Content, displaying messages -->
-      <div class="content" #scroll_frame>
-        <p class="text-center mt-5" *ngIf="!currentRoom">{{'messages.empty' | translate}}</p>
+      <div class="content" #scroll_frame (scroll)="onScroll($event)">
+        <div class="justify-content-center my-1" *ngIf="isLoading">
+          <mat-spinner diameter="35"></mat-spinner>
+        </div>
         <div *ngIf="currentRoom && currentRoom.messages" class="content-container">
           <div *ngFor="let message of currentRoom.messages">
               <ng-container
-                *ngIf="message.writer !== currentRoom.animal.owner.id; then incoming_msg; else outgoing_msg">
+                *ngIf="message.writer === currentUserId then outgoing_msg; else incoming_msg">
               </ng-container>
 
               <ng-template #incoming_msg>
@@ -73,7 +81,7 @@
 
       <!-- Header bottom, send messages -->
       <div class="toolbar-bottom">
-        <div class="content-container">
+        <div class="content-container" *ngIf="currentRoom.status !== 'CLOSED'">
           <mat-form-field appearance="outline"
                           floatLabel="never"
                           class="send-message"

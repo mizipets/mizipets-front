@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
     constructor(private deviceService: DeviceDetectorService) {}
 
     ngOnInit(): void {
-        this.isMobileDevice = this.deviceService.isMobile() || this.deviceService.isTablet();
+        this.isMobileDevice =
+            this.deviceService.isMobile() || this.deviceService.isTablet();
     }
 }
