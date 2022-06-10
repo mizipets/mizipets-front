@@ -92,8 +92,9 @@
     </div>
   </mat-drawer>
 
-  <div>
-    <button type="button" mat-icon-button (click)="drawer.toggle()">
+    <button type="button" mat-mini-fab color="accent"
+            class="fab-btn mx-1 my-1"
+            (click)="drawer.toggle()">
       <mat-icon *ngIf="!isOpen">chevron_right</mat-icon>
       <mat-icon *ngIf="isOpen">chevron_left</mat-icon>
     </button>
@@ -101,7 +102,6 @@
     <div class="spinner" *ngIf="isLoading">
       <mat-spinner></mat-spinner>
     </div>
-
 
     <div *ngIf="filteredAnimals.length <= 0">
       <p class="text-center" *ngIf="!adoptionChecked">{{'animals.no-animals' | translate}}</p>
