@@ -14,7 +14,7 @@ export class AnimalsListComponent implements OnInit {
     /**
      *  Check is side menu is opened
      */
-    isOpen: boolean = true;
+    isOpen: boolean = false;
     /**
      * Pass value to true to activate the spinner
      */
@@ -32,7 +32,7 @@ export class AnimalsListComponent implements OnInit {
     /**
      * Number of animals on grid line
      */
-    valueCols: number = 3;
+    valueCols: number = 1;
     /**
      * Animals list based on Animal model
      */
@@ -89,12 +89,14 @@ export class AnimalsListComponent implements OnInit {
 
     ngOnInit(): void {
         this.isLoading = true;
-        const storageValue = localStorage.getItem('valueCols');
-        if (storageValue) this.valueCols = parseInt(storageValue);
+        this.breakPoints();
 
         this.animalService.getUserAnimals().subscribe({
             next: (animals: AnimalModel[]) => {
                 this.animals = animals;
+                for(let i=0;i<20;i++){
+                  this.animals.push(animals[0]);
+                }
                 this.filter(true);
                 this.isLoading = false;
             },
@@ -185,11 +187,6 @@ export class AnimalsListComponent implements OnInit {
         }
     }
 
-    setValueColsToStorage(): number {
-        localStorage.setItem('valueCols', this.valueCols.toString());
-        return 0;
-    }
-
     filter(argument: boolean | number | string, tag: string = ''): void {
         if (typeof argument === 'boolean')
             this.filteredAnimals = this.animals.filter(
@@ -206,20 +203,21 @@ export class AnimalsListComponent implements OnInit {
                     );
                 this.checkBoxHandler(this.genderCheckList, argument);
             } else if (argument != '') console.error('wrong tag');
-        } else if (typeof argument === 'number')
-            if (tag == 'specie') {
-                if (argument != -1)
-                    this.filteredAnimals = this.filteredAnimals.filter(
-                        (animal) => animal.race.specie.id === argument
-                    );
-                this.checkBoxHandler(this.speciesCheckList, argument, tag);
-            } else if (tag == 'race') {
-                if (argument != -1)
-                    this.filteredAnimals = this.filteredAnimals.filter(
-                        (animal) => animal.race.id === argument
-                    );
-                this.checkBoxHandler(this.racesCheckList, argument, tag);
-            } else console.error('wrong tag');
+        } else {
+          if (tag == 'specie') {
+            if (argument != -1)
+              this.filteredAnimals = this.filteredAnimals.filter(
+                (animal) => animal.race.specie.id === argument
+              );
+            this.checkBoxHandler(this.speciesCheckList, argument, tag);
+          } else if (tag == 'race') {
+            if (argument != -1)
+              this.filteredAnimals = this.filteredAnimals.filter(
+                (animal) => animal.race.id === argument
+              );
+            this.checkBoxHandler(this.racesCheckList, argument, tag);
+          } else console.error('wrong tag');
+        }
     }
 
     checkBoxHandler(
@@ -331,6 +329,26 @@ export class AnimalsListComponent implements OnInit {
             else console.error('wrong tag');
         }
     }
+
+    private breakPoints() {
+      switch(true) {
+        case (window.innerWidth <= 730):
+          this.valueCols = 1;
+          break;
+        case (window.innerWidth > 730 && window.innerWidth <= 1020):
+          this.valueCols = 2;
+          break;
+        case (window.innerWidth > 1020 && window.innerWidth <= 1200):
+          this.valueCols = 3;
+          break;
+        default:
+          this.valueCols = 4;
+      }
+  }
+
+  onResize(): void {
+    this.breakPoints();
+  }
 }
 
 export interface TypeCheck {

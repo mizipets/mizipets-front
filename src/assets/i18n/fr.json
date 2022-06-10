@@ -62,7 +62,7 @@
     "no-adopted-animals": "Aucun animal adopter, vous pouvez décocher le filter \"Adopter\"",
     "add": "Ajouter une annonce",
     "born": "Né le",
-    "edit": "Éditer",
+    "detail": "Détail",
     "filter": {
       "title": "Filtres",
       "adopted": "Adopté",

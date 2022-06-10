@@ -1,5 +1,4 @@
-
-<div *ngIf="animal" class="justify-content-center my-5">
+<div *ngIf="animal" class="app-content justify-content-center my-5">
     <mat-card>
         <mat-card-header class="d-flex justify-content-end">
             <button mat-icon-button matPrefix [routerLink]="['/animals']"><mat-icon>arrow_back</mat-icon></button>
@@ -11,7 +10,7 @@
             <div *ngIf="!modify">
                 <div class="d-flex justify-content-start">
                     <div class="ml-2">
-                        <img mat-card-image *ngIf="!modify" src="{{displayedImage}}">
+                        <img mat-card-image *ngIf="!modify" src="{{displayedImage}}" alt="pet image">
                     </div>
                     <div class="ml-5">
                         <p> {{'animal-details.name' | translate}} : {{animal.name}}</p>
@@ -22,7 +21,7 @@
                     <div class="ml-4">
                         <p> {{'animals.filter.gender' | translate}} : {{animal.sex}}</p>
                         <p> {{'animals.filter.breeds' | translate}} : {{animal.race.name}}</p>
-                    </div> 
+                    </div>
                 </div>
                 <p> {{'animal-details.creation' | translate}} {{animal.createDate | date:'dd MMMM y'}}</p>
             </div>
@@ -30,7 +29,7 @@
                 <form [formGroup]="animalForm">
                     <div class="d-flex justify-content-start">
                         <div class="ml-2">
-                            <img mat-card-image src="{{displayedImage}}">
+                            <img mat-card-image src="{{displayedImage}}" alt="pet image">
                             <input type="file" class="file-upload" (change)="onChange($event)" style="display: none" #selectFile>
                             <button mat-icon-button class="profile-image-picker" (click)="selectFile.click()"><mat-icon>add_a_photo</mat-icon></button>
                         </div>
@@ -65,7 +64,7 @@
                                         </mat-option>
                                     </mat-select>
                                     <mat-error>{{'common.error' | translate}}</mat-error>
-                                </mat-form-field> 
+                                </mat-form-field>
                                 <p> </p>
                                 <mat-form-field appearance="outline">
                                     <mat-label value="">{{'animals.filter.breeds' | translate}}</mat-label>
@@ -76,13 +75,13 @@
                                     </mat-select>
                                     <mat-error>{{'common.error' | translate}}</mat-error>
                                 </mat-form-field>
-                        </div> 
+                        </div>
                     </div>
                     <div class="justify-content-center">
                         <button mat-flat-button color="primary" (click)="onUpdate()" [disabled]="animalForm.invalid">{{'user-profile.update-button' | translate}}</button>
-                    </div> 
-                </form> 
-            </div>      
+                    </div>
+                </form>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

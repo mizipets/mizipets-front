@@ -1,20 +1,15 @@
 <mat-drawer-container class="app-content">
-  <mat-drawer #drawer class="sidenav" mode="side" [(opened)]="isOpen">
-    <h3>{{'animals.filter.title' | translate}}</h3>
-    <div class="mx-2">
-      <mat-slider
-        style="width: 100%"
-        aria-label="number of cols"
-        max="6"
-        min="2"
-        step="1"
-        thumbLabel="true"
-        [(ngModel)]="valueCols"
-        [tickInterval]="setValueColsToStorage()"
-        matTooltip="Choisir le nombre d'animaux par ligne"
-        matTooltipPosition="right">
-      </mat-slider>
+  <mat-drawer #drawer class="sidenav" mode="over" [opened]="false">
+    <div class="justify-content-between">
+      <h3>{{'animals.filter.title' | translate}}</h3>
+      <button type="button" mat-icon-button
+              class="mx-1 my-1"
+              (click)="drawer.toggle()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
 
+    <div class="mx-2">
       <mat-checkbox
         class="my-3"
         [(ngModel)]="adoptionChecked"
@@ -95,8 +90,7 @@
     <button type="button" mat-mini-fab color="accent"
             class="fab-btn mx-1 my-1"
             (click)="drawer.toggle()">
-      <mat-icon *ngIf="!isOpen">chevron_right</mat-icon>
-      <mat-icon *ngIf="isOpen">chevron_left</mat-icon>
+      <mat-icon>chevron_right</mat-icon>
     </button>
 
     <div class="spinner" *ngIf="isLoading">
@@ -110,10 +104,12 @@
         <button mat-flat-button color="primary" type="button"   routerLink="/animal-create">{{'animals.add' | translate}}</button>
       </div>
     </div>
-
-    <mat-grid-list [cols]="valueCols" rowHeight="500px" *ngIf="filteredAnimals.length > 0">
-      <mat-grid-tile *ngFor="let animal of filteredAnimals.reverse()">
-        <mat-card class="mx-1">
+    <mat-grid-list [cols]="valueCols" rowHeight="500px"
+                   [gutterSize]="'20px'"
+                   (window:resize)="onResize()"
+                   *ngIf="filteredAnimals.length > 0">
+      <mat-grid-tile fxFlexAlign="stretch" *ngFor="let animal of filteredAnimals.reverse()">
+        <mat-card>
           <img mat-card-image src="{{animal.images[0]}}" alt="animal image">
           <mat-card-content>
             <div class="d-flex justify-content-between">
@@ -147,7 +143,7 @@
                     *ngIf="animal.isAdoption"
                     [routerLink]="['/animal', animal.id]"
                     [state]="animal">
-              {{'animals.edit' | translate}}
+              {{'animals.detail' | translate}}
             </button>
           </mat-card-actions>
         </mat-card>
