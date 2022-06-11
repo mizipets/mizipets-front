@@ -1,6 +1,6 @@
 {
   "common": {
-    "title": "Mizipets",
+    "app-title": "Mizipets",
     "welcome": "Welcome to Mizipets",
     "email": "Email",
     "password": "Password",
@@ -17,6 +17,8 @@
     "firstname": "Manager firstname",
     "lastname": "Manager lastname",
     "shelter": "Shelter, association or breeding's name",
+    "policy": "Terms & Conditions",
+    "rights": "All rights reserved",
     "address": {
       "title": "Shelter, association or breeding's location",
       "country": "Country",

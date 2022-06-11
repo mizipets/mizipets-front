@@ -9,12 +9,12 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { CloseAccountPopUpComponent } from '../close-account-pop-up/close-account-pop-up.component';
+import { CloseAccountPopUpComponent } from './close-account-modal/close-account-pop-up.component';
 import { TranslateService } from '@ngx-translate/core';
 import { S3Service } from '../../services/s3.service';
 
 @Component({
-    selector: 'app-user-profile',
+    selector: 'app-profile',
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss']
 })
@@ -134,7 +134,7 @@ export class UserProfileComponent implements OnInit {
 
     openSnackBar(): void {
         this.snackBar.open(
-            this.translate.instant('user-profile.update-success'),
+            this.translate.instant('profile.update-success'),
             '',
             {
                 duration: 2000,
