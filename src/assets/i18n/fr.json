@@ -97,7 +97,7 @@
     "title": "Supprimer cet animal",
     "warning": "Voulez-vous vraiment supprimer cet animal ?"
   },
-  "user-profile": {
+  "profile": {
     "title": "Profil",
     "information": "Informations personnelles",
     "update-button": "Mettre à jour",
