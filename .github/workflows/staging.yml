@@ -1,6 +1,8 @@
 name: Build and push staging
 
 on:
+  workflow_dispatch:
+    branches: [staging]
   push:
     branches:
       - 'staging'
