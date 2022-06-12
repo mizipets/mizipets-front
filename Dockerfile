@@ -15,7 +15,7 @@ RUN npm ci --quiet
 COPY --chown=node:node . .
 
 # max_old_space_size is optional but can help when you have a lot of modules
-RUN node --max_old_space_size=4096 node_modules/.bin/ng build --prod
+RUN node node_modules/.bin/ng build --configuration=production
 
 # Stage 2
 # Using a light-weight nginx image
