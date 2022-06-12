@@ -7,16 +7,18 @@ import { AnimalsListComponent } from './components/animals/animals-list/animals-
 import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { SettingsComponent } from './components/settings/settings.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UserProfileComponent } from './components/profile/user-profile.component';
+import { SettingsComponent } from './components/profile/settings/settings.component';
+import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
+import { PoliciesComponent } from './components/policies/policies.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'policies', component: PoliciesComponent },
     {
         path: 'animals',
         component: AnimalsListComponent,

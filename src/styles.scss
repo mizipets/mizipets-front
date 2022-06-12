@@ -105,15 +105,16 @@ html, body {
 /* ======== Font style ======== */
 .app-content {
   padding-top: 64px;
+  padding-bottom: 60px;
 }
 .sidenav {
   padding: 65px 20px 20px 20px;
   width: 360px;
 }
 h1, .title {
-  font-size: 36px !important;
-  font-family: 'Arima Madurai',cursive !important;
-  line-height: 40px !important;
+  font-size: 36px;
+  font-family: 'Arima Madurai',cursive;
+  line-height: 40px;
 }
 .cookie {
   font-family: 'Cookie', cursive !important;
@@ -122,8 +123,8 @@ h1, .title {
   font-weight: 400 !important;
 }
 p {
-  font-size: 16px !important;
-  line-height: 30px !important;
+  font-size: 16px;
+  line-height: 30px;
 }
 
 /* ======== Colors style ======== */

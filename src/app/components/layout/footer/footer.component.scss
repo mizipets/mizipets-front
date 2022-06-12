@@ -1,0 +1,15 @@
+footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: #fafafa;
+  height: 50px;
+
+  p, a {
+    color: #7E7E7E;
+    font-size: 14px;
+  }
+}
