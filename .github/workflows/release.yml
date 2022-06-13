@@ -1,9 +1,8 @@
-name: Build and push staging
+name: Build and push prod
 
 on:
-  push:
-    branches:
-      - 'master'
+   release:
+    types: [published]
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -25,4 +24,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: natin56y/mizipets-front-staging:latest
+          tags: natin56y/mizipets-front:latest
