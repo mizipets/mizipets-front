@@ -1,0 +1,25 @@
+.app-content {
+  height: 100%;
+
+  .fab-btn {
+    position: fixed;
+    z-index: 100;
+  }
+
+  mat-card {
+    width: 300px;
+
+    .mat-card-image {
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .align-center {
+      display: flex;
+      align-items: center;
+    }
+    .icon-primary {
+      color: #168aad;
+    }
+  }
+}

@@ -1,3 +1,123 @@
 {
-    "hello": "Bonjour le monde!"
+  "common": {
+    "app-title": "Mizipets",
+    "welcome": "Bienvenue sur Mizipets",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "or": "ou",
+    "continue": "Continuer",
+    "forgot-password": "Mot de passe oublié ?",
+    "forgot-text": "Indiquez l'adresse e-mail que vous avez utilisée pour vous inscrire et nous vous enverrons un code pour réinitialiser votre mot de passe.",
+    "code-send": "Saisissez le code à 6 chiffres que vous avez reçu par email.",
+    "send-again": "Envoyer à nouveau le code",
+    "code": "Vérification",
+    "new-password": "Entrer un nouveau mot de passe",
+    "register-password": "Enregistrer",
+    "go-home": "Retour à l'accueil",
+    "firstname": "Prénom du responsable",
+    "lastname": "Nom du responsable",
+    "shelter": "Nom du refuge, de l'élevage ou de l'association",
+    "policy": "Conditions générales",
+    "rights": "Tous droits réservés",
+    "address": {
+      "title": "Adresse du refuge, de l'élevage ou de l'association",
+      "country": "Pays",
+      "street": "Adresse postale",
+      "apartment": "Appartement, bâtiment (facultatif)",
+      "zip": "Code postal",
+      "city": "Ville"
+    },
+    "confirm": "Confirmer",
+    "next": "Suivant",
+    "cancel": "Annuler",
+    "error": "Ce champs ne doit pas etre vide",
+    "years": "ans"
+  },
+  "header": {
+    "animals": "Mes animaux",
+    "add":  "Ajouter une annonce",
+    "messages": "Messagerie",
+    "profile":  "Profil",
+    "settings": "Paramètres",
+    "connection": "Connexion",
+    "logout": "Se déconnecter"
+  },
+  "login": {
+    "title": "Connexion",
+    "button": "Se connecter",
+    "remember": "Se souvenir de moi",
+    "forgot-password": "Mot de passe oublié",
+    "no-account": "Créer un compte Pro"
+  },
+  "register": {
+    "title": "Inscription",
+    "subtitle": "Je suis un refuge, un eleveur, ou une association.",
+    "button": "Créer mon compte",
+    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
+    "success": "Compte créé",
+    "condition": "J'ai lu et j'accepte les ",
+    "condition-link": "conditions générales d'utilisation"
+  },
+  "animals": {
+    "no-animals": "Aucun animals pour le moment",
+    "adopted": "Adopté",
+    "no-adopted-animals": "Aucun animal adopter, vous pouvez décocher le filter \"Adopter\"",
+    "add": "Ajouter une annonce",
+    "born": "Né le",
+    "detail": "Détail",
+    "filter": {
+      "title": "Filtres",
+      "adopted": "Adopté",
+      "location": "Localisation",
+      "breeds": "Races",
+      "species": "Espèces",
+      "gender": "Sexe",
+      "age": "Âge",
+      "breeds-empty": "Vous devez d'abord sélectionner une espèce"
+    }
+  },
+  "animals-add": {
+    "title": "Ajouter une annonce",
+    "information": "Donnez les informations de votre animal",
+    "photo": "Ajoutez une image de votre animal",
+    "name": "Nom de l'animal",
+    "comment": "Commentaire",
+    "button": "Créer l'annonce",
+    "success": "Annonce créée",
+    "image-error": "Cette image n'a pas pu être sauvegardé",
+    "animal-error": "Votre animal n'a pas pu être enregistré"
+  },
+  "animal-details": {
+    "name": "Nom",
+    "age": "Age",
+    "location": "Localisation",
+    "creation": "Annonce postée le"
+  },
+  "animal-delete": {
+    "title": "Supprimer cet animal",
+    "warning": "Voulez-vous vraiment supprimer cet animal ?"
+  },
+  "profile": {
+    "title": "Profil",
+    "information": "Informations personnelles",
+    "update-button": "Mettre à jour",
+    "close-title":"Besoin de désactiver votre compte ?",
+    "close-button": "Désactiver votre compte",
+    "update-success": "Mise à jour réussie",
+    "close-pop-up-title": "Attention !",
+    "close-warning": "Voulez vous vraiment désactiver votre compte ?",
+    "close-warning-2": "Vous serez déconnecté et n'aurez plus accès à nos services !",
+    "close-success": "Votre compte est désormais fermé",
+    "creation": "Date de création du compte"
+  },
+  "messages": {
+    "inbox": "Messagerie",
+    "give": "Donner l'animal",
+    "empty": "Aucun message",
+    "default": "Saisissez un message",
+    "for": "pour",
+    "animal-detail": "Clique pour voir le detail",
+    "close-success": "Votre compte est désormais désactivé",
+    "creation": "Membre depuis"
+  }
 }

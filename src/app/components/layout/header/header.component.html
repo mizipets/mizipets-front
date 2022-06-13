@@ -1,0 +1,63 @@
+<mat-toolbar color="accent" class="header">
+  <span style="background-color: #FFFFFF" class="icon">
+     <img src="../../../../assets/images/logo.svg" class="icon" alt="logo">
+  </span>
+  <span routerLink="/home" class="home"  matRipple
+        [matRippleCentered]="true">{{'common.app-title' | translate}}</span>
+
+  <span class="spacer"></span>
+
+  <button mat-button  class="mx-5"
+        routerLink="/animals"
+        routerLinkActive="active-link"
+        *ngIf="authService.isLogged()">
+    {{'header.animals' | translate}}
+  </button>
+
+  <button mat-button  class="mx-5"
+        routerLink="/animal-create"
+        routerLinkActive="active-link"
+        *ngIf="authService.isLogged()">
+    {{'header.add' | translate}}
+  </button>
+
+  <button mat-button class="mx-4"
+        matBadge="7"
+        [matBadgeHidden]="true"
+        matBadgeColor="warn"
+        routerLink="/messages"
+        routerLinkActive="active-link"
+        *ngIf="authService.isLogged()">
+    {{'header.messages' | translate}}
+  </button>
+
+  <span class="spacer"></span>
+  <language></language>
+
+  <button mat-flat-button class="ml-2"
+          routerLink="/login"
+          *ngIf="!authService.isLogged()">
+    {{'header.connection' | translate}}
+  </button>
+
+  <button mat-flat-button class="ml-2"
+          [matMenuTriggerFor]="menu"
+          *ngIf="authService.isLogged()">
+    <mat-icon>person_outlined</mat-icon><mat-icon>expand_more</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item routerLink="/user">
+      <mat-icon>account_circle</mat-icon>
+      {{'header.profile' | translate}}
+    </button>
+<!--    <button mat-menu-item routerLink="/settings">-->
+<!--      <mat-icon>settings</mat-icon>-->
+<!--      {{'header.settings' | translate}}-->
+<!--    </button>-->
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="authService.logout()">
+      <mat-icon>logout</mat-icon>
+      {{'header.logout' | translate}}
+    </button>
+  </mat-menu>
+</mat-toolbar>

@@ -1,0 +1,86 @@
+<div class="app-content justify-content-center my-5">
+  <mat-card>
+    <mat-card-header class="d-flex justify-content-center">
+      <mat-card-title class="title">{{'register.title' | translate}}</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Step one -->
+      <mat-card-content *ngIf="!next" class="mt-4">
+        <p>{{'register.subtitle' | translate}}</p>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'common.lastname' | translate}}</mat-label>
+          <input matInput formControlName="lastname" required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'common.firstname' | translate}}</mat-label>
+          <input matInput formControlName="firstname" required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="outline" class="my-1">
+          <mat-label>{{'common.email' | translate}}</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-icon matSuffix>mail</mat-icon>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'common.password' | translate}}</mat-label>
+          <input matInput type="password" id="password" formControlName="password" autocomplete="on" required>
+          <mat-icon matSuffix>visibility_off</mat-icon>
+        </mat-form-field>
+        <br/>
+        <button mat-flat-button color="primary" type="button" class="mt-4"
+                (click)="next = true"
+                [disabled]="firstnameCtrl.invalid || lastnameCtrl.invalid || emailCtrl.invalid || passwordCtrl.invalid">
+          {{'common.next' | translate}}
+        </button>
+      </mat-card-content>
+
+      <!-- Step two -->
+      <mat-card-content *ngIf="next" class="mt-4">
+        <mat-form-field appearance="outline" class="my-1">
+          <mat-label>{{'common.shelter' | translate}}</mat-label>
+          <input matInput formControlName="shelter" required>
+        </mat-form-field>
+        <br/>
+        <p>{{'common.address.title' | translate}}</p>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'common.address.country' | translate}}</mat-label>
+          <mat-select  formControlName="country" required>
+            <mat-option *ngFor="let country of countries" [value]="country.value">
+              {{country.display}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="outline" class="my-1">
+          <mat-label>{{'common.address.street' | translate}}</mat-label>
+          <input matInput formControlName="street" required>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="outline" class="my-1">
+          <mat-label>{{'common.address.apartment' | translate}}</mat-label>
+          <input matInput formControlName="apartment">
+        </mat-form-field>
+        <div class="d-flex justify-content-center">
+          <mat-form-field appearance="outline" class="my-1 mr-2">
+            <mat-label>{{'common.address.zip' | translate}}</mat-label>
+            <input matInput formControlName="zip" maxlength="5" required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="my-1">
+            <mat-label>{{'common.address.city' | translate}}</mat-label>
+            <input matInput formControlName="city" required>
+          </mat-form-field>
+        </div>
+
+        <mat-checkbox color="primary" class="my-3" [checked]="check">
+          {{'register.condition' | translate}}<a routerLink="/legal">{{'register.condition-link' | translate}}</a>
+        </mat-checkbox>
+        <button mat-flat-button color="primary" type="submit" class="mt-1" [disabled]="registerForm.invalid">{{'register.button' | translate}}</button>
+      </mat-card-content>
+    </form>
+  </mat-card>
+</div>

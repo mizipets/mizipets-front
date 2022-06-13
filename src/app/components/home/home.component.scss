@@ -1,0 +1,27 @@
+.home {
+  background-color: #168AAD;
+  width: 100% !important;
+  box-sizing: border-box;
+
+  .cookie {
+    text-align: center;
+    margin: 0;
+    color: #fafafa;
+    padding-bottom: 30px;
+    padding-top: 30px;
+  }
+}
+.card-bg {
+  background: rgba(255,255,255, 0.8);
+  backdrop-filter: blur(5px);
+}
+.box-content {
+  background-color: #FED08B;
+  min-height: 215px;
+  padding: 10px;
+  border-radius: 20px;
+}
+.text {
+  font-weight: 400 !important;
+  font-size: 26px !important;
+}

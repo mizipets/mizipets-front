@@ -1,3 +1,123 @@
 {
-    "hello": "Hello world!"
+  "common": {
+    "app-title": "Mizipets",
+    "welcome": "Welcome to Mizipets",
+    "email": "Email",
+    "password": "Password",
+    "or": "or",
+    "continue": "Continue",
+    "forgot-password": "Forgot password ?",
+    "forgot-text": "Enter the email address you used to register and we will send you a code to reset your password.",
+    "code-send": "Enter the 6-digit code you received by email.",
+    "send-again": "Send the code again",
+    "code": "Verification",
+    "new-password": "Enter new password",
+    "register-password": "Register new password",
+    "go-home": "Back to home",
+    "firstname": "Manager firstname",
+    "lastname": "Manager lastname",
+    "shelter": "Shelter, association or breeding's name",
+    "policy": "Terms & Conditions",
+    "rights": "All rights reserved",
+    "address": {
+      "title": "Shelter, association or breeding's location",
+      "country": "Country",
+      "street": "Street",
+      "apartment": "Flat, building (optional)",
+      "zip": "Zip Code",
+      "city": "City"
+    },
+    "confirm": "Confirm",
+    "next": "Next",
+    "cancel": "Cancel",
+    "error": "This field cannot be empty",
+    "years": "years old"
+  },
+  "header": {
+    "animals": "My animals",
+    "add":  "Create a post",
+    "messages": "Messages",
+    "profile":  "Profile",
+    "settings": "Settings",
+    "connection": "Sign in",
+    "logout": "Sign out"
+  },
+  "login": {
+    "title": "Log in",
+    "button": "Log in",
+    "remember": "Remember me",
+    "forgot-password": "Forgotten your password",
+    "no-account": "Create Pro account"
+  },
+  "register": {
+    "title": "Sign up",
+    "subtitle": "Je suis un refuge, un eleveur, ou une association.",
+    "button": "Créer mon compte",
+    "hint": "Le mot de passe doit être supérieur ou égal à 8 caractères",
+    "success": "Account created",
+    "condition": "I have read and accepted the ",
+    "condition-link": "general terms of use"
+  },
+  "animals": {
+    "no-animals": "No animals for the moment",
+    "adopted": "Adopted",
+    "no-adopted-animals": "No animals to adopt, you can uncheck the \"Adopt\" filter",
+    "add": "Post an ad",
+    "born": "Born on",
+    "detail": "Detail",
+    "filter": {
+      "title": "Filters",
+      "adopted": "Adopted",
+      "location": "Location",
+      "breeds": "Breeds",
+      "species": "Species",
+      "gender": "Gender",
+      "age": "Age",
+      "breeds-empty": "You must first select a species"
+    }
+  },
+  "animals-add": {
+    "title": "Post an ad",
+    "information": "Give your animal's informations",
+    "photo": "Add a picture of your animal",
+    "name": "Name",
+    "comment": "Comment",
+    "button": "Create ad",
+    "success": "Ad created",
+    "image-error": "This picture couldn't be saved",
+    "animal-error": "Your animal couldn't be saved"
+  },
+  "animal-details": {
+    "name": "Name",
+    "age": "Age",
+    "location": "Location",
+    "creation": "Ad posted on"
+  },
+  "animal-delete": {
+    "title": "Delete this animal",
+    "warning": "Do you really want to delete this animal ?"
+  },
+  "profile": {
+    "title": "Profile",
+    "information": "Personal informations",
+    "update-button": "Update",
+    "close-title":"Need to disable your account ?",
+    "close-button": "Disable account",
+    "update-success": "Successful update",
+    "close-pop-up-title": "Warning !",
+    "close-warning": "Do you really want to disable your account ?",
+    "close-warning-2": "You will be disconnected and will no longer have access to our services !",
+    "close-success": "Your account is now close",
+    "creation": "Account creation date"
+  },
+  "messages": {
+    "inbox": "Messages",
+    "give": "Give animal",
+    "empty": "No message",
+    "default": "Type a message",
+    "for": "for",
+    "animal-detail": "Click to have animal detail",
+    "close-success": "Your account is now disabled",
+    "creation": "Member since"
+  }
 }

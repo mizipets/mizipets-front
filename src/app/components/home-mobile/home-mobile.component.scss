@@ -1,0 +1,29 @@
+section {
+  overflow-y: hidden;
+  text-align: start;
+
+  .cookie {
+    text-align: center;
+  }
+  button {
+    width: 100%;
+  }
+}
+svg {
+  width: 100% !important;
+  margin-top: -7px !important;
+  margin-bottom: -7px !important;
+}
+.head-section,.end-section {
+  background-color: #05668d;
+  color: white;
+}
+.end-section {
+  padding-bottom: 50px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: auto !important;
+  }
+}

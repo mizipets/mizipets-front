@@ -8,8 +8,6 @@ export class LanguageService {
     constructor(public translate: TranslateService) {}
 
     get locale(): string {
-        console.log(this.translate.currentLang);
-
         return (
             this.translate.currentLang ??
             localStorage.getItem('language') ??

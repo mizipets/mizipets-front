@@ -1,0 +1,32 @@
+.app-content {
+  height: 100%;
+
+  .mat-card {
+    max-height: 50%;
+    .mat-form-field{
+      width: 100%;
+    }
+
+    .mat-flat-button {
+      width: 60%;
+    }
+
+    .mat-card-image {
+      vertical-align: middle;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 5px solid #FED08B;
+      height: 200px;
+      width: 200px;
+    }
+
+    .profile-image-picker {
+      background-color: white;
+      position: absolute;
+      top: 200px;
+      transform: translateX(150px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+

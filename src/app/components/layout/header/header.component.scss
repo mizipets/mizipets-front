@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+
+  .icon {
+    height: 60px;
+    width: 60px;
+  }
+
+  .home {
+    cursor: pointer;
+    padding: 5px;
+    margin: 0;
+    font-family: 'Cookie', cursive;
+    font-size: 36px;
+  }
+  .active-link {
+    border-bottom: solid 4px white;
+  }
+}
