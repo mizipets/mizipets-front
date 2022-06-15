@@ -114,15 +114,14 @@ export class AnimalsDetailComponent implements OnInit {
         this.animalService.updateAdoption(this.animal.id, this.updateAnimal).subscribe({
             next: (animal: AnimalModel) => {
                 this.animal = animal;
-                if (this.fileName === this.animal.images) {
-                    console.log(this.file);
+                if (this.fileName !== this.animal.images) {
                     const formData = new FormData();
                     formData.append('file', this.file);
                     this.s3Service
                         .uploadImage(animal.id, 'animal', formData)
                         .subscribe({
                             next: () => {
-                                this.openSnackBar('animals-add.button');
+                                this.openSnackBar('animal-details.addImage-success');
                                 this.modify = true;
                             },
                             error: (error) => {

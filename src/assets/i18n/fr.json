@@ -91,7 +91,8 @@
     "name": "Nom",
     "age": "Age",
     "location": "Localisation",
-    "creation": "Annonce postée le"
+    "creation": "Annonce postée le",
+    "addImage-success": "Image ajoutée avec succès"
   },
   "animal-delete": {
     "title": "Supprimer cet animal",
