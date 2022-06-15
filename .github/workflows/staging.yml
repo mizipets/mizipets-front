@@ -25,6 +25,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          file: ./Dockerfile.staging
           tags: natin56y/mizipets-front-staging:latest
-          secrets: |
-            "BUILD_ENV=staging"
