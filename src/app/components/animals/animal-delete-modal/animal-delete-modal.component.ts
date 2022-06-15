@@ -14,7 +14,8 @@ import { AnimalModel } from 'src/app/models/animal.model';
 })
 export class AnimalDeleteModalComponent implements OnInit {
 
-  constructor(public deleteAnimalDialog: MatDialogRef<AnimalDeleteModalComponent>,
+  constructor(
+    public deleteAnimalDialog: MatDialogRef<AnimalDeleteModalComponent>,
     private animalService: AnimalsService,
     private snackBar: MatSnackBar,
     private translate: TranslateService,

@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AnimalDeleteModalComponent } from '../animal-delete-modal/animal-delete-modal.component';
+import { AnimalImagesModalComponent } from '../animal-images-modal/animal-images-modal.component';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -70,6 +71,7 @@ export class AnimalsDetailComponent implements OnInit {
     constructor(
         private router: Router,
         private deleteAnimalDialog: MatDialog,
+        private animalImagesDialog: MatDialog,
         public formBuilder: FormBuilder,
         private snackBar: MatSnackBar,
         private translate: TranslateService,
@@ -157,6 +159,14 @@ export class AnimalsDetailComponent implements OnInit {
     onDeleteAnimal(): void {
         this.deleteAnimalDialog.open(AnimalDeleteModalComponent, {
             data: { animal: this.animal },
+        });
+    }
+
+    onImages(): void {
+        this.animalImagesDialog.open(AnimalImagesModalComponent, {
+            data: { animal: this.animal },
+            height: '100vh',
+            width: '100%'
         });
     }
 

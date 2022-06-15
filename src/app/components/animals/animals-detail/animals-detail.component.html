@@ -30,8 +30,7 @@
                     <div class="d-flex justify-content-start">
                         <div class="ml-2">
                             <img mat-card-image src="{{displayedImage}}" alt="pet image">
-                            <input type="file" class="file-upload" (change)="onChange($event)" style="display: none" #selectFile>
-                            <button mat-icon-button class="profile-image-picker" (click)="selectFile.click()"><mat-icon>add_a_photo</mat-icon></button>
+                            <button mat-icon-button class="profile-image-picker" (click)="onImages()"><mat-icon>add_a_photo</mat-icon></button>
                         </div>
                         <div class="ml-5">
                                 <mat-form-field appearance="outline">
