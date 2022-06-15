@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    baseUrl: 'http://49.12.198.51:3000/v1/',
-    socketUrl: 'http://49.12.198.51:3001',
-    userDefaultUrl: 'http://49.12.198.51:9000/mizipets/avatar_default.jpg'
+    baseUrl: 'https://api.mizipets.com/v1/',
+    socketUrl: 'https://messages.mizipets.com',
+    userDefaultUrl: 'https://storage.mizipets.com/mizipets/avatar_default.jpg'
 };
