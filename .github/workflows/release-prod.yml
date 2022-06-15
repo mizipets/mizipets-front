@@ -24,6 +24,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          file: ./Dockerfile.prod
           tags: natin56y/mizipets-front:latest
-          secrets: |
-            "BUILD_ENV=production"
