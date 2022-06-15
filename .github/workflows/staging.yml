@@ -1,9 +1,8 @@
 name: Build and push staging
 
-on:
-  push:
-    branches:
-      - 'master'
+on: 
+  workflow_dispatch:
+    branches: ['staging']
 jobs:
   docker:
     runs-on: ubuntu-latest
