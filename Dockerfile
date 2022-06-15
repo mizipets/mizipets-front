@@ -1,4 +1,3 @@
-# Stage 1
 FROM node:16.14.0-alpine As build
 
 RUN mkdir /home/node/app && chown node:node /home/node/app
@@ -13,12 +12,10 @@ COPY --chown=node:node package.json package-lock.json ./
 RUN npm ci --quiet
 
 COPY --chown=node:node . .
+ARG BUILD_ENV
 
-# max_old_space_size is optional but can help when you have a lot of modules
-RUN node node_modules/.bin/ng build --configuration=staging
+RUN node node_modules/.bin/ng build --configuration=${BUILD_ENV}
 
-# Stage 2
-# Using a light-weight nginx image
 FROM nginx:alpine
 
 COPY --from=build /home/node/app/dist/mizipets-front /usr/share/nginx/html
