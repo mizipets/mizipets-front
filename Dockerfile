@@ -14,7 +14,7 @@ RUN npm ci --quiet
 COPY --chown=node:node . .
 ARG BUILD_ENV
 
-RUN node node_modules/.bin/ng build --configuration=${BUILD_ENV}
+RUN node node_modules/.bin/ng build --configuration=$BUILD_ENV
 
 FROM nginx:alpine
 
