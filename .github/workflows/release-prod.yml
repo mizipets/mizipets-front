@@ -37,4 +37,4 @@ jobs:
             cd mizipets-api
             docker compose -f docker-compose.prod.yml stop front
             docker compose -f docker-compose.prod.yml pull front
-            docker compose -f docker-compose.prod.yml up front
+            docker compose -f docker-compose.prod.yml up -d front
