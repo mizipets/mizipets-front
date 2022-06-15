@@ -26,5 +26,5 @@ jobs:
         with:
           push: true
           context: .
-          file: Dockerfile.staging
+          file: ./Dockerfile.staging
           tags: natin56y/mizipets-front-staging:latest
