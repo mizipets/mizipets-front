@@ -114,14 +114,6 @@ export class AnimalsListComponent implements OnInit {
         });
         this.setupList('', 'sex');
         this.setupList('', 'age');
-
-        console.log(this.animals)
-
-        this.animals = this.animals.sort(
-            (animalA, animalB) => animalB.createDate.getTime() - animalB.createDate.getTime(),
-            );
-
-        console.log(this.animals)
     }
 
     orderList(): AnimalModel[] {
