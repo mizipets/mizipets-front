@@ -108,7 +108,7 @@
                    [gutterSize]="'20px'"
                    (window:resize)="onResize()"
                    *ngIf="filteredAnimals.length > 0">
-      <mat-grid-tile fxFlexAlign="stretch" *ngFor="let animal of filteredAnimals.reverse()">
+      <mat-grid-tile fxFlexAlign="stretch" *ngFor="let animal of orderList()">
         <mat-card>
           <img mat-card-image src="{{animal.images[0]}}" alt="animal image">
           <mat-card-content>

@@ -114,6 +114,20 @@ export class AnimalsListComponent implements OnInit {
         });
         this.setupList('', 'sex');
         this.setupList('', 'age');
+
+        console.log(this.animals)
+
+        this.animals = this.animals.sort(
+            (animalA, animalB) => animalB.createDate.getTime() - animalB.createDate.getTime(),
+            );
+
+        console.log(this.animals)
+    }
+
+    orderList(): AnimalModel[] {
+        return this.filteredAnimals.sort(
+            (animalA, animalB) => new Date(animalB.createDate).getTime() - new Date(animalA.createDate).getTime(),
+            );
     }
 
     onChange(val: SpecieCheck | RaceCheck | TypeCheck, tag: string): void {
