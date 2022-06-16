@@ -1,8 +1,8 @@
-name: Build and push staging
+name: Build and push prod
 
 on: 
   workflow_dispatch:
-    branches: ['staging']
+    branches: ['master']
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -23,18 +23,18 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          file: ./Dockerfile.staging
-          tags: natin56y/mizipets-front-staging:latest
+          file: ./Dockerfile.prod
+          tags: natin56y/mizipets-front:latest
       
       - name: ssh commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.STAGING_HOST }}
-          username: ${{ secrets.STAGING_USER }}
-          key: ${{ secrets.STAGING_KEY }}
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.PROD_KEY }}
           port: 22
           script: |
             cd mizipets-api
-            docker compose -f docker-compose.staging.yml stop front
-            docker compose -f docker-compose.staging.yml pull front
-            docker compose -f docker-compose.staging.yml up -d front
+            docker compose -f docker-compose.prod.yml stop front
+            docker compose -f docker-compose.prod.yml pull front
+            docker compose -f docker-compose.prod.yml up -d front
