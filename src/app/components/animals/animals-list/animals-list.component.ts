@@ -116,6 +116,12 @@ export class AnimalsListComponent implements OnInit {
         this.setupList('', 'age');
     }
 
+    orderList(): AnimalModel[] {
+        return this.filteredAnimals.sort(
+            (animalA, animalB) => new Date(animalB.createDate).getTime() - new Date(animalA.createDate).getTime(),
+            );
+    }
+
     onChange(val: SpecieCheck | RaceCheck | TypeCheck, tag: string): void {
         let idx = 0;
         if (tag === 'specie') {
