@@ -90,9 +90,10 @@ $custom-theme: mat.define-light-theme((
 ));
 
 /* ======== Global style ======== */
+@include mat.all-component-themes($custom-theme);
 @import url('https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
-@include mat.all-component-themes($custom-theme);
+@import "~swiper/swiper-bundle.css";
 
 html, body {
   height: 100%;
@@ -138,6 +139,16 @@ p {
 }
 
 /* ======== Content style ======== */
+.swiper-container {
+  width: 100%;
+  height: 300px;
+}
+
+.swiper-slide {
+  img {
+    object-fit: scale-down !important;
+  }
+}
 .m-auto {
   margin: auto !important;
 }

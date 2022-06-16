@@ -8,15 +8,6 @@
     .mat-flat-button {
         width: 60%;
     }
-    
-    .mat-card-image {
-      vertical-align: middle;
-      border-radius: 0%;
-      object-fit: cover;
-      border: 5px solid #FED08B;
-      height: 200px;
-      width: 200px;
-    }
 
     .profile-image-picker {
       background-color: white;
@@ -25,9 +16,9 @@
       transform: translateX(150px);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     }
-  }
 
-  .swiper {
-    width: 600px;
-    height: 300px;
-  }
+    .swiper {
+      width: 300px;
+      height: 300px;
+    }
+}

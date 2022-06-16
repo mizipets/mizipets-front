@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ActivatedRoute, Route, Router } from "@angular/router";
 import { AnimalModel, CreateAdoption, Sex} from '../../../models/animal.model';
 import { SpecieModel } from '../../../models/specie.model';
 import { RaceModel } from '../../../models/race.model';
@@ -12,60 +12,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { AnimalDeleteModalComponent } from '../animal-delete-modal/animal-delete-modal.component';
 import { AnimalImagesModalComponent } from '../animal-images-modal/animal-images-modal.component';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { SwiperComponent } from "swiper/angular";
-import Swiper, { Virtual } from 'swiper';
+import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
 
-// import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-
-// install Swiper modules
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Virtual]);
-
-/*const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    direction: 'horizontal',
-    loop: true,
-  
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-    },
-  
-    // Navigation arrows
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  
-    // And if we need scrollbar
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    },
-  });*/
+SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 @Component({
     selector: 'app-animals-detail',
     templateUrl: './animals-detail.component.html',
     styleUrls: ['./animals-detail.component.scss'],
-    template: `
-    <swiper #swiper [virtual]="true">
-      <ng-template swiperSlide>Slide 1</ng-template>
-      <ng-template swiperSlide>Slide 2</ng-template>
-      <ng-template swiperSlide>Slide 3</ng-template>
-      <ng-template swiperSlide>Slide 4</ng-template>
-      <ng-template swiperSlide>Slide 5</ng-template>
-      <ng-template swiperSlide>Slide 6</ng-template>
-      <ng-template swiperSlide>Slide 7</ng-template>
-    </swiper>
-    <button (click)="slideNext()">Next slide</button>
-    <button (click)="slidePrev()">Prev slide</button>
-  `,
-
 })
 export class AnimalsDetailComponent implements OnInit {
-    @ViewChild("swipeRef", { static: false}) swiper?: SwiperComponent;
-
-    
     modify: boolean = false;
 
     file: File = {} as File;
@@ -87,7 +43,7 @@ export class AnimalsDetailComponent implements OnInit {
     ageString: string = "";
 
     Sex: string[] = Object.values(Sex);
-    
+
     races: RaceModel[] = [];
 
     nameCtrl: FormControl = this.formBuilder.control('', [
@@ -123,11 +79,14 @@ export class AnimalsDetailComponent implements OnInit {
         private translate: TranslateService,
         private animalService: AnimalsService,
         private specieService: SpeciesService,
-        private s3Service: S3Service) {}
+        private s3Service: S3Service,
+        private route: ActivatedRoute) {}
 
     ngOnInit(): void {
+        const id = this.route.snapshot.paramMap.get("id");
+        //@TODO ajouter le call api get animal by id
+
         this.animal = history.state;
-        console.log(this.animal.images)
         this.age = new Date().getFullYear()  - new Date(this.animal.birthDate).getFullYear();
         if (this.age === 0) this.ageString = "<1";
         else this.ageString = this.age.toString();
@@ -148,18 +107,6 @@ export class AnimalsDetailComponent implements OnInit {
         this.animalForm.controls['comment'].setValue(this.animal.comment);
     }
 
-    slideNext(){
-        this.swiper!.swiperRef.slideNext(100);
-    }
-    slidePrev(){
-        this.swiper!.swiperRef.slidePrev(100);
-    }
-
-    controlledSwiper: any;
-    setControlledSwiper(swiper: any) {
-        this.controlledSwiper = swiper;
-    }
-    
 
     onUpdateButton(): void {
         this.modify = !this.modify;
@@ -201,24 +148,19 @@ export class AnimalsDetailComponent implements OnInit {
         })
     }
 
-    
+
     onChange(event: any) {
         if (event.target.files) {
             let reader = new FileReader();
             this.file = event.target.files[0];
             reader.readAsDataURL(this.file);
             reader.onload = (e: any) => {
-                //this.fileName.push(e.target.result);
                 this.displayedImage = e.target.result;
             };
             this.newImage = true;
-            
+
         }
     }
-
-    
-
-    
 
     onDeleteAnimal(): void {
         this.deleteAnimalDialog.open(AnimalDeleteModalComponent, {

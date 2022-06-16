@@ -10,9 +10,21 @@
             <div *ngIf="!modify">
                 <div class="d-flex justify-content-start">
                     <div class="ml-2">
-                        <img mat-card-image *ngIf="!modify" src="{{displayedImage}}" alt="pet image">
-                        <!-- Slider main container -->
-
+                      <swiper
+                        [loop]="true"
+                        [autoHeight]="true"
+                        [allowTouchMove]="true"
+                        [autoplay]="{ delay: 1000, disableOnInteraction: false }"
+                        [pagination]="{ clickable: true }"
+                        [navigation]="true"
+                      >
+                        <ng-template data-swiper-autoplay="2000"
+                                     class="swiper-slide"
+                                     swiperSlide
+                                     *ngFor="let image of animal.images">
+                          <img src="{{image}}" alt="pet image">
+                        </ng-template>
+                      </swiper>
                     </div>
                     <div class="ml-5">
                         <p> {{'animal-details.name' | translate}} : {{animal.name}}</p>
@@ -26,26 +38,6 @@
                     </div>
                 </div>
                 <p> {{'animal-details.creation' | translate}} {{animal.createDate | date:'dd MMMM y'}}</p>
-                <!-- Slider main container -->
-<div class="swiper">
-    <!-- Additional required wrapper -->
-    <div class="swiper-wrapper">
-      <!-- Slides -->
-      <div class="swiper-slide">Slide 1</div>
-      <div class="swiper-slide">Slide 2</div>
-      <div class="swiper-slide">Slide 3</div>
-      ...
-    </div>
-    <!-- If we need pagination -->
-    <div class="swiper-pagination"></div>
-  
-    <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  
-    <!-- If we need scrollbar -->
-    <div class="swiper-scrollbar"></div>
-  </div>
             </div>
             <div *ngIf="modify">
                 <form [formGroup]="animalForm">
