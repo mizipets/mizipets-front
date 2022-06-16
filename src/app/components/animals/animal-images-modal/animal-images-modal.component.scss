@@ -5,3 +5,12 @@
     transform: translateX(1px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   }
+
+  .mat-card-image {
+    vertical-align: middle;
+    border-radius: 0%;
+    object-fit: cover;
+    border: 5px solid #FED08B;
+    height: 250px;
+    width: 250px;
+  }

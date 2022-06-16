@@ -9,7 +9,7 @@ import { LanguageComponent } from './components/language/language.component';
 import { LanguageService } from './components/language/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-//import { SwiperModule } from 'swiper/angular';
+import { SwiperModule } from 'swiper/angular';
 import {
     HTTP_INTERCEPTORS,
     HttpClient,
@@ -33,7 +33,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { CloseAccountPopUpComponent } from './components/close-account-pop-up/close-account-pop-up.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 import { AnimalDeleteModalComponent } from './components/animals/animal-delete-modal/animal-delete-modal.component';
-import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component';
+import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component'
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -82,7 +82,7 @@ const socketIoConfig: SocketIoConfig = {
         ReactiveFormsModule,
         FormsModule,
         CodeInputModule,
-        //SwiperModule
+        SwiperModule
     ],
     providers: [
         LanguageService,

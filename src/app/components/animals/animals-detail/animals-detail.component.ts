@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimalModel, CreateAdoption, Sex} from '../../../models/animal.model';
 import { SpecieModel } from '../../../models/specie.model';
@@ -12,14 +12,60 @@ import { MatDialog } from '@angular/material/dialog';
 import { AnimalDeleteModalComponent } from '../animal-delete-modal/animal-delete-modal.component';
 import { AnimalImagesModalComponent } from '../animal-images-modal/animal-images-modal.component';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { SwiperComponent } from "swiper/angular";
+import Swiper, { Virtual } from 'swiper';
+
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Virtual]);
+
+/*const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+  
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  });*/
 
 @Component({
     selector: 'app-animals-detail',
     templateUrl: './animals-detail.component.html',
-    styleUrls: ['./animals-detail.component.scss']
+    styleUrls: ['./animals-detail.component.scss'],
+    template: `
+    <swiper #swiper [virtual]="true">
+      <ng-template swiperSlide>Slide 1</ng-template>
+      <ng-template swiperSlide>Slide 2</ng-template>
+      <ng-template swiperSlide>Slide 3</ng-template>
+      <ng-template swiperSlide>Slide 4</ng-template>
+      <ng-template swiperSlide>Slide 5</ng-template>
+      <ng-template swiperSlide>Slide 6</ng-template>
+      <ng-template swiperSlide>Slide 7</ng-template>
+    </swiper>
+    <button (click)="slideNext()">Next slide</button>
+    <button (click)="slidePrev()">Prev slide</button>
+  `,
+
 })
 export class AnimalsDetailComponent implements OnInit {
+    @ViewChild("swipeRef", { static: false}) swiper?: SwiperComponent;
 
+    
     modify: boolean = false;
 
     file: File = {} as File;
@@ -81,6 +127,7 @@ export class AnimalsDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.animal = history.state;
+        console.log(this.animal.images)
         this.age = new Date().getFullYear()  - new Date(this.animal.birthDate).getFullYear();
         if (this.age === 0) this.ageString = "<1";
         else this.ageString = this.age.toString();
@@ -101,6 +148,19 @@ export class AnimalsDetailComponent implements OnInit {
         this.animalForm.controls['comment'].setValue(this.animal.comment);
     }
 
+    slideNext(){
+        this.swiper!.swiperRef.slideNext(100);
+    }
+    slidePrev(){
+        this.swiper!.swiperRef.slidePrev(100);
+    }
+
+    controlledSwiper: any;
+    setControlledSwiper(swiper: any) {
+        this.controlledSwiper = swiper;
+    }
+    
+
     onUpdateButton(): void {
         this.modify = !this.modify;
         this.fileName = this.animal.images
@@ -116,15 +176,14 @@ export class AnimalsDetailComponent implements OnInit {
         this.animalService.updateAdoption(this.animal.id, this.updateAnimal).subscribe({
             next: (animal: AnimalModel) => {
                 this.animal = animal;
-                if (this.fileName === this.animal.images) {
-                    console.log(this.file);
+                if (this.fileName !== this.animal.images) {
                     const formData = new FormData();
                     formData.append('file', this.file);
                     this.s3Service
                         .uploadImage(animal.id, 'animal', formData)
                         .subscribe({
                             next: () => {
-                                this.openSnackBar('animals-add.button');
+                                this.openSnackBar('animal-details.addImage-success');
                                 this.modify = true;
                             },
                             error: (error) => {
@@ -142,6 +201,7 @@ export class AnimalsDetailComponent implements OnInit {
         })
     }
 
+    
     onChange(event: any) {
         if (event.target.files) {
             let reader = new FileReader();
@@ -155,6 +215,10 @@ export class AnimalsDetailComponent implements OnInit {
             
         }
     }
+
+    
+
+    
 
     onDeleteAnimal(): void {
         this.deleteAnimalDialog.open(AnimalDeleteModalComponent, {

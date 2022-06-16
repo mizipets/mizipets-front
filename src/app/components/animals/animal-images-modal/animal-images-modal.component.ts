@@ -38,7 +38,7 @@ export class AnimalImagesModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {animal: AnimalModel}) { }
 
   ngOnInit(): void {
-    this.currentImages = this.data.animal.images;
+    
   }
 
   onChange(event: any) {
@@ -57,12 +57,14 @@ export class AnimalImagesModalComponent implements OnInit {
 }
 
 onLeave(): void {
-  console.log(this.file);
-  console.log(this.newFiles);
-  if (this.currentImages != this.data.animal.images) {
+  console.log(this.currentImages);
+  console.log(this.data.animal.images);
+  if (this.currentImages !== this.data.animal.images) {
+    console.log("in animal images")
     this.update.images = this.data.animal.images;
-  this.animalService.updateAdoption(this.data.animal.id, this.update).subscribe({
+    this.animalService.updateAdoption(this.data.animal.id, this.update).subscribe({
     next: (animal: AnimalModel) =>{
+      console.log("updated")
       this.data.animal = animal;
       this.updated = true;
     },
@@ -102,8 +104,7 @@ openSnackBar(): void {
 }
 
   onDelete(index: number): void {
-    console.log(index);
+    this.currentImages = Object.assign([], this.data.animal.images);
     this.data.animal.images.splice(index, 1);
-    console.log(this.data.animal.images);
   }
 }
