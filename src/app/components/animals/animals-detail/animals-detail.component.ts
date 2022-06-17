@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { ActivatedRoute, Route, Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AnimalModel, CreateAdoption, Sex} from '../../../models/animal.model';
 import { SpecieModel } from '../../../models/specie.model';
 import { RaceModel } from '../../../models/race.model';
@@ -84,29 +84,45 @@ export class AnimalsDetailComponent implements OnInit {
 
     ngOnInit(): void {
         const id = this.route.snapshot.paramMap.get("id");
-        //@TODO ajouter le call api get animal by id
-
-        this.animal = history.state;
-        this.age = new Date().getFullYear()  - new Date(this.animal.birthDate).getFullYear();
-        if (this.age === 0) this.ageString = "<1";
-        else this.ageString = this.age.toString();
-        this.specieService.getSpecieById(this.animal.race.specie.id).subscribe({
-            next: (specie: SpecieModel) => {
-                this.races = specie.races ?? [];
-            },
-            error: (error) => {
-                console.error(error);
-            }
+        this.animalService.getAnimalById(parseInt(id!)).subscribe({
+          next: (animal: AnimalModel) => {
+            this.animal = animal;
+            this.getSpecies();
+            this.setAnimalAge();
+            this.initForm();
+          }
         });
-        this.fileName = this.animal.images;
-        this.displayedImage = this.animal.images[0];
-        this.animalForm.controls['name'].setValue(this.animal.name);
-        this.animalForm.controls['sex'].setValue(this.animal.sex);
-        this.animalForm.controls['birthDate'].setValue(this.animal.birthDate);
-        this.animalForm.controls['race'].setValue(this.animal.race);
-        this.animalForm.controls['comment'].setValue(this.animal.comment);
     }
 
+    setAnimalAge(): void {
+      this.age = new Date().getFullYear()  - new Date(this.animal.birthDate).getFullYear();
+      if (this.age === 0) {
+        this.ageString = "< 1"
+      } else {
+        this.ageString = this.age.toString();
+      }
+    }
+
+    getSpecies(): void {
+      this.specieService.getSpecieById(this.animal.race.specie.id).subscribe({
+        next: (specie: SpecieModel) => {
+          this.races = specie.races ?? [];
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    }
+
+    initForm(): void {
+      this.fileName = this.animal.images;
+      this.displayedImage = this.animal.images[0];
+      this.animalForm.controls['name'].setValue(this.animal.name);
+      this.animalForm.controls['sex'].setValue(this.animal.sex);
+      this.animalForm.controls['birthDate'].setValue(this.animal.birthDate);
+      this.animalForm.controls['race'].setValue(this.animal.race.name);
+      this.animalForm.controls['comment'].setValue(this.animal.comment);
+    }
 
     onUpdateButton(): void {
         this.modify = !this.modify;
@@ -123,23 +139,21 @@ export class AnimalsDetailComponent implements OnInit {
         this.animalService.updateAdoption(this.animal.id, this.updateAnimal).subscribe({
             next: (animal: AnimalModel) => {
                 this.animal = animal;
-                if (this.fileName !== this.animal.images) {
-                    const formData = new FormData();
-                    formData.append('file', this.file);
-                    this.s3Service
-                        .uploadImage(animal.id, 'animal', formData)
-                        .subscribe({
-                            next: () => {
-                                this.openSnackBar('animal-details.addImage-success');
-                                this.modify = true;
-                            },
-                            error: (error) => {
-                                console.error(error);
-                                this.openSnackBar('animal-add.image-error');
-                            }
-                        });
-                }
                 this.modify = false;
+                // if (this.fileName !== this.animal.images) {
+                //     const formData = new FormData();
+                //     formData.append('file', this.file);
+                //     this.s3Service
+                //         .uploadImage(animal.id, 'animal', formData)
+                //         .subscribe({
+                //             next: () => {
+                //                 this.openSnackBar('animal-details.addImage-success');
+                //                 this.modify = true;
+                //             },
+                //             error: (error) => {
+                //                 console.error(error);
+                //                 this.openSnackBar('animal-add.image-error');
+                //             }
             },
             error: (error) => {
                 console.error(error);

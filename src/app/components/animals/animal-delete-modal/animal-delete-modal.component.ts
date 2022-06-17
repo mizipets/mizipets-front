@@ -9,7 +9,6 @@ import { AnimalModel } from 'src/app/models/animal.model';
 @Component({
   selector: 'app-animal-delete-modal',
   templateUrl: './animal-delete-modal.component.html',
-  template: 'passed in {{ data.animal }}',
   styleUrls: ['./animal-delete-modal.component.scss']
 })
 export class AnimalDeleteModalComponent implements OnInit {
@@ -43,9 +42,12 @@ export class AnimalDeleteModalComponent implements OnInit {
 
   onConfirm(): void {
     this.deleteAnimalDialog.close();
-    this.animalService.deleteAdoption(this.data.animal.id).subscribe({});
-    this.openSnackBar();
-    this.router.navigateByUrl('/animals').then();
+    this.animalService.deleteAdoption(this.data.animal.id).subscribe({
+      next: () => {
+        this.openSnackBar();
+        this.router.navigateByUrl('/animals').then();
+      }
+    });
   }
 
 }

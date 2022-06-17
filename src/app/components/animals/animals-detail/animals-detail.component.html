@@ -1,105 +1,126 @@
 <div *ngIf="animal" class="app-content justify-content-center my-5">
-    <mat-card>
-        <mat-card-header class="d-flex justify-content-end ml-5">
-            <button mat-icon-button matPrefix [routerLink]="['/animals']"><mat-icon>arrow_back</mat-icon></button>
-            <button mat-icon-button *ngIf="!modify" (click)="onUpdateButton()"><mat-icon>settings</mat-icon></button>
-            <button mat-icon-button *ngIf="modify" (click)="onUpdateButton()"><mat-icon>clear</mat-icon></button>
-            <button mat-icon-button *ngIf="modify" (click)="onDeleteAnimal()"><mat-icon>delete</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-            <div *ngIf="!modify">
-                <div class="d-flex justify-content-start">
-                    <div class="ml-2">
-                        <div background>
-                            <swiper
-                                [loop]="true"
-                                [autoHeight]="true"
-                                [allowTouchMove]="true"
-                                [autoplay]="{ delay: 1000, disableOnInteraction: false }"
-                                [pagination]="{ clickable: true }"
-                                [navigation]="true"
-                            >
-                            <ng-template data-swiper-autoplay="2000"
-                                     class="swiper-slide"
-                                     swiperSlide
-                                     *ngFor="let image of animal.images">
-                                <img src="{{image}}" alt="pet image">
-                            </ng-template>
-                            </swiper>
-                        </div>
-                      <div firstPlan>
-                        <button mat-icon-button class="profile-image-picker" (click)="onImages()"><mat-icon>add_a_photo</mat-icon></button>
-                      </div>
-                    </div>
-                    <div class="ml-5">
-                        <p> {{'animal-details.name' | translate}} : {{animal.name}}</p>
-                        <p> {{'animal-details.age' | translate}} : {{ageString}} ans</p>
-                        <p> {{'animal-details.location' | translate}} : {{animal.owner.shelter.name}} {{animal.owner.address.zip}} {{animal.owner.address.city}}</p>
-                        <p> {{'animals-add.comment' | translate}} : {{animal.comment}}</p>
-                    </div>
-                    <div class="ml-4">
-                        <p> {{'animals.filter.gender' | translate}} : {{animal.sex}}</p>
-                        <p> {{'animals.filter.breeds' | translate}} : {{animal.race.name}}</p>
-                    </div>
+  <mat-card>
+    <mat-card-content>
+      <ng-container *ngIf="!modify; then options; else modify_option"></ng-container>
+
+      <ng-template #options>
+        <div>
+          <!-- Header options -->
+          <div class="justify-content-between mb-1">
+            <button mat-icon-button
+                    routerLink="/animals">
+              <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div>
+              <button mat-icon-button
+                      (click)="onUpdateButton()">
+                <mat-icon color="accent">edit</mat-icon>
+              </button>
+              <button mat-icon-button
+                      (click)="onDeleteAnimal()">
+                <mat-icon color="warn">delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <!-- Detail content -->
+          <div class="justify-content-start">
+            <div>
+              <swiper
+                [loop]="true"
+                [autoHeight]="true"
+                [allowTouchMove]="true"
+                [autoplay]="{ delay: 6000, disableOnInteraction: false }"
+                [pagination]="{ clickable: true }"
+                [navigation]="true"
+              >
+                <ng-template data-swiper-autoplay="2000"
+                             class="swiper-slide"
+                             swiperSlide
+                             *ngFor="let image of animal.images">
+                  <img src="{{image}}" alt="pet image">
+                </ng-template>
+              </swiper>
+              <button mat-icon-button
+                      class="profile-image-picker"
+                      (click)="onImages()">
+                <mat-icon>add_a_photo</mat-icon>
+              </button>
+            </div>
+            <div class="ml-4">
+              <p> {{'animal-details.name' | translate}} : {{animal.name}}</p>
+              <p> {{'animal-details.age' | translate}} : {{ageString}} ans</p>
+              <p> {{'animal-details.location' | translate}} : {{animal.owner.shelter.name}} {{animal.owner.address.zip}} {{animal.owner.address.city}}</p>
+              <p> {{'animals-add.comment' | translate}} : {{animal.comment}}</p>
+            </div>
+            <div class="ml-4">
+              <p> {{'animals.filter.gender' | translate}} : {{animal.sex}}</p>
+              <p> {{'animals.filter.breeds' | translate}} : {{animal.race.name}}</p>
+            </div>
+          </div>
+          <p> {{'animal-details.creation' | translate}} {{animal.createDate | date:'dd MMMM y'}}</p>
+        </div>
+      </ng-template>
+
+        <ng-template #modify_option>
+          <div>
+            <div class="justify-content-end">
+              <button mat-icon-button
+                      (click)="modify = false">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+              <form [formGroup]="animalForm">
+                <div class=" justify-content-start">
+                  <div>
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'animals-add.name' | translate}}</mat-label>
+                      <input matInput type="string" formControlName="name" minlength="3">
+                      <mat-error>{{'common.error' | translate}}</mat-error>
+                    </mat-form-field>
+                    <p> </p>
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'animals.born' | translate}}</mat-label>
+                      <input matInput [max]="today" formControlName="birthDate" [matDatepicker]="picker">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error>{{'common.error' | translate}}</mat-error>
+                    </mat-form-field>
+                    <p> </p>
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'animals-add.comment' | translate}}</mat-label>
+                      <input matInput type="string" formControlName="comment">
+                      <mat-error>{{'common.error' | translate}}</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="ml-3">
+                    <mat-form-field appearance="outline">
+                      <mat-label value="">{{'animals.filter.gender' | translate}}</mat-label>
+                      <mat-select formControlName="sex">
+                        <mat-option *ngFor="let sex of Sex" [value]="sex">
+                          {{ sex }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{'common.error' | translate}}</mat-error>
+                    </mat-form-field>
+                    <p> </p>
+                    <mat-form-field appearance="outline">
+                      <mat-label value="">{{'animals.filter.breeds' | translate}}</mat-label>
+                      <mat-select formControlName="race">
+                        <mat-option *ngFor="let race of races" [value]="race.name">
+                          {{ race.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{'common.error' | translate}}</mat-error>
+                    </mat-form-field>
+                  </div>
                 </div>
-                <p> {{'animal-details.creation' | translate}} {{animal.createDate | date:'dd MMMM y'}}</p>
-            </div>
-            <div *ngIf="modify">
-                <form [formGroup]="animalForm">
-                    <div class="d-flex justify-content-start">
-                        <div class="ml-2">
-                            <img mat-card-image src="{{displayedImage}}" alt="pet image">
-                            <button mat-icon-button class="profile-image-picker" (click)="onImages()"><mat-icon>add_a_photo</mat-icon></button>
-                        </div>
-                        <div class="ml-5">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>{{'animals-add.name' | translate}}</mat-label>
-                                    <input matInput type="string" formControlName="name" minlength="3">
-                                    <mat-error>{{'common.error' | translate}}</mat-error>
-                                </mat-form-field>
-                                <p> </p>
-                                <mat-form-field appearance="outline">
-                                    <mat-label>{{'animals.born' | translate}}</mat-label>
-                                    <input matInput [max]="today" formControlName="birthDate" [matDatepicker]="picker">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-hint>MM/DD/YYYY</mat-hint>
-                                    <mat-datepicker #picker></mat-datepicker>
-                                    <mat-error>{{'common.error' | translate}}</mat-error>
-                                </mat-form-field>
-                                <p> </p>
-                                <mat-form-field appearance="outline">
-                                    <mat-label>{{'animals-add.comment' | translate}}</mat-label>
-                                    <input matInput type="string" formControlName="comment">
-                                    <mat-error>{{'common.error' | translate}}</mat-error>
-                                </mat-form-field>
-                        </div>
-                        <div class="ml-3">
-                                <mat-form-field appearance="outline">
-                                    <mat-label value="">{{'animals.filter.gender' | translate}}</mat-label>
-                                    <mat-select type="string" formControlName="sex">
-                                        <mat-option *ngFor="let sex of Sex" [value]="sex">
-                                            {{ sex }}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error>{{'common.error' | translate}}</mat-error>
-                                </mat-form-field>
-                                <p> </p>
-                                <mat-form-field appearance="outline">
-                                    <mat-label value="">{{'animals.filter.breeds' | translate}}</mat-label>
-                                    <mat-select formControlName="race">
-                                        <mat-option *ngFor="let race of races" [value]="race">
-                                            {{ race.name }}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error>{{'common.error' | translate}}</mat-error>
-                                </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="justify-content-center">
-                        <button mat-flat-button color="primary" (click)="onUpdate()" [disabled]="animalForm.invalid">{{'profile.update-button' | translate}}</button>
-                    </div>
-                </form>
-            </div>
-        </mat-card-content>
-    </mat-card>
+                <div class="justify-content-center">
+                  <button mat-flat-button color="primary" (click)="onUpdate()" [disabled]="animalForm.invalid">{{'profile.update-button' | translate}}</button>
+                </div>
+              </form>
+          </div>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
 </div>
