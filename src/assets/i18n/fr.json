@@ -1,6 +1,6 @@
 {
   "common": {
-    "title": "Mizipets",
+    "app-title": "Mizipets",
     "welcome": "Bienvenue sur Mizipets",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
@@ -17,6 +17,8 @@
     "firstname": "Prénom du responsable",
     "lastname": "Nom du responsable",
     "shelter": "Nom du refuge, de l'élevage ou de l'association",
+    "policy": "Conditions générales",
+    "rights": "Tous droits réservés",
     "address": {
       "title": "Adresse du refuge, de l'élevage ou de l'association",
       "country": "Pays",
@@ -96,7 +98,7 @@
     "title": "Supprimer cet animal",
     "warning": "Voulez-vous vraiment supprimer cet animal ?"
   },
-  "user-profile": {
+  "profile": {
     "title": "Profil",
     "information": "Informations personnelles",
     "update-button": "Mettre à jour",

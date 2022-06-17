@@ -1,7 +1,7 @@
 <div *ngIf="user" class="app-content justify-content-center my-5">
     <mat-card>
         <mat-card-header>
-            <mat-card-title class="justify-content-center">{{'user-profile.title' | translate}}</mat-card-title>
+            <mat-card-title class="justify-content-center">{{'profile.title' | translate}}</mat-card-title>
         </mat-card-header>
         <form [formGroup]="profileForm">
             <mat-card-content>
@@ -11,8 +11,8 @@
                     <button mat-icon-button class="profile-image-picker" (click)="selectFile.click()"><mat-icon>add_a_photo</mat-icon></button>
                 </div>
                 <h3 class="text-center">{{user.shelter?.name}}</h3>
-                <p class="text-center" style="color: #717171">{{'user-profile.creation' | translate}} {{user.createDate | date:'MMMM y'}}</p>
-                <p class="mt-4">{{'user-profile.information' | translate}}</p>
+                <p class="text-center" style="color: #717171">{{'profile.creation' | translate}} {{user.createDate | date:'MMMM y'}}</p>
+                <p class="mt-4">{{'profile.information' | translate}}</p>
                 <mat-form-field appearance="outline">
                   <mat-label>{{'common.firstname' | translate}}</mat-label>
                   <input matInput type="string" formControlName="firstname">
@@ -57,11 +57,11 @@
                     <mat-error>{{'common.error' | translate}}</mat-error>
                   </mat-form-field>
                 <div class="justify-content-center">
-                    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="profileForm.invalid">{{'user-profile.update-button' | translate}}</button>
+                    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="profileForm.invalid">{{'profile.update-button' | translate}}</button>
                 </div>
                 <div class="my-5">
-                    <p>{{'user-profile.close-title' | translate}}</p>
-                    <button mat-flat-button color="warn" type="button" (click)="onCloseAccount()">{{'user-profile.close-button' | translate}}</button>
+                    <p>{{'profile.close-title' | translate}}</p>
+                    <button mat-flat-button color="warn" type="button" (click)="onCloseAccount()">{{'profile.close-button' | translate}}</button>
                 </div>
               </mat-card-content>
         </form>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './components/layout/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { LanguageComponent } from './components/language/language.component';
@@ -24,15 +24,17 @@ import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 import { CodeInputModule } from 'angular-code-input';
 import { HomeMobileComponent } from './components/home-mobile/home-mobile.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { environment } from '../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { SettingsComponent } from './components/settings/settings.component';
-import { CloseAccountPopUpComponent } from './components/close-account-pop-up/close-account-pop-up.component';
+import { UserProfileComponent } from './components/profile/user-profile.component';
+import { SettingsComponent } from './components/profile/settings/settings.component';
+import { CloseAccountPopUpComponent } from './components/profile/close-account-modal/close-account-pop-up.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 import { AnimalDeleteModalComponent } from './components/animals/animal-delete-modal/animal-delete-modal.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { PoliciesComponent } from './components/policies/policies.component';
 import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component'
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,6 +64,8 @@ const socketIoConfig: SocketIoConfig = {
         CloseAccountPopUpComponent,
         AnimalsCreateComponent,
         AnimalDeleteModalComponent,
+        FooterComponent,
+        PoliciesComponent
         AnimalImagesModalComponent
     ],
     imports: [

@@ -1,12 +1,15 @@
-.mat-card {
-    width: 900px;
+.app-content {
+  height: 100%;
 
-    .mat-form-field{
+  .mat-card {
+    max-height: 50%;
+
+    .mat-form-field {
       width: 100%;
     }
 
     .mat-flat-button {
-        width: 60%;
+      width: 60%;
     }
 
     .profile-image-picker {
@@ -25,11 +28,10 @@
 
     .mat-card-image {
       vertical-align: middle;
-      border-radius: 0%;
+      border-radius: 8px;
       object-fit: cover;
       border: 5px solid #FED08B;
       height: 300px;
       width: 300px;
     }
-   
-}
+  }
