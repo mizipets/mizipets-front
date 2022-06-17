@@ -1,30 +1,35 @@
 <div *ngIf="animal" class="app-content justify-content-center my-5">
     <mat-card>
-        <mat-card-header class="d-flex justify-content-end">
+        <mat-card-header class="d-flex justify-content-end ml-5">
             <button mat-icon-button matPrefix [routerLink]="['/animals']"><mat-icon>arrow_back</mat-icon></button>
             <button mat-icon-button *ngIf="!modify" (click)="onUpdateButton()"><mat-icon>settings</mat-icon></button>
-            <button mat-icon-button *ngIf="modify" (click)="onUpdateButton()"><mat-icon>not_interested</mat-icon></button>
+            <button mat-icon-button *ngIf="modify" (click)="onUpdateButton()"><mat-icon>clear</mat-icon></button>
             <button mat-icon-button *ngIf="modify" (click)="onDeleteAnimal()"><mat-icon>delete</mat-icon></button>
         </mat-card-header>
         <mat-card-content>
             <div *ngIf="!modify">
                 <div class="d-flex justify-content-start">
                     <div class="ml-2">
-                      <swiper
-                        [loop]="true"
-                        [autoHeight]="true"
-                        [allowTouchMove]="true"
-                        [autoplay]="{ delay: 1000, disableOnInteraction: false }"
-                        [pagination]="{ clickable: true }"
-                        [navigation]="true"
-                      >
-                        <ng-template data-swiper-autoplay="2000"
+                        <div background>
+                            <swiper
+                                [loop]="true"
+                                [autoHeight]="true"
+                                [allowTouchMove]="true"
+                                [autoplay]="{ delay: 1000, disableOnInteraction: false }"
+                                [pagination]="{ clickable: true }"
+                                [navigation]="true"
+                            >
+                            <ng-template data-swiper-autoplay="2000"
                                      class="swiper-slide"
                                      swiperSlide
                                      *ngFor="let image of animal.images">
-                          <img src="{{image}}" alt="pet image">
-                        </ng-template>
-                      </swiper>
+                                <img src="{{image}}" alt="pet image">
+                            </ng-template>
+                            </swiper>
+                        </div>
+                      <div firstPlan>
+                        <button mat-icon-button class="profile-image-picker" (click)="onImages()"><mat-icon>add_a_photo</mat-icon></button>
+                      </div>
                     </div>
                     <div class="ml-5">
                         <p> {{'animal-details.name' | translate}} : {{animal.name}}</p>

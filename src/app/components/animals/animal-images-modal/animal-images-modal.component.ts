@@ -13,6 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AnimalImagesModalComponent implements OnInit {
 
+  isLoading: boolean = false;
+
   listo: number[] = [1,2,3,4];
 
   file: File = {} as File
@@ -56,10 +58,9 @@ export class AnimalImagesModalComponent implements OnInit {
     }
 }
 
-onLeave(): void {
-  console.log(this.currentImages);
-  console.log(this.data.animal.images);
-  if (this.currentImages !== this.data.animal.images) {
+async onLeave(): Promise<void> {
+  if (this.currentImages !== this.data.animal.images && this.currentImages.length > 0) {
+    this.isLoading = true
     console.log("in animal images")
     this.update.images = this.data.animal.images;
     this.animalService.updateAdoption(this.data.animal.id, this.update).subscribe({
@@ -73,21 +74,24 @@ onLeave(): void {
     }
   });
   }
+  let count = 0;
+  let formData;
   for (let file of this.newFiles) {
-    let formData = new FormData();
-    console.log(file);
+    let temp = count;
+    formData = new FormData();
     formData.append('file', file);
-      this.s3Service
+      await this.s3Service
         .uploadImage(this.data.animal.id, 'animal', formData)
         .subscribe({
-          next: (_) => {
-            this.openSnackBar();
+          next: (res: any) => {
           },
           error: (error) => {
             console.error(error);
           }
         });
+        this.openSnackBar();
   }
+  this.isLoading = false;
   this.animalImagesDialog.close();
 }
 

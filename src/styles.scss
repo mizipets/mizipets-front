@@ -146,7 +146,9 @@ p {
 
 .swiper-slide {
   img {
-    object-fit: scale-down !important;
+    height: 300px !important;
+    width: 300px !important;
+    object-fit: cover !important;
   }
 }
 .m-auto {
