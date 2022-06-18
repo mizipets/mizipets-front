@@ -36,7 +36,8 @@
         <img src="{{currentRoom.animal.images[0]}}"
              style="cursor: pointer;"
              matTooltip="{{'messages.animal-detail' | translate }}"
-             class="avatar" alt="animal image">
+             class="avatar" alt="animal image"
+             (click)="onDetail()">
 
         <button mat-flat-button
                 color="primary"

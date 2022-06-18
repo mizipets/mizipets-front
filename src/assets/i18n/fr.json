@@ -96,7 +96,8 @@
   },
   "animal-delete": {
     "title": "Supprimer cet animal",
-    "warning": "Voulez-vous vraiment supprimer cet animal ?"
+    "warning": "Voulez-vous vraiment supprimer cet animal ?",
+    "success": "Annonce supprimée"
   },
   "profile": {
     "title": "Profil",

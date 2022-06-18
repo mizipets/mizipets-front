@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AnimalModel, CreateAdoption, Sex} from '../../../models/animal.model';
 import { SpecieModel } from '../../../models/specie.model';
@@ -8,7 +8,7 @@ import { SpeciesService } from '../../../services/species.service';
 import { AnimalsService } from '../../../services/animals.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AnimalDeleteModalComponent } from '../animal-delete-modal/animal-delete-modal.component';
 import { AnimalImagesModalComponent } from '../animal-images-modal/animal-images-modal.component';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -31,6 +31,8 @@ export class AnimalsDetailComponent implements OnInit {
     displayedImage: string = "";
 
     today: Date = new Date();
+
+    animalId: string = "";
 
     newImage: boolean = false;
 
@@ -80,10 +82,16 @@ export class AnimalsDetailComponent implements OnInit {
         private animalService: AnimalsService,
         private specieService: SpeciesService,
         private s3Service: S3Service,
-        private route: ActivatedRoute) {}
+        private route: ActivatedRoute,
+        ){}
 
     ngOnInit(): void {
-        const id = this.route.snapshot.paramMap.get("id");
+        
+        let id = this.route.snapshot.paramMap.get("id");
+        if (this.animalId !== "" && !id) {
+            id = this.animalId;
+        }
+        
         this.animalService.getAnimalById(parseInt(id!)).subscribe({
           next: (animal: AnimalModel) => {
             this.animal = animal;

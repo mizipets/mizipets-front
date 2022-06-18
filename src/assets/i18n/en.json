@@ -96,7 +96,8 @@
   },
   "animal-delete": {
     "title": "Delete this animal",
-    "warning": "Do you really want to delete this animal ?"
+    "warning": "Do you really want to delete this animal ?",
+    "success": "Ad deleted"
   },
   "profile": {
     "title": "Profile",

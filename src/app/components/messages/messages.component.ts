@@ -14,6 +14,8 @@ import {
     MessageType
 } from '../../models/message.model';
 import { AuthService } from '../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AnimalsDetailComponent } from '../animals/animals-detail/animals-detail.component';
 
 @Component({
     selector: 'app-messages',
@@ -33,7 +35,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
         private roomService: RoomService,
         private socketService: SocketService,
         private authService: AuthService,
-        elementRef: ElementRef
+        private animalDetailDialog: MatDialog,
+        elementRef: ElementRef,
     ) {
         this.scrollFrame = elementRef;
         this.currentUserId = this.authService.decodedToken?.id ?? 0;
@@ -67,6 +70,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         if (this.currentRoom)
             this.socketService.leaveRoom(this.currentRoom.code);
+    }
+
+    onDetail(): void {
+        this.animalDetailDialog.open(AnimalsDetailComponent, {
+            data: { animalId: this.currentRoom?.animal.id },
+            height: '100vh',
+            width: '100%'
+        });
     }
 
     sendMessage(): void {
