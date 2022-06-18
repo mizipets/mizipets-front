@@ -27,6 +27,10 @@ export class AnimalImagesModalComponent implements OnInit {
 
   currentImages: string[] = [];
 
+  fileExtension: string = ""
+
+  extensions: string[] = ["jpg", "jpeg", "png", "jfif"];
+
   update: CreateAdoption = {} as CreateAdoption;
 
   updated: boolean = false;
@@ -45,16 +49,20 @@ export class AnimalImagesModalComponent implements OnInit {
 
   onChange(event: any) {
     if (event.target.files) {
-        var reader = new FileReader();
-        this.file = event.target.files[0]
-        this.newFiles.push(this.file);
-        reader.readAsDataURL(event.target.files[0]);
-        reader.onload = (e: any) => {
+        this.fileExtension = event.target.files[0].name.split('.').pop()!;
+        if (this.extensions.indexOf(this.fileExtension!) > -1) {
+          var reader = new FileReader();
+          this.file = event.target.files[0]
+          this.newFiles.push(this.file);
+          reader.readAsDataURL(event.target.files[0]);
+          reader.onload = (e: any) => {
             this.newFileNames.push(e.target.result);
             this.data.animal.images.push(e.target.result);
-        };
-
-        
+          };
+        }
+        else {
+          this.openSnackBar('common.wrong-image-type');
+        }
     }
 }
 
@@ -77,7 +85,6 @@ async onLeave(): Promise<void> {
   let count = 0;
   let formData;
   for (let file of this.newFiles) {
-    let temp = count;
     formData = new FormData();
     formData.append('file', file);
       await this.s3Service
@@ -89,15 +96,15 @@ async onLeave(): Promise<void> {
             console.error(error);
           }
         });
-        this.openSnackBar();
+        this.openSnackBar('animal-details.addImage-success');
   }
   this.isLoading = false;
   this.animalImagesDialog.close();
 }
 
-openSnackBar(): void {
+openSnackBar(text: string): void {
   this.snackBar.open(
-      this.translate.instant('animal-details.addImage-success'),
+      this.translate.instant(text),
       '',
       {
           duration: 2000,

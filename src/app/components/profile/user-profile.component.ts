@@ -41,6 +41,8 @@ export class UserProfileComponent implements OnInit {
 
     fileName = '';
 
+    extensions: string[] = ["jpg", "jpeg", "png", "jfif"];
+
     constructor(
         private userService: UserService,
         private snackBar: MatSnackBar,
@@ -132,9 +134,9 @@ export class UserProfileComponent implements OnInit {
         });
     }
 
-    openSnackBar(): void {
+    openSnackBar(text: string): void {
         this.snackBar.open(
-            this.translate.instant('profile.update-success'),
+            this.translate.instant(text),
             '',
             {
                 duration: 2000,
@@ -146,25 +148,34 @@ export class UserProfileComponent implements OnInit {
 
     onChange(event: any) {
         if (event.target.files) {
-            var reader = new FileReader();
-            this.file = event.target.files[0];
-            reader.readAsDataURL(this.file);
-            reader.onload = (e: any) => {
-                this.fileName = e.target.result;
-            };
+            let fileExtension = event.target.files[0].name.split('.').pop()!;     
+            if (this.extensions.indexOf(fileExtension!) > -1) {
+                var reader = new FileReader();
+                this.file = event.target.files[0];
+                reader.readAsDataURL(this.file);
+                reader.onload = (e: any) => {
+                    this.fileName = e.target.result;
+                };
 
-            const formData = new FormData();
-            formData.append('file', this.file);
-            this.s3Service
-                .uploadImage(this.user.id, 'avatar', formData)
-                .subscribe({
-                    next: (_) => {
-                        this.openSnackBar();
-                    },
-                    error: (error) => {
-                        console.error(error);
-                    }
-                });
+                console.log(fileExtension)
+        
+                const formData = new FormData();
+                formData.append('file', this.file);
+                this.s3Service
+                    .uploadImage(this.user.id, 'avatar', formData)
+                    .subscribe({
+                        next: (_) => {
+                            this.openSnackBar('profile.update-success');
+                        },
+                        error: (error) => {
+                            console.error(error);
+                        }
+                    });
+            }
+            else {
+                this.openSnackBar('common.wrong-image-type');
+            }
+            
         }
     }
 
@@ -181,7 +192,7 @@ export class UserProfileComponent implements OnInit {
 
         this.userService.updateUser(this.user).subscribe({
             next: () => {
-                this.openSnackBar();
+                this.openSnackBar('profile.update-success');
             },
             error: (error) => {
                 console.error(error);

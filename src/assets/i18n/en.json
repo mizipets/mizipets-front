@@ -31,7 +31,8 @@
     "next": "Next",
     "cancel": "Cancel",
     "error": "This field cannot be empty",
-    "years": "years old"
+    "years": "years old",
+    "wrong-image-type": "Wrong image type"
   },
   "header": {
     "animals": "My animals",
