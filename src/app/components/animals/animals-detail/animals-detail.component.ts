@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from "@angular/core";
+import { Component, Inject, Input, OnInit, Optional } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AnimalModel, CreateAdoption, Sex} from '../../../models/animal.model';
 import { SpecieModel } from '../../../models/specie.model';
@@ -8,13 +8,13 @@ import { SpeciesService } from '../../../services/species.service';
 import { AnimalsService } from '../../../services/animals.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AnimalDeleteModalComponent } from '../animal-delete-modal/animal-delete-modal.component';
 import { AnimalImagesModalComponent } from '../animal-images-modal/animal-images-modal.component';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
+import SwiperCore, { Autoplay, Pagination, Navigation, Scrollbar } from "swiper";
 
-SwiperCore.use([Autoplay, Pagination, Navigation]);
+SwiperCore.use([Autoplay, Pagination, Navigation, Scrollbar]);
 
 @Component({
     selector: 'app-animals-detail',
@@ -33,6 +33,8 @@ export class AnimalsDetailComponent implements OnInit {
     today: Date = new Date();
 
     animalId: string = "";
+
+    isModal: boolean = false;
 
     newImage: boolean = false;
 
@@ -83,13 +85,21 @@ export class AnimalsDetailComponent implements OnInit {
         private specieService: SpeciesService,
         private s3Service: S3Service,
         private route: ActivatedRoute,
-        ){}
+        @Optional() @Inject(MAT_DIALOG_DATA) data: { animalId: string } ,
+        @Optional() public animalDetailDialog: MatDialogRef<AnimalsDetailComponent>,
+        ) {
+            if (data) {
+                this.animalId = data.animalId;
+            }
+
+        }
 
     ngOnInit(): void {
         
         let id = this.route.snapshot.paramMap.get("id");
         if (this.animalId !== "" && !id) {
             id = this.animalId;
+            this.isModal = true;
         }
         
         this.animalService.getAnimalById(parseInt(id!)).subscribe({
@@ -98,11 +108,15 @@ export class AnimalsDetailComponent implements OnInit {
             this.getSpecies();
             this.setAnimalAge();
             this.initForm();
+            console.log("1")
+            console.log(this.animal.images);
           }
         });
     }
 
     setAnimalAge(): void {
+        console.log("2")
+        console.log(this.animal.images);
       this.age = new Date().getFullYear()  - new Date(this.animal.birthDate).getFullYear();
       if (this.age === 0) {
         this.ageString = "< 1"
@@ -112,9 +126,13 @@ export class AnimalsDetailComponent implements OnInit {
     }
 
     getSpecies(): void {
+        console.log("3")
+        console.log(this.animal.images);
       this.specieService.getSpecieById(this.animal.race.specie.id).subscribe({
         next: (specie: SpecieModel) => {
           this.races = specie.races ?? [];
+          
+          console.log("in specie call")
         },
         error: (error) => {
           console.error(error);
@@ -123,6 +141,8 @@ export class AnimalsDetailComponent implements OnInit {
     }
 
     initForm(): void {
+        console.log("4")
+        console.log(this.animal.images);
       this.fileName = this.animal.images;
       this.displayedImage = this.animal.images[0];
       this.animalForm.controls['name'].setValue(this.animal.name);
@@ -204,5 +224,9 @@ export class AnimalsDetailComponent implements OnInit {
             horizontalPosition: 'center',
             verticalPosition: 'top'
         });
+    }
+
+    onModalClose(): void {
+        this.animalDetailDialog!.close();
     }
 }

@@ -155,6 +155,19 @@ img {
     object-fit: cover !important;
   }
 }
+
+.swiper-button-prev {
+  color: mat.get-color-from-palette($custom-primary) !important;
+}
+
+.swiper-button-next {
+  color: mat.get-color-from-palette($custom-primary) !important; 
+}
+
+:root {
+  --swiper-navigation-size: 20px;
+}
+
 .m-auto {
   margin: auto !important;
 }

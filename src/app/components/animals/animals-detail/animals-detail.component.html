@@ -6,7 +6,11 @@
       <ng-template #options>
         <div>
           <!-- Header options -->
-          <div class="justify-content-between mb-1">
+          <button *ngIf="isModal" mat-icon-button
+                    (click)="onModalClose()">
+              <mat-icon>clear</mat-icon>
+          </button>
+          <div class="justify-content-between mb-1" *ngIf="!isModal">
             <button mat-icon-button
                     routerLink="/animals">
               <mat-icon>arrow_back</mat-icon>
@@ -26,12 +30,13 @@
           <div class="justify-content-start">
             <div>
               <swiper
-                [loop]="true"
+                [loop]="false"
                 [autoHeight]="true"
                 [allowTouchMove]="true"
                 [autoplay]="{ delay: 6000, disableOnInteraction: false }"
                 [pagination]="{ clickable: true }"
                 [navigation]="true"
+                [scrollbar]="false"
               >
                 <ng-template data-swiper-autoplay="2000"
                              class="swiper-slide"
@@ -47,17 +52,19 @@
               </button>
             </div>
             <div class="ml-4">
-              <p> {{'animal-details.name' | translate}} : {{animal.name}}</p>
+              <p> {{'animal-details.name' | translate}} : {{animal?.name}}</p>
               <p> {{'animal-details.age' | translate}} : {{ageString}} ans</p>
-              <p> {{'animal-details.location' | translate}} : {{animal.owner.shelter.name}} {{animal.owner.address.zip}} {{animal.owner.address.city}}</p>
+              <p> {{'animal-details.location' | translate}} : {{animal?.owner?.shelter?.name}} {{animal?.owner?.address?.zip}} {{animal?.owner?.address?.city}}</p>
               <p> {{'animals-add.comment' | translate}} : {{animal.comment}}</p>
             </div>
             <div class="ml-4">
               <p> {{'animals.filter.gender' | translate}} : {{animal.sex}}</p>
-              <p> {{'animals.filter.breeds' | translate}} : {{animal.race.name}}</p>
+              <p> {{'animals.filter.breeds' | translate}} : {{animal?.race?.name}}</p>
             </div>
           </div>
-          <p> {{'animal-details.creation' | translate}} {{animal.createDate | date:'dd MMMM y'}}</p>
+          <div>
+            <p> {{'animal-details.creation' | translate}} {{animal.createDate | date:'dd MMMM y'}}</p>
+          </div>
         </div>
       </ng-template>
 

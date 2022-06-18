@@ -74,9 +74,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     onDetail(): void {
         this.animalDetailDialog.open(AnimalsDetailComponent, {
-            data: { animalId: this.currentRoom?.animal.id },
-            height: '100vh',
-            width: '100%'
+            data: { animalId: this.currentRoom?.animal.id }
         });
     }
 

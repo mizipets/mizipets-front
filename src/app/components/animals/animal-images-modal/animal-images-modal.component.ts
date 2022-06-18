@@ -97,7 +97,7 @@ async onLeave(): Promise<void> {
 
 openSnackBar(): void {
   this.snackBar.open(
-      this.translate.instant('user-profile.update-success'),
+      this.translate.instant('animal-details.addImage-success'),
       '',
       {
           duration: 2000,
