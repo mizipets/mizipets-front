@@ -31,7 +31,8 @@
     "next": "Suivant",
     "cancel": "Annuler",
     "error": "Ce champs ne doit pas etre vide",
-    "years": "ans"
+    "years": "ans",
+    "wrong-image-type": "Mauvais type d'image"
   },
   "header": {
     "animals": "Mes animaux",
@@ -96,7 +97,8 @@
   },
   "animal-delete": {
     "title": "Supprimer cet animal",
-    "warning": "Voulez-vous vraiment supprimer cet animal ?"
+    "warning": "Voulez-vous vraiment supprimer cet animal ?",
+    "success": "Annonce supprimée"
   },
   "profile": {
     "title": "Profil",

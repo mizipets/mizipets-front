@@ -141,8 +141,7 @@
             </button>
             <button mat-flat-button
                     *ngIf="animal.isAdoption"
-                    [routerLink]="['/animal', animal.id]"
-                    [state]="animal">
+                    [routerLink]="['/animal', animal.id]">
               {{'animals.detail' | translate}}
             </button>
           </mat-card-actions>

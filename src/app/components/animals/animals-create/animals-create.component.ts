@@ -24,6 +24,10 @@ export class AnimalsCreateComponent implements OnInit {
 
     file: File = {} as File;
 
+    fileExtension: string = ""
+
+    extensions: string[] = ["jpg", "jpeg", "png", "jfif"];
+
     today: Date = new Date();
 
     fileName = './assets/images/logo.png';
@@ -128,14 +132,21 @@ export class AnimalsCreateComponent implements OnInit {
     }
 
     onChange(event: any) {
+        this.newImage = false;
         if (event.target.files) {
-            let reader = new FileReader();
-            this.file = event.target.files[0];
-            reader.readAsDataURL(this.file);
-            reader.onload = (e: any) => {
-                this.fileName = e.target.result;
-            };
-            this.newImage = true;
+            this.fileExtension = event.target.files[0].name.split('.').pop()!;
+            if (this.extensions.indexOf(this.fileExtension!) > -1) {
+                let reader = new FileReader();
+                this.file = event.target.files[0];
+                reader.readAsDataURL(this.file);
+                reader.onload = (e: any) => {
+                    this.fileName = e.target.result;
+                };
+                this.newImage = true;
+            }
+        }
+        else {
+            this.openSnackBar('common.wrong-image-type');
         }
     }
 

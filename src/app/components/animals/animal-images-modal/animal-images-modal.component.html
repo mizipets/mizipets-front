@@ -1,0 +1,18 @@
+<div >
+    <div>
+        <input type="file" class="file-upload " (change)="onChange($event)" style="display: none" #selectFile>
+        <button mat-icon-button (click)="selectFile.click()"><mat-icon>add_a_photo</mat-icon></button>
+        <button mat-icon-button matPrefix (click)="onLeave()"><mat-icon>arrow_back</mat-icon></button>
+    </div>
+    <mat-grid-list
+    [cols]="4" rowHeight="320px"
+    [gutterSize]="'5px'">
+    <div *ngIf="!isLoading">
+        <mat-grid-tile class="d-flex" fxFlexAlign="stretch" *ngFor="let i of data.animal.images; let index = index">
+            <img mat-card-image src="{{i}}" top="200" >
+            <button mat-icon-button class="profile-image-picker" (click)="onDelete(index)"><mat-icon>delete</mat-icon></button>
+        </mat-grid-tile>
+    </div>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </mat-grid-list>
+</div>

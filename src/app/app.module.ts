@@ -9,6 +9,7 @@ import { LanguageComponent } from './components/language/language.component';
 import { LanguageService } from './components/language/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SwiperModule } from 'swiper/angular';
 import {
     HTTP_INTERCEPTORS,
     HttpClient,
@@ -32,6 +33,7 @@ import { SettingsComponent } from './components/profile/settings/settings.compon
 import { CloseAccountPopUpComponent } from './components/profile/close-account-modal/close-account-pop-up.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 import { AnimalDeleteModalComponent } from './components/animals/animal-delete-modal/animal-delete-modal.component';
+import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component'
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 
@@ -62,6 +64,7 @@ const socketIoConfig: SocketIoConfig = {
         CloseAccountPopUpComponent,
         AnimalsCreateComponent,
         AnimalDeleteModalComponent,
+        AnimalImagesModalComponent,
         FooterComponent,
         PoliciesComponent
     ],
@@ -82,7 +85,8 @@ const socketIoConfig: SocketIoConfig = {
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
-        CodeInputModule
+        CodeInputModule,
+        SwiperModule
     ],
     providers: [
         LanguageService,

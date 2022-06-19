@@ -9,7 +9,8 @@ import { AnimalModel, CreateAdoption } from '../models/animal.model';
     providedIn: 'root'
 })
 export class AnimalsService {
-    constructor(private http: HttpClient, private authService: AuthService) {}
+    constructor(private http: HttpClient,
+                private authService: AuthService) {}
 
     getUserAnimals(): Observable<AnimalModel[]> {
         return this.http.get<AnimalModel[]>(
@@ -17,6 +18,11 @@ export class AnimalsService {
                 'animals?ownerId=' +
                 this.authService.decodedToken!.id
         );
+    }
+
+    getAnimalById(id: number): Observable<AnimalModel> {
+      return this.http.get<AnimalModel>(`${environment.baseUrl}animals/${id}`
+      );
     }
 
     createAdoption(animalData: CreateAdoption): Observable<any> {
