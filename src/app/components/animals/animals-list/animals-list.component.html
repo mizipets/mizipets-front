@@ -24,19 +24,23 @@
               {{'animals.filter.species' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <mat-radio-group>
           <mat-radio-button
               class="my-1"
-              (change)="resetFilter('specie')">
+              (change)="resetFilter('specie')"
+              value="clearFilter">
               clear filter
             </mat-radio-button>
           <div *ngFor="let specieCheck of speciesCheckList">
             <mat-radio-button
               class="my-1"
               [checked]="specieCheck.checked"
-              (change)="onChange(specieCheck, 'specie')">
+              (change)="onChange(specieCheck, 'specie')"
+              value="specieCheck.specie.name">
               {{ specieCheck.specie.name }}
             </mat-radio-button>
           </div>
+        </mat-radio-group>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
