@@ -120,12 +120,14 @@ export class AnimalsCreateComponent implements OnInit {
                         },
                         error: (error) => {
                             console.error(error);
+                            this.isLoading = false;
                             this.openSnackBar('animals-add.image-error');
                         }
                     });
             },
             error: (error) => {
                 console.error(error);
+                this.isLoading = false;
                 this.openSnackBar('animals-add.animal-error');
             }
         });

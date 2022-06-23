@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { MatRadioModule } from '@angular/material/radio';
 import { LanguageComponent } from './components/language/language.component';
 import { LanguageService } from './components/language/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -82,6 +83,7 @@ const socketIoConfig: SocketIoConfig = {
         }),
         SocketIoModule.forRoot(socketIoConfig),
         MaterialModule,
+        MatRadioModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
