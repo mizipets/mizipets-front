@@ -33,6 +33,7 @@ export interface CreateAdoption {
     birthDate: Date;
     sex: string;
     raceId: number;
+    images?: string[];
 }
 
 export enum Sex {

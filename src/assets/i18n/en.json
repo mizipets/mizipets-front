@@ -31,7 +31,8 @@
     "next": "Next",
     "cancel": "Cancel",
     "error": "This field cannot be empty",
-    "years": "years old"
+    "years": "years old",
+    "wrong-image-type": "Wrong image type"
   },
   "header": {
     "animals": "My animals",
@@ -96,7 +97,8 @@
   },
   "animal-delete": {
     "title": "Delete this animal",
-    "warning": "Do you really want to delete this animal ?"
+    "warning": "Do you really want to delete this animal ?",
+    "success": "Ad deleted"
   },
   "profile": {
     "title": "Profile",
