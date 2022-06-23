@@ -27,7 +27,7 @@ export class AnimalsListComponent implements OnInit {
     /**
      * All checkbox id checked, -1 or "" if all checkbox are unchecked
      */
-    storedNumbers: Array<number | string> = [-1, -1, '', ''];
+    storedNumbers: Array<number | string | boolean> = [true, -1, -1, '', ''];
 
     /**
      * Number of animals on grid line
@@ -122,12 +122,13 @@ export class AnimalsListComponent implements OnInit {
             );
     }
 
-    onChange(val: SpecieCheck | RaceCheck | TypeCheck, tag: string): void {
+    onChange(val: SpecieCheck | RaceCheck | TypeCheck | boolean, tag: string): void {
         let idx = 0;
-        if (tag === 'specie') {
+        if (typeof val == 'boolean') {
+           this.storedNumbers[0] = val;
+        } else if (tag === 'specie') {
             val = val as SpecieCheck;
-            if (this.storedNumbers[0] === -1) {
-                this.storedNumbers[0] = val.specie.id;
+                this.storedNumbers[1] = val.specie.id;
                 this.specieService.getSpecieById(val.specie.id).subscribe({
                     next: (specie: SpecieModel) => {
                         val = val as SpecieCheck;
@@ -138,69 +139,70 @@ export class AnimalsListComponent implements OnInit {
                         console.error(error);
                     }
                 });
-            } else this.storedNumbers[0] = -1;
-            this.racesCheckList = [];
+            
         } else if (tag === 'race') {
             val = val as RaceCheck;
-            if (this.storedNumbers[1] === -1)
-                this.storedNumbers[1] = val.race.id;
-            else this.storedNumbers[1] = -1;
+                this.storedNumbers[2] = val.race.id;
         } else {
             val = val as TypeCheck;
-
-            if (tag === 'sex') idx = 2;
+            console.log("init")
+            if (tag === 'sex') idx = 3;
             else if (tag === 'age') {
-                idx = 3;
+                idx = 4;
             } else console.error('wrong tag');
 
-            if (this.storedNumbers[idx] === '')
                 this.storedNumbers[idx] = val.type as string;
-            else this.storedNumbers[idx] = '';
+                //console.log(this.storedNumbers[idx])
+          
         }
-        this.loadFilters(this.storedNumbers);
+        this.loadFilters();
     }
 
-    loadFilters(numbers: Array<number | string>) {
-        this.filter(!this.adoptionChecked);
+    loadFilters() {
+        console.log(this.storedNumbers)
         let count: number = 0;
         let tag;
-        for (let val of numbers) {
+        for (let val of this.storedNumbers) {
             switch (count) {
-                case 0: {
+                case 1: {
                     tag = 'specie';
                     break;
                 }
-                case 1: {
+                case 2: {
                     tag = 'race';
                     break;
                 }
-                case 2: {
+                case 3: {
                     tag = 'sex';
                     break;
                 }
-                case 3: {
+                case 4: {
                     tag = 'age';
                     break;
                 }
                 default:
                     break;
             }
+            //console.log(val)
             this.filter(val, tag);
             count++;
         }
     }
 
     filter(argument: boolean | number | string, tag: string = ''): void {
-        if (typeof argument === 'boolean')
+        //console.log(this.filteredAnimals)
+        
+        if (typeof argument === 'boolean') 
             this.filteredAnimals = this.animals.filter(
                 (animal) => animal.isAdoption === argument
             );
         else if (typeof argument === 'string') {
             if (tag === 'age') {
-                if (argument != '') this.filterListAge(argument);
+                if (argument !== '') this.filterListAge(argument);
                 this.checkBoxHandler(this.agesCheckList, argument);
             } else if (tag === 'sex') {
-                if (argument != '')
+                if (argument !== '')
+                    //console.log(argument)
                     this.filteredAnimals = this.filteredAnimals.filter(
                         (animal) => animal.sex === argument
                     );
@@ -208,19 +210,22 @@ export class AnimalsListComponent implements OnInit {
             } else if (argument != '') console.error('wrong tag');
         } else {
           if (tag == 'specie') {
-            if (argument != -1)
+            if (argument !== -1) {
               this.filteredAnimals = this.filteredAnimals.filter(
                 (animal) => animal.race.specie.id === argument
               );
-            this.checkBoxHandler(this.speciesCheckList, argument, tag);
+              this.races = [];
+            }
+            //this.checkBoxHandler(this.speciesCheckList, argument, tag);
           } else if (tag == 'race') {
-            if (argument != -1)
+            if (argument !== -1)
               this.filteredAnimals = this.filteredAnimals.filter(
                 (animal) => animal.race.id === argument
               );
             this.checkBoxHandler(this.racesCheckList, argument, tag);
           } else console.error('wrong tag');
         }
+        console.log(this.filteredAnimals)
     }
 
     checkBoxHandler(
@@ -347,6 +352,30 @@ export class AnimalsListComponent implements OnInit {
         default:
           this.valueCols = 4;
       }
+  }
+
+  resetFilter(tag: string): void {
+    switch (tag) {
+        case "specie": {
+            this.storedNumbers[1] = -1;
+            break; 
+        }
+        case "race": {
+            this.storedNumbers[2] = -1;
+            break; 
+        }
+        case "sex": {
+            this.storedNumbers[3] = "";
+            break; 
+        }
+        case "age": {
+            this.storedNumbers[4] = "";
+            break; 
+        }
+        default:
+            break;
+    }
+    this.loadFilters();
   }
 
   onResize(): void {

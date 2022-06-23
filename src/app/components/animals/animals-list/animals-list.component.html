@@ -13,7 +13,7 @@
       <mat-checkbox
         class="my-3"
         [(ngModel)]="adoptionChecked"
-        (click)="filter(adoptionChecked)">
+        (click)="onChange(adoptionChecked, '')">
         {{'animals.filter.adopted' | translate}}
       </mat-checkbox>
 
@@ -24,14 +24,18 @@
               {{'animals.filter.species' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <mat-radio-button
+              class="my-1"
+              (change)="resetFilter('specie')">
+              clear filter
+            </mat-radio-button>
           <div *ngFor="let specieCheck of speciesCheckList">
-            <mat-checkbox
+            <mat-radio-button
               class="my-1"
               [checked]="specieCheck.checked"
-              [disabled]="specieCheck.disabled"
               (change)="onChange(specieCheck, 'specie')">
               {{ specieCheck.specie.name }}
-            </mat-checkbox>
+            </mat-radio-button>
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
@@ -40,14 +44,18 @@
               {{'animals.filter.breeds' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <mat-radio-button
+              class="my-1"
+              (change)="resetFilter('race')">
+              clear filter
+            </mat-radio-button>
           <div style="max-height: 50px !important;" *ngFor="let raceCheck of racesCheckList">
-            <mat-checkbox
+            <mat-radio-button
               class="my-1"
               [checked]="raceCheck.checked"
-              [disabled]="raceCheck.disabled"
               (change)="onChange(raceCheck, 'race')">
               {{ raceCheck.race.name }}
-            </mat-checkbox>
+            </mat-radio-button>
           </div>
           <p *ngIf="storedNumbers[0] === -1">{{'animals.filter.breeds-empty' | translate}}</p>
         </mat-expansion-panel>
@@ -57,14 +65,18 @@
               {{'animals.filter.gender' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <mat-radio-button
+              class="my-1"
+              (change)="resetFilter('sex')">
+              clear filter
+            </mat-radio-button>
           <div *ngFor="let genderCheck of genderCheckList">
-            <mat-checkbox
+            <mat-radio-button
               class="my-1"
               [checked]="genderCheck.checked"
-              [disabled]="genderCheck.disabled"
               (change)="onChange(genderCheck, 'sex')">
               {{ genderCheck.type }}
-            </mat-checkbox>
+            </mat-radio-button>
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
@@ -73,14 +85,18 @@
               {{'animals.filter.age' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <mat-radio-button
+              class="my-1"
+              (change)="resetFilter('age')">
+              clear filter
+            </mat-radio-button>
           <div *ngFor="let ageCheck of agesCheckList">
-            <mat-checkbox
+            <mat-radio-button
               class="my-1"
               [checked]="ageCheck.checked"
-              [disabled]="ageCheck.disabled"
               (change)="onChange(ageCheck, 'age')">
               {{ ageCheck.type }}
-            </mat-checkbox>
+            </mat-radio-button>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
