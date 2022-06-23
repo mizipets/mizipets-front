@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RoomService } from '../../services/room.service';
 import { RoomModel } from '../../models/room.model';
-import { SocketService } from '../../services/socket.service';
+import { RoomSocketService } from '../../services/room-socket.service';
 import {
     MessageModel,
     MessageToRoomModel,
@@ -33,7 +33,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     constructor(
         private roomService: RoomService,
-        private socketService: SocketService,
+        private RoomSocketService: RoomSocketService,
         private authService: AuthService,
         private animalDetailDialog: MatDialog,
         elementRef: ElementRef,
@@ -43,11 +43,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.socketService.joinedRoom().subscribe(() => {
+        this.RoomSocketService.joinedRoom().subscribe(() => {
             this.scrollToBottom();
         });
 
-        this.socketService
+        this.RoomSocketService
             .receiveMessage()
             .subscribe((message: MessageModel) => {
                 if (this.isInfoMessage(message.type))
@@ -69,7 +69,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         if (this.currentRoom)
-            this.socketService.leaveRoom(this.currentRoom.code);
+            this.RoomSocketService.leaveRoom(this.currentRoom.code);
     }
 
     onDetail(): void {
@@ -87,7 +87,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
                 msg: this.message,
                 type: MessageType.text
             };
-            this.socketService.sendMessage(message);
+            this.RoomSocketService.sendMessage(message);
             this.message = '';
             this.scrollToBottom();
         }
@@ -95,14 +95,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     connectionToRoom(roomModel: RoomModel) {
         if (this.currentRoom)
-            this.socketService.leaveRoom(this.currentRoom.code);
+            this.RoomSocketService.leaveRoom(this.currentRoom.code);
 
         this.roomService
             .getRoomById(roomModel.id, roomModel.animal.id)
             .subscribe({
                 next: (room: RoomModel) => {
                     this.currentRoom = room;
-                    this.socketService.connectToRoom(room.code);
+                    this.RoomSocketService.connectToRoom(room.code);
                 },
                 error: (err) => {
                     console.error(err);

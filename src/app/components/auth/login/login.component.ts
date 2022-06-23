@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { NotificationSocketService } from '../../../services/notification-socket.service';
 
 export interface Device {
     browser: string;
@@ -37,7 +38,9 @@ export class LoginComponent implements OnInit {
         public formBuilder: FormBuilder,
         private authService: AuthService,
         private deviceService: DeviceDetectorService,
-        private router: Router
+        private router: Router,
+        private notificationSocket: NotificationSocketService,
+
     ) {
         this.emailCtrl = formBuilder.control('', Validators.required);
         this.passwordCtrl = formBuilder.control('', Validators.required);
@@ -70,6 +73,7 @@ export class LoginComponent implements OnInit {
                     'isTokenStored',
                     this.loginForm.value.isConnectionSave
                 );
+                this.notificationSocket.connected()
                 this.authService.isTokenStored =
                     this.loginForm.value.isConnectionSave;
                 this.authService.setToken(result.token);
