@@ -106,6 +106,7 @@ export class AnimalsListComponent implements OnInit {
         } else if (tag === 'specie') {
             val = val as SpecieModel;
                 this.storedNumbers[1] = val.id;
+                this.storedNumbers[2] = -1;
                 this.specieService.getSpecieById(val.id).subscribe({
                     next: (specie: SpecieModel) => {
                         this.races = specie.races ?? [];

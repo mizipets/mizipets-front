@@ -22,4 +22,10 @@
       color: #168aad;
     }
   }
+
+  .long-filter{
+    max-height: 300px !important;
+    min-height: 100px !important;
+    overflow: auto;
+  }
 }

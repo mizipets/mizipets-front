@@ -47,6 +47,7 @@
               {{'animals.filter.breeds' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div class="long-filter">
           <mat-radio-group>
           <mat-radio-button
               class="my-1"
@@ -64,6 +65,7 @@
             </mat-radio-button>
           </div>
           </mat-radio-group>
+        </div>
           <p *ngIf="storedNumbers[1] === -1">{{'animals.filter.breeds-empty' | translate}}</p>
         </mat-expansion-panel>
         <mat-expansion-panel class="mb-3">
