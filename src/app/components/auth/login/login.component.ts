@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
                     'isTokenStored',
                     this.loginForm.value.isConnectionSave
                 );
-                this.notificationSocket.connected()
                 this.authService.isTokenStored =
                     this.loginForm.value.isConnectionSave;
                 this.authService.setToken(result.token);
@@ -81,6 +80,7 @@ export class LoginComponent implements OnInit {
                 this.authService.decodedToken = this.authService.decodeToken(
                     result.token
                 );
+                this.notificationSocket.setId(this.authService.decodeToken(this.authService.getToken() ?? '').id)
                 this.router.navigate(['animals']).then();
             },
             error: (error) => {

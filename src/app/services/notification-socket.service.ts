@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { MessageModel, MessageToRoomModel } from '../models/message.model';
+import { MessageModel } from '../models/message.model';
 import { Observable } from 'rxjs';
-import { NotificationSocket, RoomSocket } from '../app.module';
+import { NotificationSocket } from '../app.module';
+import { UserNotification } from '../models/user-notification';
 
 @Injectable({
     providedIn: 'root'
@@ -10,11 +10,19 @@ import { NotificationSocket, RoomSocket } from '../app.module';
 export class NotificationSocketService {
     constructor(private socket: NotificationSocket) {}
 
-    public receiveMessage(): Observable<MessageModel> {
-        return this.socket.fromEvent('receiveMsgToRoom');
+    public receiveNotification(): Observable<UserNotification> {
+        return this.socket.fromEvent('notification');
     }
     public connected(): Observable<String> {
         return this.socket.fromEvent('connected');
+    }
+    
+    public setId(id: number): void {
+        this.socket.emit('setId', id);
+    }
+    
+    public clearId(): void {
+        this.socket.emit('clearId');
     }
 
     public connect(): void {
