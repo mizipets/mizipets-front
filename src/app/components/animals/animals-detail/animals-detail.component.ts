@@ -108,8 +108,6 @@ export class AnimalsDetailComponent implements OnInit {
             this.getSpecies();
             this.setAnimalAge();
             this.initForm();
-            console.log("1")
-            console.log(this.animal.images);
           }
         });
     }
