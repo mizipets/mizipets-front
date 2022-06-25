@@ -36,6 +36,7 @@ import { AnimalDeleteModalComponent } from './components/animals/animal-delete-m
 import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component'
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { PoliciesComponent } from './components/policies/policies.component';
+import { SnackbarService } from './services/snackbar.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -89,6 +90,7 @@ const socketIoConfig: SocketIoConfig = {
         SwiperModule
     ],
     providers: [
+        SnackbarService,
         LanguageService,
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
     ],

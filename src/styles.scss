@@ -330,6 +330,11 @@ img {
   object-fit: cover;
 }
 
+.error-snackbar {
+  background-color: rgb(156, 31, 31);
+  color: white;
+}
+
 /* ======== Mobile ======== */
 @media (min-width: 768px) {
   .container {
