@@ -35,16 +35,21 @@ export class AnimalImagesModalComponent implements OnInit {
 
   updated: boolean = false;
 
+  initialImages: string[] = [];
+  animal: AnimalModel
+
   constructor(
     public animalImagesDialog: MatDialogRef<AnimalImagesModalComponent>,
     private snackBar: MatSnackBar,
     private animalService: AnimalsService,
     private translate: TranslateService,
     private s3Service: S3Service,
-    @Inject(MAT_DIALOG_DATA) public data: {animal: AnimalModel}) { }
+    @Inject(MAT_DIALOG_DATA) public data: {animal: AnimalModel}) { 
+      this.animal = Object.assign({}, this.data.animal)
+      this.initialImages = [...this.data.animal.images];
+    }
 
   ngOnInit(): void {
-    
   }
 
   onChange(event: any) {
@@ -57,7 +62,7 @@ export class AnimalImagesModalComponent implements OnInit {
           reader.readAsDataURL(event.target.files[0]);
           reader.onload = (e: any) => {
             this.newFileNames.push(e.target.result);
-            this.data.animal.images.push(e.target.result);
+            this.animal.images.push(e.target.result);
           };
         }
         else {
@@ -66,40 +71,47 @@ export class AnimalImagesModalComponent implements OnInit {
     }
 }
 
-async onLeave(): Promise<void> {
-  if (this.currentImages !== this.data.animal.images && this.currentImages.length > 0) {
+async save(): Promise<void> {
+  if (this.currentImages !== this.animal.images && this.currentImages.length > 0) {
     this.isLoading = true
-    console.log("in animal images")
-    this.update.images = this.data.animal.images;
-    this.animalService.updateAdoption(this.data.animal.id, this.update).subscribe({
-    next: (animal: AnimalModel) =>{
-      console.log("updated")
-      this.data.animal = animal;
-      this.updated = true;
-    },
-    error: (error) => {
-      console.error(error);
-    }
-  });
-  }
-  let count = 0;
-  let formData;
-  for (let file of this.newFiles) {
-    formData = new FormData();
-    formData.append('file', file);
-      await this.s3Service
-        .uploadImage(this.data.animal.id, 'animal', formData)
-        .subscribe({
-          next: (res: any) => {
-          },
-          error: (error) => {
-            console.error(error);
-          }
-        });
+    this.update.images = this.animal.images;
+    this.animalService.updateAdoption(this.animal.id, this.update).subscribe({
+      next: (animal: AnimalModel) =>{
+        this.animal = animal;
+        this.initialImages = [...animal.images]
+        this.updated = true;
         this.openSnackBar('animal-details.addImage-success');
+      },
+      error: (error) => {
+        this.openSnackBar('animal-details.addImage-error');
+      }
+    });
+  }
+  for (let file of this.newFiles) {
+    const formData = new FormData();
+    formData.append('file', file);
+    await this.s3Service
+      .uploadImage(this.animal.id, 'animal', formData)
+      .subscribe({
+        next: (res: any) => {
+          this.openSnackBar('animal-details.addImage-success');
+        },
+        error: (error) => {
+          this.openSnackBar('animal-details.addImage-error');
+        }
+      });
   }
   this.isLoading = false;
+
+}
+
+close() {
+  this.data.animal = Object.assign(this.data.animal, this.animal)
   this.animalImagesDialog.close();
+}
+
+canSave() {
+  return JSON.stringify(this.animal.images) !== JSON.stringify(this.initialImages)
 }
 
 openSnackBar(text: string): void {
@@ -115,7 +127,7 @@ openSnackBar(text: string): void {
 }
 
   onDelete(index: number): void {
-    this.currentImages = Object.assign([], this.data.animal.images);
-    this.data.animal.images.splice(index, 1);
+    this.currentImages = Object.assign([], this.animal.images);
+    this.animal.images.splice(index, 1);
   }
 }

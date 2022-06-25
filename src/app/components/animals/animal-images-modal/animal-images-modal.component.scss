@@ -1,4 +1,11 @@
-.profile-image-picker {
+.modal {
+  .actions {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .profile-image-delete {
     background-color: white;
     position: absolute;
     top: 250px;
@@ -8,9 +15,10 @@
 
   .mat-card-image {
     vertical-align: middle;
-    border-radius: 0%;
+    border-radius: 10px;
     object-fit: cover;
-    border: 5px solid #FED08B;
+    border: 2px solid black;
     height: 250px;
     width: 250px;
   }
+}

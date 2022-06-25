@@ -203,8 +203,8 @@ export class AnimalsDetailComponent implements OnInit {
     onImages(): void {
         this.animalImagesDialog.open(AnimalImagesModalComponent, {
             data: { animal: this.animal },
-            height: '100vh',
-            width: '100%'
+            height: '80%',
+            width: '80%'
         });
     }
 
