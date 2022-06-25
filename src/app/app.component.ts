@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { UserNotification } from './models/user-notification';
 import { UserNotificationType } from './models/user-notification.enum';
 import { AuthService } from './services/auth.service';
 import { NotificationSocketService } from './services/notification-socket.service';
@@ -18,7 +20,7 @@ export class AppComponent implements OnInit {
         private notificationSocket: NotificationSocketService,
         private authService: AuthService,
         private snackBar: MatSnackBar,
-
+        private router: Router,
         ) {}
 
     ngOnInit(): void {
@@ -26,21 +28,17 @@ export class AppComponent implements OnInit {
             this.notificationSocket.setId(this.authService.decodeToken(this.authService.getToken() ?? '').id)
         }
         
-        this.notificationSocket.receiveNotification().subscribe(notification => {
-            const snabckBarRef = this.snackBar.open(notification.title, 'Go to', {
-                duration: 3000,
-                verticalPosition: 'top',
-                horizontalPosition: 'right',
-            });
-            snabckBarRef.onAction().subscribe(() => {
-                switch(notification.type) {
-                    case UserNotificationType.MESSAGE:
-                        console.log('route to');
-                        
-                        break;
-                }
-            });
-            snabckBarRef.dismiss();
+        this.notificationSocket.receiveNotification().subscribe((notification: UserNotification) => {
+            if (notification.type === UserNotificationType.MESSAGE) {
+                const snabckBarRef = this.snackBar.open(`Message from ${notification.title}: ${notification.body}`, 'Go to room', {
+                    duration: 5000,
+                    verticalPosition: 'top',
+                    horizontalPosition: 'center',
+                });
+                snabckBarRef.onAction().subscribe(() => {
+                    this.router.navigate(['messages'])                 
+                });
+            }
         })
 
         this.isMobileDevice =
