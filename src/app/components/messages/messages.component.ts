@@ -16,6 +16,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AnimalsDetailComponent } from '../animals/animals-detail/animals-detail.component';
+import { NotificationSocketService } from '../../services/notification-socket.service';
 
 @Component({
     selector: 'app-messages',
@@ -37,6 +38,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         private authService: AuthService,
         private animalDetailDialog: MatDialog,
         elementRef: ElementRef,
+        private notificationSocket: NotificationSocketService,
     ) {
         this.scrollFrame = elementRef;
         this.currentUserId = this.authService.decodedToken?.id ?? 0;
@@ -46,6 +48,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.RoomSocketService.joinedRoom().subscribe(() => {
             this.scrollToBottom();
         });
+
+        this.notificationSocket.notifications.next(0)
 
         this.RoomSocketService
             .receiveMessage()

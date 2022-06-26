@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MessageModel } from '../models/message.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { NotificationSocket } from '../app.module';
 import { UserNotification } from '../models/user-notification';
 
@@ -8,6 +8,9 @@ import { UserNotification } from '../models/user-notification';
     providedIn: 'root'
 })
 export class NotificationSocketService {
+
+    public notifications: BehaviorSubject<number> = new BehaviorSubject(0)
+
     constructor(private socket: NotificationSocket) {}
 
     public receiveNotification(): Observable<UserNotification> {

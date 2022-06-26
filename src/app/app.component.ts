@@ -29,6 +29,11 @@ export class AppComponent implements OnInit {
         }
         
         this.notificationSocket.receiveNotification().subscribe((notification: UserNotification) => {
+            if(this.router.url === '/messages') {
+                this.notificationSocket.notifications.next(0)
+            } else {
+                this.notificationSocket.notifications.next(this.notificationSocket.notifications.getValue() + 1)
+            }
             if (notification.type === UserNotificationType.MESSAGE) {
                 const snabckBarRef = this.snackBar.open(`Message from ${notification.title}: ${notification.body}`, 'Go to room', {
                     duration: 5000,
