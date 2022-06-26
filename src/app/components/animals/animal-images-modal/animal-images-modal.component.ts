@@ -44,7 +44,7 @@ export class AnimalImagesModalComponent implements OnInit {
     private animalService: AnimalsService,
     private translate: TranslateService,
     private s3Service: S3Service,
-    @Inject(MAT_DIALOG_DATA) public data: {animal: AnimalModel}) { 
+    @Inject(MAT_DIALOG_DATA) public data: {animal: AnimalModel}) {
       this.animal = Object.assign({}, this.data.animal)
       this.initialImages = [...this.data.animal.images];
     }

@@ -36,7 +36,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         private socketService: SocketService,
         private authService: AuthService,
         private animalDetailDialog: MatDialog,
-        elementRef: ElementRef,
+        elementRef: ElementRef
     ) {
         this.scrollFrame = elementRef;
         this.currentUserId = this.authService.decodedToken?.id ?? 0;
@@ -148,15 +148,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
 
     private async getOffsetMessages(): Promise<void> {
-        const offset: number =
-          this.currentRoom?.messages?.length ? (this.currentRoom?.messages?.length + 1) : 0;
+        const offset: number = this.currentRoom?.messages?.length
+            ? this.currentRoom?.messages?.length + 1
+            : 0;
         this.isLoading = true;
         await new Promise((f) => setTimeout(f, 1000));
         this.roomService
-            .getOffsetMessages(
-                this.currentRoom!.id,
-                offset
-            )
+            .getOffsetMessages(this.currentRoom!.id, offset)
             .subscribe({
                 next: (messages: MessageModel[]) => {
                     if (messages.length >= 1)

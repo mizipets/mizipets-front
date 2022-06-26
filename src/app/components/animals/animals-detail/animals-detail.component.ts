@@ -95,13 +95,13 @@ export class AnimalsDetailComponent implements OnInit {
         }
 
     ngOnInit(): void {
-        
+
         let id = this.route.snapshot.paramMap.get("id");
         if (this.animalId !== "" && !id) {
             id = this.animalId;
             this.isModal = true;
         }
-        
+
         this.animalService.getAnimalById(parseInt(id!)).subscribe({
           next: (animal: AnimalModel) => {
             this.animal = animal;

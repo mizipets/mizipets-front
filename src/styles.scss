@@ -109,7 +109,7 @@ html, body {
   padding-bottom: 60px;
 }
 .sidenav {
-  padding: 65px 20px 20px 20px;
+  padding: 65px 20px 65px 20px;
   width: 360px;
 }
 h1, .title {
@@ -161,7 +161,7 @@ img {
 }
 
 .swiper-button-next {
-  color: mat.get-color-from-palette($custom-primary) !important; 
+  color: mat.get-color-from-palette($custom-primary) !important;
 }
 
 :root {

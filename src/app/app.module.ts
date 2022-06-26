@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { MatRadioModule } from '@angular/material/radio';
 import { LanguageComponent } from './components/language/language.component';
 import { LanguageService } from './components/language/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -33,7 +34,7 @@ import { SettingsComponent } from './components/profile/settings/settings.compon
 import { CloseAccountPopUpComponent } from './components/profile/close-account-modal/close-account-pop-up.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 import { AnimalDeleteModalComponent } from './components/animals/animal-delete-modal/animal-delete-modal.component';
-import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component'
+import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { SnackbarService } from './services/snackbar.service';
@@ -83,6 +84,7 @@ const socketIoConfig: SocketIoConfig = {
         }),
         SocketIoModule.forRoot(socketIoConfig),
         MaterialModule,
+        MatRadioModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
