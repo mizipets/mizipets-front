@@ -95,7 +95,8 @@
     "age": "Age",
     "location": "Localisation",
     "creation": "Annonce postée le",
-    "addImage-success": "Image ajoutée avec succès"
+    "addImage-success": "Image ajoutée avec succès",
+    "addImage-error": "Erreur image"
   },
   "animal-delete": {
     "title": "Supprimer cet animal",

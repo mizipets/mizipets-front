@@ -16,22 +16,23 @@
       z-index: 10;
       background-color: white;
       position: absolute;
-      top: 320px;
-      transform: translateX(260px);
+      top: 310px;
+      transform: translateX(250px);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     }
 
     .swiper {
       width: 300px;
       height: 300px;
-      border: 5px solid #FED08B;
+      border: 2px solid black;
+      border-radius: 8px;
     }
 
     .mat-card-image {
       vertical-align: middle;
       border-radius: 8px;
       object-fit: cover;
-      border: 5px solid #FED08B;
+      border: 2px solid black;
       height: 300px;
       width: 300px;
     }

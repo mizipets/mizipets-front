@@ -95,7 +95,8 @@
     "age": "Age",
     "location": "Location",
     "creation": "Ad posted on",
-    "addImage-success": "Image successfully added"
+    "addImage-success": "Image successfully added",
+    "addImage-error": "Image Error"
   },
   "animal-delete": {
     "title": "Delete this animal",
