@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { NotificationSocketService } from '../../../services/notification-socket.service';
 
 @Component({
     selector: 'header',
@@ -7,7 +8,12 @@ import { AuthService } from '../../../services/auth.service';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-    constructor(public authService: AuthService) {}
+    
+    newNotificationsCount: number = 0;
 
-    ngOnInit(): void {}
+    constructor(public authService: AuthService, private notificationSocket: NotificationSocketService) {}
+
+    ngOnInit(): void {
+        this.notificationSocket.notifications.subscribe(newNotificationsCount => this.newNotificationsCount = newNotificationsCount)
+    }
 }
