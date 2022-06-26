@@ -24,9 +24,9 @@ export class AnimalsCreateComponent implements OnInit {
 
     file: File = {} as File;
 
-    fileExtension: string = ""
+    fileExtension: string = '';
 
-    extensions: string[] = ["jpg", "jpeg", "png", "jfif"];
+    extensions: string[] = ['jpg', 'jpeg', 'png', 'jfif'];
 
     today: Date = new Date();
 
@@ -146,8 +146,7 @@ export class AnimalsCreateComponent implements OnInit {
                 };
                 this.newImage = true;
             }
-        }
-        else {
+        } else {
             this.openSnackBar('common.wrong-image-type');
         }
     }

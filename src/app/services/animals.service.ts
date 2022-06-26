@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { AnimalModel, CreateAdoption } from '../models/animal.model';
 
@@ -9,22 +9,22 @@ import { AnimalModel, CreateAdoption } from '../models/animal.model';
     providedIn: 'root'
 })
 export class AnimalsService {
-    constructor(private http: HttpClient,
-                private authService: AuthService) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     getUserAnimals(): Observable<AnimalModel[]> {
-      const params = new HttpParams()
-        .set('ownerId', this.authService.decodedToken!.id,)
-        .set('fetchLastOwner', true);
+        const params = new HttpParams()
+            .set('ownerId', this.authService.decodedToken!.id)
+            .set('fetchLastOwner', true);
 
-        return this.http.get<AnimalModel[]>(
-            `${environment.baseUrl}animals`, {params}
-        );
+        return this.http.get<AnimalModel[]>(`${environment.baseUrl}animals`, {
+            params
+        });
     }
 
     getAnimalById(id: number): Observable<AnimalModel> {
-      return this.http.get<AnimalModel>(`${environment.baseUrl}animals/${id}`
-      );
+        return this.http.get<AnimalModel>(
+            `${environment.baseUrl}animals/${id}`
+        );
     }
 
     createAdoption(animalData: CreateAdoption): Observable<any> {
@@ -34,7 +34,10 @@ export class AnimalsService {
         );
     }
 
-    updateAdoption(id: number, animalData: CreateAdoption): Observable<AnimalModel> {
+    updateAdoption(
+        id: number,
+        animalData: CreateAdoption
+    ): Observable<AnimalModel> {
         return this.http.put<AnimalModel>(
             environment.baseUrl + 'animals/' + id,
             animalData
@@ -43,9 +46,7 @@ export class AnimalsService {
 
     deleteAdoption(animalID: number): Observable<any> {
         return this.http.delete<any>(
-            environment.baseUrl +
-            'animals/' +
-            animalID
-        )
+            environment.baseUrl + 'animals/' + animalID
+        );
     }
 }

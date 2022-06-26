@@ -34,7 +34,7 @@ import { SettingsComponent } from './components/profile/settings/settings.compon
 import { CloseAccountPopUpComponent } from './components/profile/close-account-modal/close-account-pop-up.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 import { AnimalDeleteModalComponent } from './components/animals/animal-delete-modal/animal-delete-modal.component';
-import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component'
+import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 

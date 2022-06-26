@@ -4,7 +4,7 @@ import { AnimalModel, Sex } from '../../../models/animal.model';
 import { RaceModel } from '../../../models/race.model';
 import { SpecieModel } from '../../../models/specie.model';
 import { SpeciesService } from '../../../services/species.service';
-import { AuthService } from "../../../services/auth.service";
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'app-animals-list',
@@ -72,71 +72,89 @@ export class AnimalsListComponent implements OnInit {
     }
 
     orderList(): AnimalModel[] {
-      return this.filteredAnimals.sort(
-        (animalA, animalB) =>
-          new Date(animalB.createDate).getTime() - new Date(animalA.createDate).getTime());
+        return this.filteredAnimals.sort(
+            (animalA, animalB) =>
+                new Date(animalB.createDate).getTime() -
+                new Date(animalA.createDate).getTime()
+        );
     }
 
     getRace(id: number): void {
-      this.selectedRace = '';
-      this.specieService.getSpecieById(id).subscribe({
-        next: (specie: SpecieModel) => {
-          this.races = specie.races!;
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
+        this.selectedRace = '';
+        this.specieService.getSpecieById(id).subscribe({
+            next: (specie: SpecieModel) => {
+                this.races = specie.races!;
+            },
+            error: (error) => {
+                console.error(error);
+            }
+        });
     }
 
-    onChange(): void  {
-      // parent filter define the list
-      this.filteredAnimals = this.isAdoptionChecked
-        ? this.animals.filter(animal => !animal.isAdoption)
-        : this.animals.filter(animal => animal.isAdoption);
+    onChange(): void {
+        // parent filter define the list
+        this.filteredAnimals = this.isAdoptionChecked
+            ? this.animals.filter((animal) => !animal.isAdoption)
+            : this.animals.filter((animal) => animal.isAdoption);
 
-      // children filters to sort the list
-      if (this.selectedSpecie !== '')
-        this.filteredAnimals = this.filteredAnimals.filter(animal => animal.race.specie.name === this.selectedSpecie);
-      if (this.selectedRace !== '')
-        this.filteredAnimals = this.filteredAnimals.filter(animal => animal.race.name === this.selectedRace);
-      if (this.selectedGender !== '')
-        this.filteredAnimals = this.filteredAnimals.filter(animal => animal.sex === this.selectedGender)
-      if (this.selectedAge !== '') {
-        this.filterListAge(this.selectedAge);
-      }
+        // children filters to sort the list
+        if (this.selectedSpecie !== '')
+            this.filteredAnimals = this.filteredAnimals.filter(
+                (animal) => animal.race.specie.name === this.selectedSpecie
+            );
+        if (this.selectedRace !== '')
+            this.filteredAnimals = this.filteredAnimals.filter(
+                (animal) => animal.race.name === this.selectedRace
+            );
+        if (this.selectedGender !== '')
+            this.filteredAnimals = this.filteredAnimals.filter(
+                (animal) => animal.sex === this.selectedGender
+            );
+        if (this.selectedAge !== '') {
+            this.filterListAge(this.selectedAge);
+        }
     }
 
     resetFilter(): void {
-      this.selectedSpecie = '';
-      this.selectedRace = '';
-      this.selectedGender = '';
-      this.selectedAge = '';
-      this.isAdoptionChecked = false;
-      this.races = [];
-      this.filteredAnimals = this.animals.filter(animal => animal.isAdoption);
+        this.selectedSpecie = '';
+        this.selectedRace = '';
+        this.selectedGender = '';
+        this.selectedAge = '';
+        this.isAdoptionChecked = false;
+        this.races = [];
+        this.filteredAnimals = this.animals.filter(
+            (animal) => animal.isAdoption
+        );
     }
 
     onResize(): void {
-      this.breakPoints();
+        this.breakPoints();
     }
 
     private getUserAnimals(): void {
-      this.isLoading = true;
-      this.animalService.getUserAnimals().subscribe({
-        next: (animals: AnimalModel[]) => {
-          // remove owner animals which are not for adoption
-          this.animals = animals.filter(animal => !(
-            !animal.isAdoption && animal.owner.id === this.authService.decodedToken?.id));
-          this.filteredAnimals = this.animals.filter(animal => animal.isAdoption);
-          this.getSpecies();
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error(error);
-          this.isLoading = false;
-        }
-      });
+        this.isLoading = true;
+        this.animalService.getUserAnimals().subscribe({
+            next: (animals: AnimalModel[]) => {
+                // remove owner animals which are not for adoption
+                this.animals = animals.filter(
+                    (animal) =>
+                        !(
+                            !animal.isAdoption &&
+                            animal.owner.id ===
+                                this.authService.decodedToken?.id
+                        )
+                );
+                this.filteredAnimals = this.animals.filter(
+                    (animal) => animal.isAdoption
+                );
+                this.getSpecies();
+                this.isLoading = false;
+            },
+            error: (error) => {
+                console.error(error);
+                this.isLoading = false;
+            }
+        });
     }
 
     private filterListAge(range: string): void {
@@ -163,35 +181,37 @@ export class AnimalsListComponent implements OnInit {
                 break;
             }
         }
-        this.filteredAnimals = this.filteredAnimals.filter((animal) =>
+        this.filteredAnimals = this.filteredAnimals.filter(
+            (animal) =>
                 new Date(animal.birthDate).getTime() < lowerLimit.getTime() &&
-                new Date(animal.birthDate).getTime() > upperLimit.getTime())
+                new Date(animal.birthDate).getTime() > upperLimit.getTime()
+        );
     }
 
     private getSpecies(): void {
-      this.specieService.getSpecies().subscribe({
-        next: (species: SpecieModel[]) => {
-          this.species = species;
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
+        this.specieService.getSpecies().subscribe({
+            next: (species: SpecieModel[]) => {
+                this.species = species;
+            },
+            error: (error) => {
+                console.error(error);
+            }
+        });
     }
 
     private breakPoints() {
-      switch(true) {
-        case (window.innerWidth <= 730):
-          this.valueCols = 1;
-          break;
-        case (window.innerWidth > 730 && window.innerWidth <= 1020):
-          this.valueCols = 2;
-          break;
-        case (window.innerWidth > 1020 && window.innerWidth <= 1200):
-          this.valueCols = 3;
-          break;
-        default:
-          this.valueCols = 4;
-      }
+        switch (true) {
+            case window.innerWidth <= 730:
+                this.valueCols = 1;
+                break;
+            case window.innerWidth > 730 && window.innerWidth <= 1020:
+                this.valueCols = 2;
+                break;
+            case window.innerWidth > 1020 && window.innerWidth <= 1200:
+                this.valueCols = 3;
+                break;
+            default:
+                this.valueCols = 4;
+        }
     }
 }
