@@ -13,6 +13,7 @@ import { RegisterModel } from '../../../models/register.model';
 import { TranslateService } from '@ngx-translate/core';
 import { Device } from '../login/login.component';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { NotificationSocketService } from '../../../services/notification-socket.service';
 
 @Component({
     selector: 'app-register',
@@ -42,7 +43,8 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private snackBar: MatSnackBar,
         private translate: TranslateService,
-        private deviceService: DeviceDetectorService
+        private deviceService: DeviceDetectorService,
+        private notificationSocket: NotificationSocketService,
     ) {
         /**
          * Form controls with validators
@@ -161,6 +163,8 @@ export class RegisterComponent implements OnInit {
                         this.authService.setRefreshToken(result.refreshKey);
                         this.authService.decodedToken =
                             this.authService.decodeToken(result.token);
+                        this.notificationSocket.setId(this.authService.decodeToken(this.authService.getToken() ?? '').id)
+                        
                         this.router.navigate(['animals']).then();
                     },
                     error: (error) => {

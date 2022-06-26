@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { MessageModel, MessageToRoomModel } from '../models/message.model';
 import { Observable } from 'rxjs';
+import { RoomSocket } from '../app.module';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SocketService {
-    constructor(private socket: Socket) {}
+export class RoomSocketService {
+    constructor(private socket: RoomSocket) {}
 
     public connectToRoom(roomCode: string): void {
         this.socket.emit('join', roomCode);
