@@ -5,9 +5,8 @@
 export const environment = {
     production: false,
     baseUrl: 'http://localhost:3000/v1/',
-    roomSocketUrl: 'http://localhost:3001',
-    notificationsSocketUrl: 'http://localhost:3002',
-    userDefaultUrl: 'http://localhost:9000/mizipets/avatar_default.jpg'
+    socketUrl: 'http://localhost:3001',
+    userDefaultUrl: 'http://49.12.198.51:9000/mizipets/avatar_default.jpg'
 };
 
 /*

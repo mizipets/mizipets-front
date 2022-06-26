@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RoomService } from '../../services/room.service';
 import { RoomModel } from '../../models/room.model';
-import { RoomSocketService } from '../../services/room-socket.service';
+import { SocketService } from '../../services/socket.service';
 import {
     MessageModel,
     MessageToRoomModel,
@@ -16,7 +16,6 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AnimalsDetailComponent } from '../animals/animals-detail/animals-detail.component';
-import { NotificationSocketService } from '../../services/notification-socket.service';
 
 @Component({
     selector: 'app-messages',
@@ -34,24 +33,21 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     constructor(
         private roomService: RoomService,
-        private RoomSocketService: RoomSocketService,
+        private socketService: SocketService,
         private authService: AuthService,
         private animalDetailDialog: MatDialog,
         elementRef: ElementRef,
-        private notificationSocket: NotificationSocketService,
     ) {
         this.scrollFrame = elementRef;
         this.currentUserId = this.authService.decodedToken?.id ?? 0;
     }
 
     ngOnInit(): void {
-        this.RoomSocketService.joinedRoom().subscribe(() => {
+        this.socketService.joinedRoom().subscribe(() => {
             this.scrollToBottom();
         });
 
-        this.notificationSocket.notifications.next(0)
-
-        this.RoomSocketService
+        this.socketService
             .receiveMessage()
             .subscribe((message: MessageModel) => {
                 if (this.isInfoMessage(message.type))
@@ -73,7 +69,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         if (this.currentRoom)
-            this.RoomSocketService.leaveRoom(this.currentRoom.code);
+            this.socketService.leaveRoom(this.currentRoom.code);
     }
 
     onDetail(): void {
@@ -91,7 +87,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
                 msg: this.message,
                 type: MessageType.text
             };
-            this.RoomSocketService.sendMessage(message);
+            this.socketService.sendMessage(message);
             this.message = '';
             this.scrollToBottom();
         }
@@ -99,14 +95,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     connectionToRoom(roomModel: RoomModel) {
         if (this.currentRoom)
-            this.RoomSocketService.leaveRoom(this.currentRoom.code);
+            this.socketService.leaveRoom(this.currentRoom.code);
 
         this.roomService
             .getRoomById(roomModel.id, roomModel.animal.id)
             .subscribe({
                 next: (room: RoomModel) => {
                     this.currentRoom = room;
-                    this.RoomSocketService.connectToRoom(room.code);
+                    this.socketService.connectToRoom(room.code);
                 },
                 error: (err) => {
                     console.error(err);

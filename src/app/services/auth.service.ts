@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { RegisterModel } from '../models/register.model';
-import { NotificationSocketService } from './notification-socket.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +14,7 @@ export class AuthService {
     decodedToken: DecodedTokenModel | undefined;
     isTokenStored: boolean;
 
-    constructor(private router: Router, private http: HttpClient, private notificationSocket: NotificationSocketService) {
+    constructor(private router: Router, private http: HttpClient) {
         this.isTokenStored = localStorage.getItem('isTokenStored') === 'true';
         if (this.isLogged()) {
             this.decodedToken = this.decodeToken(this.getToken()!);
@@ -73,7 +72,6 @@ export class AuthService {
             : sessionStorage.removeItem('token');
         localStorage.removeItem('isTokenStored');
         localStorage.removeItem('refreshKey');
-        this.notificationSocket.clearId()
         this.router.navigate(['home']).then();
     }
 
