@@ -153,7 +153,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     private async getOffsetMessages(): Promise<void> {
         const offset: number = this.currentRoom?.messages?.length
-            ? this.currentRoom?.messages?.length + 1
+            ? this.currentRoom?.messages?.length
             : 0;
         this.isLoading = true;
         await new Promise((f) => setTimeout(f, 1000));
