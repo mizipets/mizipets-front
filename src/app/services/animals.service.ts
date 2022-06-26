@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { AuthService } from './auth.service';
 import { AnimalModel, CreateAdoption } from '../models/animal.model';
 
@@ -13,10 +13,12 @@ export class AnimalsService {
                 private authService: AuthService) {}
 
     getUserAnimals(): Observable<AnimalModel[]> {
+      const params = new HttpParams()
+        .set('ownerId', this.authService.decodedToken!.id,)
+        .set('fetchLastOwner', true);
+
         return this.http.get<AnimalModel[]>(
-            environment.baseUrl +
-                'animals?ownerId=' +
-                this.authService.decodedToken!.id
+            `${environment.baseUrl}animals`, {params}
         );
     }
 

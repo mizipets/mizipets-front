@@ -74,7 +74,9 @@
       "species": "Species",
       "gender": "Gender",
       "age": "Age",
-      "breeds-empty": "You must first select a species"
+      "years": "years",
+      "breeds-empty": "You must first select a species",
+      "reset": "Reset filters"
     }
   },
   "animals-add": {

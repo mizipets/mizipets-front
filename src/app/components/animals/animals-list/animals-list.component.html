@@ -1,19 +1,18 @@
 <mat-drawer-container class="app-content">
   <mat-drawer #drawer class="sidenav" mode="over" [opened]="false">
-    <div class="justify-content-between">
-      <h3>{{'animals.filter.title' | translate}}</h3>
-      <button type="button" mat-icon-button
-              class="mx-1 my-1"
-              (click)="drawer.toggle()">
+    <div class="justify-content-between top">
+      <h3 class="mx-2">{{'animals.filter.title' | translate}}</h3>
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
         <mat-icon>close</mat-icon>
       </button>
     </div>
 
+    <!-- Filters -->
     <div class="mx-2">
       <mat-checkbox
         class="my-3"
-        [(ngModel)]="adoptionChecked"
-        (click)="onChange(adoptionChecked, '')">
+        [(ngModel)]="isAdoptionChecked"
+        (change)="onChange()">
         {{'animals.filter.adopted' | translate}}
       </mat-checkbox>
 
@@ -25,22 +24,20 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-radio-group>
-              <mat-radio-button
-              class="my-1"
-              (change)="resetFilter('specie')"
-              value="clearFilterSpecie">
-              clear filter
-              </mat-radio-button>
             <div *ngFor="let specie of species">
               <mat-radio-button
-              class="my-1"
-              (change)="onChange(specie, 'specie')"
-              value="specie.name">
-              {{ specie.name }}
+                      class="my-1"
+                      [(ngModel)]="selectedSpecie"
+                      [checked]="selectedSpecie !== ''"
+                      (change)="onChange(); getRace(specie.id)"
+                      [value]="specie.name"
+                      ngDefaultControl>
+                  {{ specie.name }}
               </mat-radio-button>
             </div>
           </mat-radio-group>
         </mat-expansion-panel>
+
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -48,26 +45,23 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div class="long-filter">
-          <mat-radio-group>
-          <mat-radio-button
-              class="my-1"
-              *ngIf="storedNumbers[1] !== -1"
-              (change)="resetFilter('race')"
-              value="clearFilterRace">
-              clear filter
-            </mat-radio-button>
-          <div style="max-height: 50px !important;" *ngFor="let race of races">
-            <mat-radio-button
-              class="my-1"
-              (change)="onChange(race, 'race')"
-              value="race.name">
-              {{ race.name }}
-            </mat-radio-button>
+            <mat-radio-group>
+              <div style="max-height: 50px !important;" *ngFor="let race of races">
+                <mat-radio-button
+                  class="my-1"
+                  [(ngModel)]="selectedRace"
+                  [checked]="selectedRace !== ''"
+                  (change)="onChange()"
+                  [value]="race.name"
+                  ngDefaultControl>
+                  {{ race.name }}
+                </mat-radio-button>
+              </div>
+            </mat-radio-group>
           </div>
-          </mat-radio-group>
-        </div>
-          <p *ngIf="storedNumbers[1] === -1">{{'animals.filter.breeds-empty' | translate}}</p>
+          <p *ngIf="races.length <= 0">{{'animals.filter.breeds-empty' | translate}}</p>
         </mat-expansion-panel>
+
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -75,22 +69,20 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-radio-group>
-          <mat-radio-button
-              class="my-1"
-              (change)="resetFilter('sex')"
-              value="clearFilterSex">
-              clear filter
-            </mat-radio-button>
-          <div *ngFor="let gender of Sex">
+          <div *ngFor="let gender of sex">
             <mat-radio-button
               class="my-1"
-              (change)="onChange(gender, 'sex')"
-              value="gender">
+              [(ngModel)]="selectedGender"
+              [checked]="selectedGender !== ''"
+              (change)="onChange()"
+              [value]="gender"
+              ngDefaultControl>
               {{ gender }}
             </mat-radio-button>
           </div>
         </mat-radio-group>
         </mat-expansion-panel>
+
         <mat-expansion-panel class="mb-3">
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -98,23 +90,25 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-radio-group>
-          <mat-radio-button
-              class="my-1"
-              (change)="resetFilter('age')"
-              value="clearFilterAge">
-              clear filter
-            </mat-radio-button>
-          <div *ngFor="let age of Age">
+          <div *ngFor="let age of ages">
             <mat-radio-button
               class="my-1"
-              (change)="onChange(age, 'age')"
-              value="age">
-              {{ age }}
+              [(ngModel)]="selectedAge"
+              [checked]="selectedAge !== ''"
+              (change)="onChange()"
+              [value]="age"
+              ngDefaultControl>
+              {{ age }}  {{'animals.filter.years' | translate}}
             </mat-radio-button>
           </div>
           </mat-radio-group>
         </mat-expansion-panel>
       </mat-accordion>
+
+      <button mat-flat-button color="accent"
+              (click)="resetFilter()">
+        {{'animals.filter.reset' | translate}}
+      </button>
     </div>
   </mat-drawer>
 
@@ -129,8 +123,8 @@
     </div>
 
     <div *ngIf="filteredAnimals.length <= 0">
-      <p class="text-center" *ngIf="!adoptionChecked">{{'animals.no-animals' | translate}}</p>
-      <p class="text-center" *ngIf="adoptionChecked">{{'animals.no-adopted-animals' | translate}}</p>
+      <p class="text-center" *ngIf="!isAdoptionChecked">{{'animals.no-animals' | translate}}</p>
+      <p class="text-center" *ngIf="isAdoptionChecked">{{'animals.no-adopted-animals' | translate}}</p>
       <div class="d-flex justify-content-center">
         <button mat-flat-button color="primary" type="button"   routerLink="/animal-create">{{'animals.add' | translate}}</button>
       </div>
