@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
 import { MessageModel, MessageToRoomModel } from '../models/message.model';
 import { Observable } from 'rxjs';
 import { RoomSocket } from '../app.module';
@@ -26,8 +25,16 @@ export class RoomSocketService {
         this.socket.emit('sendMsgToRoom', message);
     }
 
+    public seenMessage(message: any) {
+        this.socket.emit('seenMessages', message);
+    }
+
     public receiveMessage(): Observable<MessageModel> {
         return this.socket.fromEvent('receiveMsgToRoom');
+    } 
+    
+    public receiveSeenMessages(): Observable<MessageModel[]> {
+        return this.socket.fromEvent('receiveSeenMessages');
     }
 
     public leftRoom(): Observable<MessageModel> {

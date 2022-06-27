@@ -64,17 +64,30 @@
                      [ngClass]="message.type === 'text' ? 'justify-content-start' : 'justify-content-center'">
                   <div class="text-message"
                        [ngClass]="message.type === 'text' ? 'incoming' : 'info'">
-                    <p>{{ message.text }}</p>
+                    <div class="text">{{ message.text }}</div>
+                    <div class="message-infos">
+                      <div class="no-icon">
+                        {{getMessageSubtitle(message)}}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </ng-template>
-
+              
               <ng-template #outgoing_msg>
                 <div class="my-1"
-                     [ngClass]="message.type === 'text' ? 'justify-content-end' : 'justify-content-center'">
+                  [ngClass]="message.type === 'text' ? 'justify-content-end' : 'justify-content-center'">
                   <div class="text-message"
-                       [ngClass]="message.type === 'text' ? 'outgoing' : 'info'">
-                    <p>{{ message.text }}</p>
+                    [ngClass]="message.type === 'text' ? 'outgoing' : 'info'">
+                    <div class="text">{{ message.text }}</div>
+                    <div class="message-infos">
+                      <div>
+                        {{getMessageSubtitle(message)}}
+                      </div>
+                      <div>
+                        <mat-icon>{{ isMsgSeenBy(message, getOther()?.id) ? 'check' : 'radio_button_unchecked'}}</mat-icon>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </ng-template>

@@ -17,6 +17,12 @@ export interface MessageToRoomModel {
     type: MessageType;
 }
 
+export interface SeenMessageModel {
+    roomId?: number;
+    userIds: number[];
+    messageIds: number[];
+}
+
 export interface MessageModel {
     id: number;
     text: string;
@@ -24,4 +30,5 @@ export interface MessageModel {
     writer: number;
     type: MessageType;
     room: RoomModel;
+    seen: number[];
 }
