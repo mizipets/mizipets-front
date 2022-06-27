@@ -28,7 +28,7 @@ import { HomeMobileComponent } from './components/home-mobile/home-mobile.compon
 import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { environment } from '../environments/environment';
-import { SocketIoModule, SocketIoConfig, Socket } from 'ngx-socket-io';
+import { SocketIoModule, Socket } from 'ngx-socket-io';
 import { UserProfileComponent } from './components/profile/user-profile.component';
 import { SettingsComponent } from './components/profile/settings/settings.component';
 import { CloseAccountPopUpComponent } from './components/profile/close-account-modal/close-account-pop-up.component';
@@ -38,15 +38,16 @@ import { AnimalImagesModalComponent } from './components/animals/animal-images-m
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { SnackbarService } from './services/snackbar.service';
+import { AuthService } from "./services/auth.service";
 
 @Injectable()
 export class RoomSocket extends Socket {
   constructor() {
     super(
-        { 
+        {
             url: environment.roomSocketUrl,
-            options: { 
-                transports: ['websocket'], 
+            options: {
+                transports: ['websocket'],
             }
         }
     );
@@ -57,11 +58,11 @@ export class RoomSocket extends Socket {
 export class NotificationSocket extends Socket {
   constructor() {
     super(
-        { 
+        {
             url: environment.notificationsSocketUrl,
-            options: { 
-                transports: ['websocket'], 
-            } 
+            options: {
+                transports: ['websocket'],
+            }
         }
     );
   }
@@ -119,6 +120,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         NotificationSocket,
         RoomSocket,
         LanguageService,
+        AuthService,
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
