@@ -7,47 +7,45 @@ import { Router } from '@angular/router';
 import { AnimalModel } from 'src/app/models/animal.model';
 
 @Component({
-  selector: 'app-animal-delete-modal',
-  templateUrl: './animal-delete-modal.component.html',
-  styleUrls: ['./animal-delete-modal.component.scss']
+    selector: 'app-animal-delete-modal',
+    templateUrl: './animal-delete-modal.component.html',
+    styleUrls: ['./animal-delete-modal.component.scss']
 })
 export class AnimalDeleteModalComponent implements OnInit {
+    constructor(
+        public deleteAnimalDialog: MatDialogRef<AnimalDeleteModalComponent>,
+        private animalService: AnimalsService,
+        private snackBar: MatSnackBar,
+        private translate: TranslateService,
+        private router: Router,
+        @Inject(MAT_DIALOG_DATA) public data: { animal: AnimalModel }
+    ) {}
 
-  constructor(
-    public deleteAnimalDialog: MatDialogRef<AnimalDeleteModalComponent>,
-    private animalService: AnimalsService,
-    private snackBar: MatSnackBar,
-    private translate: TranslateService,
-    private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data: {animal: AnimalModel}) { }
+    ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+    openSnackBar(): void {
+        this.snackBar.open(
+            this.translate.instant('animal.delete-success'),
+            '',
+            {
+                duration: 2000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top'
+            }
+        );
+    }
 
-  openSnackBar(): void {
-    this.snackBar.open(
-        this.translate.instant('animal.delete-success'),
-        '',
-        {
-            duration: 2000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top'
-        }
-    );
-  }
+    onCancel(): void {
+        this.deleteAnimalDialog.close();
+    }
 
-  onCancel(): void {
-    this.deleteAnimalDialog.close();
-  }
-
-  onConfirm(): void {
-    this.deleteAnimalDialog.close();
-    this.animalService.deleteAdoption(this.data.animal.id).subscribe({
-      next: () => {
-        this.openSnackBar();
-        this.router.navigateByUrl('/animals').then();
-      }
-    });
-  }
-
+    onConfirm(): void {
+        this.deleteAnimalDialog.close();
+        this.animalService.deleteAdoption(this.data.animal.id).subscribe({
+            next: () => {
+                this.openSnackBar();
+                this.router.navigateByUrl('/animals').then();
+            }
+        });
+    }
 }

@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from './services/snackbar.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -19,7 +20,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
     constructor(
         private authService: AuthService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private snackbarService: SnackbarService
     ) {}
 
     intercept(
@@ -39,6 +41,16 @@ export class TokenInterceptor implements HttpInterceptor {
                     error.status === 401
                 ) {
                     return this.handle401Error(request, next);
+                }
+
+                if(error.status === 413) {
+                    this.snackbarService.openError('Image too large')
+                } else if(error.body.message) {
+                    if(typeof error.body.message === 'string') {
+                        this.snackbarService.openError(error.body.message)
+                    } else if(typeof error.body.message === 'object') {
+                        this.snackbarService.openError(error.body.message.join(' '))
+                    }
                 }
 
                 return throwError(error);

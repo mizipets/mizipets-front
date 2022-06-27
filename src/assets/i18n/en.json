@@ -74,7 +74,9 @@
       "species": "Species",
       "gender": "Gender",
       "age": "Age",
-      "breeds-empty": "You must first select a species"
+      "years": "years",
+      "breeds-empty": "You must first select a species",
+      "reset": "Reset filters"
     }
   },
   "animals-add": {
@@ -93,7 +95,8 @@
     "age": "Age",
     "location": "Location",
     "creation": "Ad posted on",
-    "addImage-success": "Image successfully added"
+    "addImage-success": "Image successfully added",
+    "addImage-error": "Image Error"
   },
   "animal-delete": {
     "title": "Delete this animal",

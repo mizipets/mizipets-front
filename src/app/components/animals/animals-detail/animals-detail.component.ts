@@ -95,28 +95,24 @@ export class AnimalsDetailComponent implements OnInit {
         }
 
     ngOnInit(): void {
-        
+
         let id = this.route.snapshot.paramMap.get("id");
         if (this.animalId !== "" && !id) {
             id = this.animalId;
             this.isModal = true;
         }
-        
+
         this.animalService.getAnimalById(parseInt(id!)).subscribe({
           next: (animal: AnimalModel) => {
             this.animal = animal;
             this.getSpecies();
             this.setAnimalAge();
             this.initForm();
-            console.log("1")
-            console.log(this.animal.images);
           }
         });
     }
 
     setAnimalAge(): void {
-        console.log("2")
-        console.log(this.animal.images);
       this.age = new Date().getFullYear()  - new Date(this.animal.birthDate).getFullYear();
       if (this.age === 0) {
         this.ageString = "< 1"
@@ -126,13 +122,9 @@ export class AnimalsDetailComponent implements OnInit {
     }
 
     getSpecies(): void {
-        console.log("3")
-        console.log(this.animal.images);
       this.specieService.getSpecieById(this.animal.race.specie.id).subscribe({
         next: (specie: SpecieModel) => {
           this.races = specie.races ?? [];
-          
-          console.log("in specie call")
         },
         error: (error) => {
           console.error(error);
@@ -141,8 +133,6 @@ export class AnimalsDetailComponent implements OnInit {
     }
 
     initForm(): void {
-        console.log("4")
-        console.log(this.animal.images);
       this.fileName = this.animal.images;
       this.displayedImage = this.animal.images[0];
       this.animalForm.controls['name'].setValue(this.animal.name);
@@ -213,8 +203,8 @@ export class AnimalsDetailComponent implements OnInit {
     onImages(): void {
         this.animalImagesDialog.open(AnimalImagesModalComponent, {
             data: { animal: this.animal },
-            height: '100vh',
-            width: '100%'
+            height: '80%',
+            width: '80%'
         });
     }
 

@@ -35,7 +35,7 @@
     "wrong-image-type": "Mauvais type d'image"
   },
   "header": {
-    "animals": "Mes animaux",
+    "animals": "Mes annonces",
     "add":  "Ajouter une annonce",
     "messages": "Messagerie",
     "profile":  "Profil",
@@ -74,7 +74,9 @@
       "species": "Espèces",
       "gender": "Sexe",
       "age": "Âge",
-      "breeds-empty": "Vous devez d'abord sélectionner une espèce"
+      "years": "ans",
+      "breeds-empty": "Vous devez d'abord sélectionner une espèce",
+      "reset": "Réinitialiser les filtres"
     }
   },
   "animals-add": {
@@ -93,7 +95,8 @@
     "age": "Age",
     "location": "Localisation",
     "creation": "Annonce postée le",
-    "addImage-success": "Image ajoutée avec succès"
+    "addImage-success": "Image ajoutée avec succès",
+    "addImage-error": "Erreur image"
   },
   "animal-delete": {
     "title": "Supprimer cet animal",

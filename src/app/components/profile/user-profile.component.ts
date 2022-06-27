@@ -41,7 +41,7 @@ export class UserProfileComponent implements OnInit {
 
     fileName = '';
 
-    extensions: string[] = ["jpg", "jpeg", "png", "jfif"];
+    extensions: string[] = ['jpg', 'jpeg', 'png', 'jfif'];
 
     constructor(
         private userService: UserService,
@@ -135,20 +135,16 @@ export class UserProfileComponent implements OnInit {
     }
 
     openSnackBar(text: string): void {
-        this.snackBar.open(
-            this.translate.instant(text),
-            '',
-            {
-                duration: 2000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            }
-        );
+        this.snackBar.open(this.translate.instant(text), '', {
+            duration: 2000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+        });
     }
 
     onChange(event: any) {
         if (event.target.files) {
-            let fileExtension = event.target.files[0].name.split('.').pop()!;     
+            let fileExtension = event.target.files[0].name.split('.').pop()!;
             if (this.extensions.indexOf(fileExtension!) > -1) {
                 var reader = new FileReader();
                 this.file = event.target.files[0];
@@ -157,8 +153,8 @@ export class UserProfileComponent implements OnInit {
                     this.fileName = e.target.result;
                 };
 
-                console.log(fileExtension)
-        
+                console.log(fileExtension);
+
                 const formData = new FormData();
                 formData.append('file', this.file);
                 this.s3Service
@@ -171,11 +167,9 @@ export class UserProfileComponent implements OnInit {
                             console.error(error);
                         }
                     });
-            }
-            else {
+            } else {
                 this.openSnackBar('common.wrong-image-type');
             }
-            
         }
     }
 
