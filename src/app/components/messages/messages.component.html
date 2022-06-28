@@ -73,7 +73,7 @@
                   </div>
                 </div>
               </ng-template>
-              
+
               <ng-template #outgoing_msg>
                 <div class="my-1"
                   [ngClass]="message.type === 'text' ? 'justify-content-end' : 'justify-content-center'">
@@ -84,8 +84,8 @@
                       <div>
                         {{getMessageSubtitle(message)}}
                       </div>
-                      <div>
-                        <mat-icon>{{ isMsgSeenBy(message, getOther()?.id) ? 'check' : 'radio_button_unchecked'}}</mat-icon>
+                      <div *ngIf="isMsgSeenBy(message, getOther()?.id)">
+                        <mat-icon style="color: #FED08B;">check</mat-icon>
                       </div>
                     </div>
                   </div>
