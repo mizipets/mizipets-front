@@ -56,9 +56,24 @@ export class MessagesComponent implements OnInit, OnDestroy {
             .subscribe((message: MessageModel) => {
                 if (this.isInfoMessage(message.type))
                     this.connectionToRoom(this.currentRoom!);
-
+                this.seenMessages([message.id], this.authService.decodeToken(this.authService.getToken() ?? '').id)
                 this.currentRoom?.messages?.push(message);
                 this.scrollToBottom();
+            });
+
+        this.RoomSocketService
+            .receiveSeenMessages()
+            .subscribe((messages: MessageModel[]) => {
+                if(this.currentRoom) {
+                    this.currentRoom.messages = this.currentRoom?.messages?.map((oldMsg) => {
+                        const newMsg = messages.find((newMsg) => newMsg.id === oldMsg.id);
+                        if(newMsg != null) {
+                            const merged = oldMsg.seen.concat(newMsg.seen)
+                            oldMsg.seen = merged.filter((i, pos) => merged.indexOf(i) === pos);
+                        }
+                        return oldMsg;
+                    }) ?? [];
+                }
             });
 
         this.roomService.getUserRooms().subscribe({
@@ -69,6 +84,49 @@ export class MessagesComponent implements OnInit, OnDestroy {
                 console.error(err);
             }
         });
+    }
+
+    async seenMessages(messageIds: number[], userId: number) {
+        if(userId != null) {
+            this.RoomSocketService.seenMessage({
+                messageIds: messageIds,
+                userIds: [userId],
+                roomId: this.currentRoom?.id,
+                who: 'web'
+            });
+        }
+      }
+
+    getMessageSubtitle(message: MessageModel) {
+        return `${this.getCreatedString(message)}`
+    }
+
+    isMsgSeenBy(message: MessageModel, userId?: number): boolean {
+        if(!userId) return false;
+        return message.seen.includes(userId);
+      }
+    
+    getCreatedString(message: MessageModel): string {
+        const startOfDay = new Date()
+        startOfDay.setUTCHours(0)
+        startOfDay.setHours(0)
+
+        message.created = new Date(message.created)
+        
+        if(message.created.getTime() < startOfDay.getTime()) {
+            return `${message.created.getDate()}/${message.created.getMonth() + 1}/${message.created.getFullYear()} ${message.created.getHours().toString().padStart(2, '0')}:${message.created.getMinutes().toString().padStart(2, '0')}` ;
+        } else {
+            return `${message.created.getHours().toString().padStart(2, '0')}:${message.created.getMinutes().toString().padStart(2, '0')}`;
+        }
+    }
+
+    getOther() {
+        const id = this.authService.decodeToken(this.authService.getToken() ?? '').id
+        if (id == null) return null;
+        if (id == this.currentRoom?.adoptant.id) return this.currentRoom?.animal.owner;
+        if (id == this.currentRoom?.animal.lastOwner) return this.currentRoom?.animal.owner;
+        if (id == this.currentRoom?.animal.owner?.id) return this.currentRoom?.adoptant;
+        return null;
     }
 
     ngOnDestroy(): void {
@@ -162,6 +220,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
             .subscribe({
                 next: (messages: MessageModel[]) => {
                     if (messages.length >= 1)
+                        this.seenMessages(messages.map(msg => msg.id), this.authService.decodeToken(this.authService.getToken() ?? '').id)
                         messages
                             .reverse()
                             .map((message) =>

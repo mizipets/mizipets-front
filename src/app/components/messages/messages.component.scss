@@ -42,6 +42,27 @@
         padding-right: 12px;
         padding-left: 12px;
         border-radius: 20px;
+
+        .text {
+          margin: 5px;
+        }
+
+        .message-infos {
+          display: flex;
+          flex-direction: row;
+          justify-content: end;
+          align-items: center;
+
+          font-size: 10px;
+
+          mat-icon {
+            transform: scale(0.7);
+          }
+
+          .no-icon {
+            margin: 2px;
+          }
+        }
       }
       .incoming {
         background-color: #E4E6EB;
