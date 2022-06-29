@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { UserNotification } from './models/user-notification';
-import { UserNotificationType } from './models/user-notification.enum';
+import { UserNotificationModel } from './models/user-notification.model';
+import { UserNotificationType } from './models/enums/user-notification.enum';
 import { AuthService } from './services/auth.service';
 import { NotificationSocketService } from './services/notification-socket.service';
 
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
             this.notificationSocket.setId(this.authService.decodeToken(this.authService.getToken() ?? '').id)
         }
 
-        this.notificationSocket.receiveNotification().subscribe((notification: UserNotification) => {
+        this.notificationSocket.receiveNotification().subscribe((notification: UserNotificationModel) => {
             if(this.router.url === '/messages') {
                 this.notificationSocket.notifications.next(0)
             } else {

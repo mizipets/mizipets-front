@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CloseAccountPopUpComponent } from './close-account-pop-up.component';
+import { CloseAccountModalComponent } from './close-account-modal.component';
 
 describe('CloseAccountPopUpComponent', () => {
-    let component: CloseAccountPopUpComponent;
-    let fixture: ComponentFixture<CloseAccountPopUpComponent>;
+    let component: CloseAccountModalComponent;
+    let fixture: ComponentFixture<CloseAccountModalComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [CloseAccountPopUpComponent]
+            declarations: [CloseAccountModalComponent]
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CloseAccountPopUpComponent);
+        fixture = TestBed.createComponent(CloseAccountModalComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

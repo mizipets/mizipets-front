@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AnimalModel, CreateAdoption, Sex} from '../../../models/animal.model';
+import { AnimalModel, CreateAdoption } from '../../../models/animal.model';
 import { S3Service } from '../../../services/s3.service';
 import { AnimalsService } from '../../../services/animals.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -11,11 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './animal-images-modal.component.html',
   styleUrls: ['./animal-images-modal.component.scss']
 })
-export class AnimalImagesModalComponent implements OnInit {
-
+export class AnimalImagesModalComponent {
   isLoading: boolean = false;
-
-  listo: number[] = [1,2,3,4];
 
   file: File = {} as File
 
@@ -36,6 +33,7 @@ export class AnimalImagesModalComponent implements OnInit {
   updated: boolean = false;
 
   initialImages: string[] = [];
+
   animal: AnimalModel
 
   constructor(
@@ -49,14 +47,11 @@ export class AnimalImagesModalComponent implements OnInit {
       this.initialImages = [...this.data.animal.images];
     }
 
-  ngOnInit(): void {
-  }
-
   onChange(event: any) {
     if (event.target.files) {
         this.fileExtension = event.target.files[0].name.split('.').pop()!;
-        if (this.extensions.indexOf(this.fileExtension!) > -1) {
-          var reader = new FileReader();
+        if (this.extensions.indexOf(this.fileExtension) > -1) {
+          const reader = new FileReader();
           this.file = event.target.files[0]
           this.newFiles.push(this.file);
           reader.readAsDataURL(event.target.files[0]);
@@ -69,10 +64,10 @@ export class AnimalImagesModalComponent implements OnInit {
           this.openSnackBar('common.wrong-image-type');
         }
     }
-}
+  }
 
-async save(): Promise<void> {
-  if (this.currentImages !== this.animal.images && this.currentImages.length > 0) {
+  async save(): Promise<void> {
+    if (this.currentImages !== this.animal.images && this.currentImages.length > 0) {
     this.isLoading = true
     this.update.images = this.animal.images;
     this.animalService.updateAdoption(this.animal.id, this.update).subscribe({
@@ -83,6 +78,7 @@ async save(): Promise<void> {
         this.openSnackBar('animal-details.addImage-success');
       },
       error: (error) => {
+        console.error(error);
         this.openSnackBar('animal-details.addImage-error');
       }
     });
@@ -93,38 +89,38 @@ async save(): Promise<void> {
     await this.s3Service
       .uploadImage(this.animal.id, 'animal', formData)
       .subscribe({
-        next: (res: any) => {
+        next: () => {
           this.openSnackBar('animal-details.addImage-success');
         },
         error: (error) => {
+          console.error(error);
           this.openSnackBar('animal-details.addImage-error');
         }
       });
+    }
+    this.isLoading = false;
   }
-  this.isLoading = false;
 
-}
+  close() {
+    this.data.animal = Object.assign(this.data.animal, this.animal)
+    this.animalImagesDialog.close();
+  }
 
-close() {
-  this.data.animal = Object.assign(this.data.animal, this.animal)
-  this.animalImagesDialog.close();
-}
+  canSave() {
+    return JSON.stringify(this.animal.images) !== JSON.stringify(this.initialImages)
+  }
 
-canSave() {
-  return JSON.stringify(this.animal.images) !== JSON.stringify(this.initialImages)
-}
-
-openSnackBar(text: string): void {
-  this.snackBar.open(
-      this.translate.instant(text),
-      '',
-      {
-          duration: 2000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top'
-      }
-  );
-}
+  openSnackBar(text: string): void {
+    this.snackBar.open(
+        this.translate.instant(text),
+        '',
+        {
+            duration: 2000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+        }
+    );
+  }
 
   onDelete(index: number): void {
     this.currentImages = Object.assign([], this.animal.images);

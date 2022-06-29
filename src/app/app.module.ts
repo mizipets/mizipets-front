@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MatRadioModule } from '@angular/material/radio';
 import { LanguageComponent } from './components/language/language.component';
-import { LanguageService } from './components/language/language.service';
+import { LanguageService } from './services/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SwiperModule } from 'swiper/angular';
@@ -31,7 +31,7 @@ import { environment } from '../environments/environment';
 import { SocketIoModule, Socket } from 'ngx-socket-io';
 import { UserProfileComponent } from './components/profile/user-profile.component';
 import { SettingsComponent } from './components/profile/settings/settings.component';
-import { CloseAccountPopUpComponent } from './components/profile/close-account-modal/close-account-pop-up.component';
+import { CloseAccountModalComponent } from './components/profile/close-account-modal/close-account-modal.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 import { AnimalDeleteModalComponent } from './components/animals/animal-delete-modal/animal-delete-modal.component';
 import { AnimalImagesModalComponent } from './components/animals/animal-images-modal/animal-images-modal.component';
@@ -87,7 +87,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         NotFoundComponent,
         UserProfileComponent,
         SettingsComponent,
-        CloseAccountPopUpComponent,
+        CloseAccountModalComponent,
         AnimalsCreateComponent,
         AnimalDeleteModalComponent,
         AnimalImagesModalComponent,

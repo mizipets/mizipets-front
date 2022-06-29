@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, Optional } from "@angular/core";
+import { Component, Inject, OnInit, Optional } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AnimalModel, CreateAdoption, Sex} from '../../../models/animal.model';
 import { SpecieModel } from '../../../models/specie.model';
@@ -102,14 +102,19 @@ export class AnimalsDetailComponent implements OnInit {
             this.isModal = true;
         }
 
-        this.animalService.getAnimalById(parseInt(id!)).subscribe({
-          next: (animal: AnimalModel) => {
-            this.animal = animal;
-            this.getSpecies();
-            this.setAnimalAge();
-            this.initForm();
-          }
+        if (typeof id === "string") {
+            this.animalService.getAnimalById(parseInt(id)).subscribe({
+              next: (animal: AnimalModel) => {
+                this.animal = animal;
+                this.getSpecies();
+                this.setAnimalAge();
+                this.initForm();
+              },
+              error: (error) => {
+                console.error(error);
+              }
         });
+      }
     }
 
     setAnimalAge(): void {
@@ -217,6 +222,6 @@ export class AnimalsDetailComponent implements OnInit {
     }
 
     onModalClose(): void {
-        this.animalDetailDialog!.close();
+        this.animalDetailDialog.close();
     }
 }

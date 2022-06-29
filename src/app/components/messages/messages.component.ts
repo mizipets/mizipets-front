@@ -54,9 +54,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.RoomSocketService
             .receiveMessage()
             .subscribe((message: MessageModel) => {
-                if (this.isInfoMessage(message.type))
+                if (MessagesComponent.isInfoMessage(message.type))
                     this.connectionToRoom(this.currentRoom!);
-                this.seenMessages([message.id], this.authService.decodeToken(this.authService.getToken() ?? '').id)
+                this.seenMessages([message.id],
+                  this.authService.decodeToken(this.authService.getToken() ?? '').id).then();
                 this.currentRoom?.messages?.push(message);
                 this.scrollToBottom();
             });
@@ -105,14 +106,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
         if(!userId) return false;
         return message.seen.includes(userId);
       }
-    
+
     getCreatedString(message: MessageModel): string {
         const startOfDay = new Date()
         startOfDay.setUTCHours(0)
         startOfDay.setHours(0)
 
         message.created = new Date(message.created)
-        
+
         if(message.created.getTime() < startOfDay.getTime()) {
             return `${message.created.getDate()}/${message.created.getMonth() + 1}/${message.created.getFullYear()} ${message.created.getHours().toString().padStart(2, '0')}:${message.created.getMinutes().toString().padStart(2, '0')}` ;
         } else {
@@ -223,7 +224,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
                         this.seenMessages(messages.map(msg => msg.id), this.authService.decodeToken(this.authService.getToken() ?? '').id)
                         messages
                             .reverse()
-                            .map((message) =>
+                            .forEach((message) =>
                                 this.currentRoom?.messages?.unshift(message)
                             );
                     this.isLoading = false;
@@ -235,7 +236,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
             });
     }
 
-    private isInfoMessage(type: MessageType): boolean {
+    private static isInfoMessage(type: MessageType): boolean {
         return (
             type === MessageType.init ||
             type === MessageType.accepted ||
