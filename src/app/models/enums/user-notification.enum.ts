@@ -1,4 +1,4 @@
 export enum UserNotificationType {
-    MESSAGE = "MESSAGE",
-    REMINDER = "REMINDER",
+    MESSAGE = 'MESSAGE',
+    REMINDER = 'REMINDER'
 }

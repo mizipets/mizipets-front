@@ -38,34 +38,30 @@ import { AnimalImagesModalComponent } from './components/animals/animal-images-m
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { SnackbarService } from './services/snackbar.service';
-import { AuthService } from "./services/auth.service";
+import { AuthService } from './services/auth.service';
 
 @Injectable()
 export class RoomSocket extends Socket {
-  constructor() {
-    super(
-        {
+    constructor() {
+        super({
             url: environment.roomSocketUrl,
             options: {
-                transports: ['websocket'],
+                transports: ['websocket']
             }
-        }
-    );
-  }
+        });
+    }
 }
 
 @Injectable()
 export class NotificationSocket extends Socket {
-  constructor() {
-    super(
-        {
+    constructor() {
+        super({
             url: environment.notificationsSocketUrl,
             options: {
-                transports: ['websocket'],
+                transports: ['websocket']
             }
-        }
-    );
-  }
+        });
+    }
 }
 
 export function HttpLoaderFactory(http: HttpClient) {

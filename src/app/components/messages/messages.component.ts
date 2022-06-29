@@ -38,7 +38,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         private authService: AuthService,
         private animalDetailDialog: MatDialog,
         elementRef: ElementRef,
-        private notificationSocket: NotificationSocketService,
+        private notificationSocket: NotificationSocketService
     ) {
         this.scrollFrame = elementRef;
         this.currentUserId = this.authService.decodedToken?.id ?? 0;
@@ -49,33 +49,42 @@ export class MessagesComponent implements OnInit, OnDestroy {
             this.scrollToBottom();
         });
 
-        this.notificationSocket.notifications.next(0)
+        this.notificationSocket.notifications.next(0);
 
-        this.RoomSocketService
-            .receiveMessage()
-            .subscribe((message: MessageModel) => {
+        this.RoomSocketService.receiveMessage().subscribe(
+            (message: MessageModel) => {
                 if (MessagesComponent.isInfoMessage(message.type))
                     this.connectionToRoom(this.currentRoom!);
-                this.seenMessages([message.id],
-                  this.authService.decodeToken(this.authService.getToken() ?? '').id).then();
+                this.seenMessages(
+                    [message.id],
+                    this.authService.decodeToken(
+                        this.authService.getToken() ?? ''
+                    ).id
+                ).then();
                 this.currentRoom?.messages?.push(message);
                 this.scrollToBottom();
-            });
+            }
+        );
 
-        this.RoomSocketService
-            .receiveSeenMessages()
-            .subscribe((messages: MessageModel[]) => {
-                if(this.currentRoom) {
-                    this.currentRoom.messages = this.currentRoom?.messages?.map((oldMsg) => {
-                        const newMsg = messages.find((newMsg) => newMsg.id === oldMsg.id);
-                        if(newMsg != null) {
-                            const merged = oldMsg.seen.concat(newMsg.seen)
-                            oldMsg.seen = merged.filter((i, pos) => merged.indexOf(i) === pos);
-                        }
-                        return oldMsg;
-                    }) ?? [];
+        this.RoomSocketService.receiveSeenMessages().subscribe(
+            (messages: MessageModel[]) => {
+                if (this.currentRoom) {
+                    this.currentRoom.messages =
+                        this.currentRoom?.messages?.map((oldMsg) => {
+                            const newMsg = messages.find(
+                                (newMsg) => newMsg.id === oldMsg.id
+                            );
+                            if (newMsg != null) {
+                                const merged = oldMsg.seen.concat(newMsg.seen);
+                                oldMsg.seen = merged.filter(
+                                    (i, pos) => merged.indexOf(i) === pos
+                                );
+                            }
+                            return oldMsg;
+                        }) ?? [];
                 }
-            });
+            }
+        );
 
         this.roomService.getUserRooms().subscribe({
             next: (rooms: RoomModel[]) => {
@@ -88,7 +97,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
 
     async seenMessages(messageIds: number[], userId: number) {
-        if(userId != null) {
+        if (userId != null) {
             this.RoomSocketService.seenMessage({
                 messageIds: messageIds,
                 userIds: [userId],
@@ -96,37 +105,56 @@ export class MessagesComponent implements OnInit, OnDestroy {
                 who: 'web'
             });
         }
-      }
+    }
 
     getMessageSubtitle(message: MessageModel) {
-        return `${this.getCreatedString(message)}`
+        return `${this.getCreatedString(message)}`;
     }
 
     isMsgSeenBy(message: MessageModel, userId?: number): boolean {
-        if(!userId) return false;
+        if (!userId) return false;
         return message.seen.includes(userId);
-      }
+    }
 
     getCreatedString(message: MessageModel): string {
-        const startOfDay = new Date()
-        startOfDay.setUTCHours(0)
-        startOfDay.setHours(0)
+        const startOfDay = new Date();
+        startOfDay.setUTCHours(0);
+        startOfDay.setHours(0);
 
-        message.created = new Date(message.created)
+        message.created = new Date(message.created);
 
-        if(message.created.getTime() < startOfDay.getTime()) {
-            return `${message.created.getDate()}/${message.created.getMonth() + 1}/${message.created.getFullYear()} ${message.created.getHours().toString().padStart(2, '0')}:${message.created.getMinutes().toString().padStart(2, '0')}` ;
+        if (message.created.getTime() < startOfDay.getTime()) {
+            return `${message.created.getDate()}/${
+                message.created.getMonth() + 1
+            }/${message.created.getFullYear()} ${message.created
+                .getHours()
+                .toString()
+                .padStart(2, '0')}:${message.created
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}`;
         } else {
-            return `${message.created.getHours().toString().padStart(2, '0')}:${message.created.getMinutes().toString().padStart(2, '0')}`;
+            return `${message.created
+                .getHours()
+                .toString()
+                .padStart(2, '0')}:${message.created
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}`;
         }
     }
 
     getOther() {
-        const id = this.authService.decodeToken(this.authService.getToken() ?? '').id
+        const id = this.authService.decodeToken(
+            this.authService.getToken() ?? ''
+        ).id;
         if (id == null) return null;
-        if (id == this.currentRoom?.adoptant.id) return this.currentRoom?.animal.owner;
-        if (id == this.currentRoom?.animal.lastOwner) return this.currentRoom?.animal.owner;
-        if (id == this.currentRoom?.animal.owner?.id) return this.currentRoom?.adoptant;
+        if (id == this.currentRoom?.adoptant.id)
+            return this.currentRoom?.animal.owner;
+        if (id == this.currentRoom?.animal.lastOwner)
+            return this.currentRoom?.animal.owner;
+        if (id == this.currentRoom?.animal.owner?.id)
+            return this.currentRoom?.adoptant;
         return null;
     }
 
@@ -221,12 +249,17 @@ export class MessagesComponent implements OnInit, OnDestroy {
             .subscribe({
                 next: (messages: MessageModel[]) => {
                     if (messages.length >= 1)
-                        this.seenMessages(messages.map(msg => msg.id), this.authService.decodeToken(this.authService.getToken() ?? '').id)
-                        messages
-                            .reverse()
-                            .forEach((message) =>
-                                this.currentRoom?.messages?.unshift(message)
-                            );
+                        this.seenMessages(
+                            messages.map((msg) => msg.id),
+                            this.authService.decodeToken(
+                                this.authService.getToken() ?? ''
+                            ).id
+                        );
+                    messages
+                        .reverse()
+                        .forEach((message) =>
+                            this.currentRoom?.messages?.unshift(message)
+                        );
                     this.isLoading = false;
                 },
                 error: (err) => {

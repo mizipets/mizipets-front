@@ -7,8 +7,7 @@ import { UserNotificationModel } from '../models/user-notification.model';
     providedIn: 'root'
 })
 export class NotificationSocketService {
-
-    public notifications: BehaviorSubject<number> = new BehaviorSubject(0)
+    public notifications: BehaviorSubject<number> = new BehaviorSubject(0);
 
     constructor(private socket: NotificationSocket) {}
 
@@ -28,6 +27,6 @@ export class NotificationSocketService {
     }
 
     public connect(): void {
-        this.socket.connect()
+        this.socket.connect();
     }
 }

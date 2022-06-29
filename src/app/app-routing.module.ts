@@ -12,7 +12,7 @@ import { SettingsComponent } from './components/profile/settings/settings.compon
 import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 import { PoliciesComponent } from './components/policies/policies.component';
-import { MobileGuardService } from "./services/mobile-guard.service";
+import { MobileGuardService } from './services/mobile-guard.service';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },

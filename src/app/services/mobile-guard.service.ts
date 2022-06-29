@@ -4,8 +4,7 @@ import {
     Router,
     RouterStateSnapshot
 } from '@angular/router';
-import { DeviceDetectorService } from "ngx-device-detector";
-
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +19,10 @@ export class MobileGuardService {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean {
-        if (this.deviceDetectorService.isMobile() || this.deviceDetectorService.isTablet()) {
+        if (
+            this.deviceDetectorService.isMobile() ||
+            this.deviceDetectorService.isTablet()
+        ) {
             this.router.navigate(['']).then();
             return false;
         }

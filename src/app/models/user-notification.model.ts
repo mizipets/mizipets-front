@@ -1,4 +1,4 @@
-import { UserNotificationType } from "./enums/user-notification.enum";
+import { UserNotificationType } from './enums/user-notification.enum';
 
 export interface UserNotificationModel {
     type: UserNotificationType;
