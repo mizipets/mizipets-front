@@ -24,7 +24,7 @@ import { AnimalsListComponent } from './components/animals/animals-list/animals-
 import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 import { CodeInputModule } from 'angular-code-input';
-import { HomeMobileComponent } from './components/home-mobile/home-mobile.component';
+import { HomeMobileComponent } from './components/home/home-mobile/home-mobile.component';
 import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { environment } from '../environments/environment';

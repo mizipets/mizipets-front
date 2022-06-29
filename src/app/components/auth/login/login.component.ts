@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { NotificationSocketService } from '../../../services/notification-socket.service';
+import { ResetPasswordModel } from "../../../models/reset-password.model";
+import { SnackbarService } from "../../../services/snackbar.service";
 
 export interface Device {
     browser: string;
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
         private deviceService: DeviceDetectorService,
         private router: Router,
         private notificationSocket: NotificationSocketService,
-
+        private snackBarService: SnackbarService
     ) {
         this.emailCtrl = formBuilder.control('', Validators.required);
         this.passwordCtrl = formBuilder.control('', Validators.required);
@@ -94,17 +96,14 @@ export class LoginComponent implements OnInit {
         this.errorMessage = '';
         this.currentCode = code;
         this.authService.checkCode(this.email, parseInt(code)).subscribe({
-            next: (isValid: boolean) => {
-                if (isValid) {
+            next: () => {
                     this.isCode = false;
                     this.isPassword = true;
-                } else {
-                    this.errorMessage = 'Invalid code !';
-                }
             },
             error: (error) => {
                 console.error(error);
-                this.errorMessage = error.error.message;
+                if (error.status === 403)
+                  this.errorMessage = 'Invalid code';
             }
         });
     }
@@ -125,15 +124,17 @@ export class LoginComponent implements OnInit {
 
     resetPassword(): void {
         this.errorMessage = '';
-        const loginData = {
+        const data: ResetPasswordModel = {
             email: this.email,
-            password: this.password
+            password: this.password,
+            code: parseInt(this.currentCode)
         };
-        this.authService.resetPassword(loginData, this.currentCode).subscribe({
+        this.authService.resetPassword(data).subscribe({
             next: () => {
                 this.isPasswordForgot = false;
                 this.isCode = false;
                 this.isPassword = false;
+                this.snackBarService.openSuccess('Nouveau mot de passe enregistrer')
             },
             error: (error) => {
                 console.error(error);

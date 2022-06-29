@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserNotification } from './models/user-notification';
 import { UserNotificationType } from './models/user-notification.enum';
 import { AuthService } from './services/auth.service';
@@ -13,9 +12,8 @@ import { NotificationSocketService } from './services/notification-socket.servic
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    isMobileDevice: boolean = false;
 
-    constructor(private deviceService: DeviceDetectorService,
+    constructor(
         private notificationSocket: NotificationSocketService,
         private authService: AuthService,
         private snackBar: MatSnackBar,
@@ -44,8 +42,5 @@ export class AppComponent implements OnInit {
                 });
             }
         })
-
-        this.isMobileDevice =
-            this.deviceService.isMobile() || this.deviceService.isTablet();
     }
 }

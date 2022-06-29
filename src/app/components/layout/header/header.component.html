@@ -1,4 +1,4 @@
-<mat-toolbar color="accent" class="header">
+<mat-toolbar *ngIf="!isMobileDevice" color="accent" class="header">
   <span style="background-color: #FFFFFF" class="icon">
      <img src="../../../../assets/images/logo.svg" class="icon" alt="logo">
   </span>
@@ -50,10 +50,6 @@
       <mat-icon>account_circle</mat-icon>
       {{'header.profile' | translate}}
     </button>
-<!--    <button mat-menu-item routerLink="/settings">-->
-<!--      <mat-icon>settings</mat-icon>-->
-<!--      {{'header.settings' | translate}}-->
-<!--    </button>-->
     <mat-divider></mat-divider>
     <button mat-menu-item (click)="authService.logout()">
       <mat-icon>logout</mat-icon>

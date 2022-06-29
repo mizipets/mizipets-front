@@ -1,12 +1,3 @@
-<ng-container *ngIf="!isMobileDevice; then home; else home_mobile"></ng-container>
-
-<ng-template #home>
-  <header></header>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
-</ng-template>
-
-<ng-template #home_mobile>
-  <app-home-mobile></app-home-mobile>
-  <app-footer></app-footer>
-</ng-template>
+<header></header>
+<router-outlet></router-outlet>
+<app-footer></app-footer>

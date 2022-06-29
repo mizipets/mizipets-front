@@ -12,42 +12,51 @@ import { SettingsComponent } from './components/profile/settings/settings.compon
 import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 import { AnimalsCreateComponent } from './components/animals/animals-create/animals-create.component';
 import { PoliciesComponent } from './components/policies/policies.component';
+import { MobileGuardService } from "./services/mobile-guard.service";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
     { path: 'policies', component: PoliciesComponent },
+    {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: [MobileGuardService]
+    },
+    {
+        path: 'register',
+        component: RegisterComponent,
+        canActivate: [MobileGuardService]
+    },
     {
         path: 'animals',
         component: AnimalsListComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService, MobileGuardService]
     },
     {
         path: 'animal/:id',
         component: AnimalsDetailComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService, MobileGuardService]
     },
     {
         path: 'animal-create',
         component: AnimalsCreateComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService, MobileGuardService]
     },
     {
         path: 'messages',
         component: MessagesComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService, MobileGuardService]
     },
     {
         path: 'user',
         component: UserProfileComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService, MobileGuardService]
     },
     {
         path: 'settings',
         component: SettingsComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService, MobileGuardService]
     },
     { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];
