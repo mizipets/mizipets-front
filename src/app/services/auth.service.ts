@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { RegisterModel } from '../models/register.model';
 import { NotificationSocketService } from './notification-socket.service';
+import { ResetPasswordModel } from "../models/reset-password.model";
 
 @Injectable({
     providedIn: 'root'
@@ -90,9 +91,9 @@ export class AuthService {
         });
     }
 
-    resetPassword(login: any, code: string): Observable<void> {
+    resetPassword(login: ResetPasswordModel): Observable<void> {
         return this.http.put<void>(
-            environment.baseUrl + 'auth/reset/password?code=' + code,
+            environment.baseUrl + 'auth/reset/password',
             login
         );
     }
