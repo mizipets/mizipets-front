@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DeviceDetectorService } from "ngx-device-detector";
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
     selector: 'app-home',
@@ -8,12 +8,10 @@ import { DeviceDetectorService } from "ngx-device-detector";
 })
 export class HomeComponent implements OnInit {
     isMobileDevice: boolean = false;
-    constructor(
-      private deviceService: DeviceDetectorService
-    ) {}
+    constructor(private deviceService: DeviceDetectorService) {}
 
     ngOnInit(): void {
-      this.isMobileDevice =
-        this.deviceService.isMobile() || this.deviceService.isTablet();
+        this.isMobileDevice =
+            this.deviceService.isMobile() || this.deviceService.isTablet();
     }
 }

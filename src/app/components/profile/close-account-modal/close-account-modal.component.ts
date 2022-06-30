@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from '../../../services/auth.service';
@@ -7,19 +7,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-close-account-modal',
-    templateUrl: './close-account-pop-up.component.html',
-    styleUrls: ['./close-account-pop-up.component.scss']
+    templateUrl: './close-account-modal.component.html',
+    styleUrls: ['./close-account-modal.component.scss']
 })
-export class CloseAccountPopUpComponent implements OnInit {
+export class CloseAccountModalComponent {
     constructor(
-        public closeAccountDialog: MatDialogRef<CloseAccountPopUpComponent>,
+        public closeAccountDialog: MatDialogRef<CloseAccountModalComponent>,
         private userService: UserService,
         public authService: AuthService,
         private translate: TranslateService,
         private snackBar: MatSnackBar
     ) {}
-
-    ngOnInit(): void {}
 
     openSnackBar(): void {
         this.snackBar.open(
