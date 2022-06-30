@@ -26,12 +26,12 @@
         -Un service mon animal qui permet d’avoir une fiche de son animal, avoir des photos et mettre des rappels médicaux 😻
       </p>
     </div>
-    <div fxFlex class="text-center">
+    <div fxFlex class="text-center" fxFlexAlign="center">
       <img src="../../../assets/images/mizipets.png" class="profile-image" width="150" height="150" alt="section">
     </div>
   </section>
   <section class="section-bg" fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
-      <div fxFlex class="text-center">
+      <div fxFlex fxFlexAlign="center" class="text-center">
         <img src="../../../assets/images/mizipets.png" class="profile-image" width="150" height="150" alt="section">
       </div>
       <div fxFlex>
@@ -47,7 +47,8 @@
         </p>
       </div>
     </section>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+
+  <svg style="margin-top: -5px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#05668d" fill-opacity="1" d="M0,224L80,197.3C160,171,320,117,480,112C640,107,800,149,960,160C1120,171,1280,149,1360,138.7L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
   </svg>
 
@@ -63,11 +64,11 @@
         Vous êtes un particulier, vous pouvez téléchargez gratuitement l'application Mizipets et profitez d'une utilisation spécialement pensée pour une utilisation sur téléphone.
       </p>
     </div>
-    <div fxFlex class="text-center">
+    <div fxFlex class="text-center" fxFlexAlign="center">
       <img src="../../../assets/images/mizipets.png" class="profile-image" width="150" height="150" alt="section">
     </div>
   </section>
-  <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexAlign="center">
+  <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexAlign="center" class="justify-content-center">
     <div fxFlex="25" class="text-center box-content">
       <img src="assets/images/panda-wait.png" height="215" width="215" alt="wait">
     </div>
@@ -78,17 +79,18 @@
       </a>
     </div>
   </section>
-  <svg xmlns="http://www.w3.org/2000/svg"
+  <svg style="margin-bottom: -50px"
+    xmlns="http://www.w3.org/2000/svg"
        viewBox="0 0 1440 320"><path fill="#05668d" fill-opacity="1" d="M0,32L60,58.7C120,85,240,139,360,133.3C480,128,600,64,720,74.7C840,85,960,171,1080,170.7C1200,171,1320,85,1380,42.7L1440,0L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
   </svg>
-  <section class="section-bg">
+  <section class="section-bg" style="padding-bottom: 20px; height: 100%">
     <div class="text-center">
       <h1 class="title">Les animaux</h1>
     </div>
     <div fxLayout="row wrap" fxLayoutGap="32px" class="justify-content-center">
-      <ng-container *ngFor="let _ of [1,2,3,4]">
+      <ng-container *ngFor="let animal of animals">
         <img fxflex style="border: solid 2px white"
-             src="../../../assets/images/mizipets.png" width="150" height="150" alt="pets">
+             src="{{animal.images[0]}}" width="150" height="150" alt="pets">
       </ng-container>
     </div>
   </section>
