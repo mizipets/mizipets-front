@@ -39,6 +39,7 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { SnackbarService } from './services/snackbar.service';
 import { AuthService } from "./services/auth.service";
+import { FlexModule } from "@angular/flex-layout";
 
 @Injectable()
 export class RoomSocket extends Socket {
@@ -94,27 +95,28 @@ export function HttpLoaderFactory(http: HttpClient) {
         FooterComponent,
         PoliciesComponent
     ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        TranslateModule.forRoot({
-            defaultLanguage: localStorage.getItem('language') ?? 'fr',
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        SocketIoModule,
-        MaterialModule,
-        MatRadioModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        CodeInputModule,
-        SwiperModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    TranslateModule.forRoot({
+      defaultLanguage: localStorage.getItem("language") ?? "fr",
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    SocketIoModule,
+    MaterialModule,
+    MatRadioModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CodeInputModule,
+    SwiperModule,
+    FlexModule
+  ],
     providers: [
         SnackbarService,
         NotificationSocket,
