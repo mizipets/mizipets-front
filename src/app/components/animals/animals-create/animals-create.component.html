@@ -9,13 +9,13 @@
         <form [formGroup]="animalForm" (ngSubmit)="onSubmit()">
             <mat-card-content *ngIf="!next">
                 <div class="justify-content-center mb-4">
-                    <img [src]="fileName" height="100">
+                    <img [src]="fileName" alt="add image" height="100">
                 </div>
                 <p class="text-center mt-3">{{'animals-add.photo' | translate}}</p>
                 <div class="justify-content-center mb-4">
                     <input type="file" class="file-upload " (change)="onChange($event)">
                 </div>
-                <button mat-flat-button color="primary" type="next" (click)="onNext()" [disabled]="!newImage">{{'common.next' | translate}}</button>
+                <button mat-flat-button color="primary" type="button" (click)="onNext()" [disabled]="!newImage">{{'common.next' | translate}}</button>
             </mat-card-content>
 
             <mat-card-content *ngIf="next">
@@ -42,8 +42,8 @@
                 </mat-form-field>
                 <br/>
                 <mat-form-field appearance="outline">
-                    <mat-label value="">{{'animals.filter.gender' | translate}}</mat-label>
-                    <mat-select type="string" formControlName="sex">
+                    <mat-label>{{'animals.filter.gender' | translate}}</mat-label>
+                    <mat-select formControlName="sex">
                         <mat-option *ngFor="let sex of Sex" [value]="sex">
                             {{ sex }}
                         </mat-option>
@@ -52,8 +52,8 @@
                 </mat-form-field>
                 <br/>
                 <mat-form-field appearance="outline">
-                    <mat-label value="">{{'animals.filter.species' | translate}}</mat-label>
-                    <mat-select type="string" formControlName="specie" (selectionChange)="onSpecieChange($event)">
+                    <mat-label>{{'animals.filter.species' | translate}}</mat-label>
+                    <mat-select formControlName="specie" (selectionChange)="onSpecieChange($event)">
                         <mat-option *ngFor="let specie of species" [value]="specie">
                             {{ specie.name }}
                         </mat-option>
@@ -62,8 +62,8 @@
                 </mat-form-field>
                 <br/>
                 <mat-form-field appearance="outline">
-                    <mat-label value="">{{'animals.filter.breeds' | translate}}</mat-label>
-                    <mat-select type="string" formControlName="race">
+                    <mat-label>{{'animals.filter.breeds' | translate}}</mat-label>
+                    <mat-select formControlName="race">
                         <mat-option *ngFor="let race of races" [value]="race">
                             {{ race.name }}
                         </mat-option>

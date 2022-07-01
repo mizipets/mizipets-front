@@ -137,7 +137,7 @@ export class AnimalsCreateComponent implements OnInit {
         this.newImage = false;
         if (event.target.files) {
             this.fileExtension = event.target.files[0].name.split('.').pop()!;
-            if (this.extensions.indexOf(this.fileExtension!) > -1) {
+            if (this.extensions.indexOf(this.fileExtension) > -1) {
                 let reader = new FileReader();
                 this.file = event.target.files[0];
                 reader.readAsDataURL(this.file);

@@ -43,13 +43,15 @@ export class TokenInterceptor implements HttpInterceptor {
                     return this.handle401Error(request, next);
                 }
 
-                if(error.status === 413) {
-                    this.snackbarService.openError('Image too large')
-                } else if(error.body.message) {
-                    if(typeof error.body.message === 'string') {
-                        this.snackbarService.openError(error.body.message)
-                    } else if(typeof error.body.message === 'object') {
-                        this.snackbarService.openError(error.body.message.join(' '))
+                if (error.status === 413) {
+                    this.snackbarService.openError('Image too large');
+                } else if (error.body.message) {
+                    if (typeof error.body.message === 'string') {
+                        this.snackbarService.openError(error.body.message);
+                    } else if (typeof error.body.message === 'object') {
+                        this.snackbarService.openError(
+                            error.body.message.join(' ')
+                        );
                     }
                 }
 

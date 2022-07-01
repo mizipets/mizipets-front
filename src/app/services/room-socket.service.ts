@@ -31,8 +31,8 @@ export class RoomSocketService {
 
     public receiveMessage(): Observable<MessageModel> {
         return this.socket.fromEvent('receiveMsgToRoom');
-    } 
-    
+    }
+
     public receiveSeenMessages(): Observable<MessageModel[]> {
         return this.socket.fromEvent('receiveSeenMessages');
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { NotificationSocketService } from '../../../services/notification-socket.service';
-import { DeviceDetectorService } from "ngx-device-detector";
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
     selector: 'header',
@@ -15,11 +15,15 @@ export class HeaderComponent implements OnInit {
     constructor(
         public authService: AuthService,
         private deviceService: DeviceDetectorService,
-        private notificationSocket: NotificationSocketService) {}
+        private notificationSocket: NotificationSocketService
+    ) {}
 
     ngOnInit(): void {
-        this.notificationSocket.notifications.subscribe(newNotificationsCount =>
-          this.newNotificationsCount = newNotificationsCount);
-        this.isMobileDevice = this.deviceService.isMobile() || this.deviceService.isTablet();
+        this.notificationSocket.notifications.subscribe(
+            (newNotificationsCount) =>
+                (this.newNotificationsCount = newNotificationsCount)
+        );
+        this.isMobileDevice =
+            this.deviceService.isMobile() || this.deviceService.isTablet();
     }
 }
