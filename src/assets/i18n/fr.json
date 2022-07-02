@@ -34,6 +34,15 @@
     "years": "ans",
     "wrong-image-type": "Mauvais type d'image"
   },
+  "home": {
+    "section-1": {
+      "title":"Une application pour les amoureux des animaux",
+      "content": "Soucieux de la cause animale, nous avons décidé de créer Mizipets pour mettre en avant le bien-être des animaux.\nNotre application propose divers services.\n Un service de mise en relation entre particulier, et entre particulier et refuge, afin d' adopter un animal.\n Un service conseils pour avoir de bons conseils fait en collaboration avec des professionnels et apprendre des faits intéressants sur les animaux.\n Un service mon animal qui permet d’avoir une fiche de son animal, avoir des photos et mettre des rappels médicaux"
+    },
+    "section-2": {
+
+    }
+  },
   "header": {
     "animals": "Mes annonces",
     "add":  "Ajouter une annonce",

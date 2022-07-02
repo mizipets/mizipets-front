@@ -21,6 +21,12 @@ export class AnimalsService {
         });
     }
 
+    getFetchedAnimal(): Observable<AnimalModel[]> {
+        return this.http.get<AnimalModel[]>(
+          `${environment.baseUrl}animals/fetched`
+        );
+    }
+
     getAnimalById(id: number): Observable<AnimalModel> {
         return this.http.get<AnimalModel>(
             `${environment.baseUrl}animals/${id}`

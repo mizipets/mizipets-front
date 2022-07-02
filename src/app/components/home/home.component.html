@@ -1,40 +1,79 @@
-<ng-container *ngIf="!isMobileDevice; then home; else home_mobile"></ng-container>
-
-<ng-template #home>
-  <section class="app-content home">
+<div class="app-content" [ngClass]="{'top': isMobileDevice === true}">
+  <section class="home">
+    <div class="text-center" *ngIf="isMobileDevice === true">
+      <img src="../../../assets/images/mizipets.png" height="150" width="150" alt="logo">
+    </div>
     <h1 class="cookie">{{'common.welcome' | translate}}</h1>
   </section>
-  <svg style="margin-top: -4px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-    <path fill="#168AAD" fill-opacity="1" d="M0,160L80,181.3C160,203,320,245,480,250.7C640,256,800,224,960,192C1120,160,1280,128,1360,112L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
-  </svg>
-  <section class="container" style="margin-top: -250px; padding-bottom: 60px;">
-    <mat-card class="card-bg">
-      <mat-card-title class="title">C'est quoi Mizipets ?</mat-card-title>
-      <mat-card-content>
-        <mat-divider inset style="background-color: #168AAD"></mat-divider>
-        <p>Mizipets est une application créée pour les amoureux des animaux. Soucieux de la cause animal nous avons créé
-          Mizipets pour mettre en avant les refuges et favoriser l’adoption des animaux. L’application mobile
-          permet donc d’adopter mais également de rechercher un vétérinaire et
-          d’avoir de bons conseils fait en collaboration avec des professionnels.
-          Si vous souhaitez adopter utilisez notre application mobile
-        </p>
-        <div class="justify-content-between box-content">
-          <img src="assets/images/panda-wait.png" height="215" width="215" alt="logo">
-          <div>
-            <p class="text">Si vous êtes un particulier, vous pouvez téléchargez gratuitement
-              l'application Mizipets et profitez d'une utilisation spécialement pensée pour
-              une utilisation sur téléphone
-            </p>
-            <a href="https://play.google.com/store/apps/details?id=com.mizipets" target="_blank" rel="noopener">
-              <img src="assets/images/google-play.png" height="46" width="153" alt="google-play icon">
-            </a>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </section>
-</ng-template>
 
-<ng-template #home_mobile>
-  <app-home-mobile></app-home-mobile>
-</ng-template>
+  <svg style="margin-top: -20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path fill="#05668d" fill-opacity="1" d="M0,160L80,181.3C160,203,320,245,480,250.7C640,256,800,224,960,192C1120,160,1280,128,1360,112L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+  </svg>
+
+  <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+    <div fxFlex>
+      <h1 class="title">{{ 'home.section-1.title' | translate }}</h1>
+      <p>
+        {{ 'home.section-1.content' | translate }}
+      </p>
+    </div>
+    <div fxFlex class="text-center" fxFlexAlign="center">
+      <img src="../../../assets/images/home-1.png" class="animal-image" width="310" height="290" alt="home-1">
+    </div>
+  </section>
+  <section class="section-bg" fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+      <div fxFlex fxFlexAlign="center" class="text-center">
+        <img src="../../../assets/images/home-2.png" class="animal-image" width="310" height="310" alt="home-2">
+      </div>
+      <div fxFlex>
+        <h1 class="title">Pourquoi ?</h1>
+        <p>
+          Face à l'essor de l' abandon, de la maltraitance, nous avons mis en place divers services afin de pallier
+          ces problèmes.On constate une hausse de 7% d’abandons, en particulier des chats et des chiens.
+          A cause de la crise sanitaire, il y a eu des achats compulsifs d’animaux qui ont été abandonnés après le
+          confinement, c’est pourquoi nous mettons des conseils à disposition pour responsabiliser les propriétaires.
+          Notre application permet de mettre en avant les refuges, association qui sont surchargés par le nombres d’animaux
+          avec environ 19% de chats receuillis en refuges depuis 2019.
+          Notre plateforme, regroupant tous les refuges, vous permets d’éviter de chercher sur plusieurs site différents.
+        </p>
+      </div>
+    </section>
+
+  <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+    <div fxFlex>
+      <h1 class="title">Pour qui ?</h1>
+      <p>
+        Si vous aimez les animaux, que vous voulez apprendre à mieux connaître les animaux ou que vous souhaitez adopter, Mizipets est une application qui est faite pour vous !
+
+
+        Vous êtes une grande structure pour faire adopter rester sur le site web pour une meilleure faciliter d’utilisation.
+
+        Vous êtes un particulier, vous pouvez téléchargez gratuitement l'application Mizipets et profitez d'une utilisation spécialement pensée pour une utilisation sur téléphone.
+      </p>
+    </div>
+    <div fxFlex class="text-center" fxFlexAlign="center">
+      <img src="../../../assets/images/home-3.png" class="animal-image" width="310" height="310" alt="home-3">
+    </div>
+  </section>
+  <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexAlign="center" class="justify-content-center">
+    <div fxFlex="25" class="text-center box-content" [ngClass]="{'radius-left': !isMobileDevice, 'radius-top': isMobileDevice}">
+      <img src="assets/images/panda-wait.png" height="215" width="215" alt="wait">
+    </div>
+    <div fxFlex class="box-content text-center" [ngClass]="{'radius-right': !isMobileDevice, 'radius-bot': isMobileDevice}">
+      <p class="text mb-5">Téléchargez gratuitement notre application sur Android</p>
+      <a href="https://play.google.com/store/apps/details?id=com.mizipets" target="_blank">
+        <img src="assets/images/google-play.png" height="46" width="153" alt="google-play icon">
+      </a>
+    </div>
+  </section>
+  <section class="section-bg">
+    <div class="text-center">
+      <h1 class="title">Les animaux</h1>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap="32px" class="justify-content-center">
+      <ng-container *ngFor="let animal of animals">
+        <img fxflex class="img-list" src="{{animal.images[0]}}" width="250" height="250" alt="pets">
+      </ng-container>
+    </div>
+  </section>
+</div>
