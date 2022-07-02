@@ -5,8 +5,15 @@
             <button mat-icon-button (click)="selectFile.click()"><mat-icon>add_a_photo</mat-icon></button>
         </div>
         <div>
-            <button *ngIf="canSave()" mat-raised-button color="primary" [disabled]="isLoading" matPrefix (click)="save()">{{isLoading ? 'Loading' : 'Save'}}</button>
-            &nbsp;
+            <button *ngIf="canSave()"
+                    mat-raised-button
+                    color="primary"
+                    class="mr-2"
+                    [disabled]="isLoading"
+                    matPrefix
+                    (click)="save()">
+              {{isLoading ? 'Loading' : 'Save'}}
+            </button>
             <button mat-raised-button color="primary" [disabled]="isLoading" matPrefix (click)="close()">Close</button>
         </div>
     </div>
@@ -15,7 +22,7 @@
     [gutterSize]="'5px'">
     <div *ngIf="!isLoading">
         <mat-grid-tile class="d-flex" fxFlexAlign="stretch" *ngFor="let image of data.animal.images; let index = index">
-            <img mat-card-image src="{{image}}">
+            <img mat-card-image src="{{image}}" alt="pet image">
             <button mat-icon-button class="profile-image-delete" (click)="onDelete(index)"><mat-icon>delete</mat-icon></button>
         </mat-grid-tile>
     </div>

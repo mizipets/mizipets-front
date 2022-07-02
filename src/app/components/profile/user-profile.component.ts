@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { CloseAccountPopUpComponent } from './close-account-modal/close-account-pop-up.component';
+import { CloseAccountModalComponent } from './close-account-modal/close-account-modal.component';
 import { TranslateService } from '@ngx-translate/core';
 import { S3Service } from '../../services/s3.service';
 
@@ -145,22 +145,20 @@ export class UserProfileComponent implements OnInit {
     onChange(event: any) {
         if (event.target.files) {
             let fileExtension = event.target.files[0].name.split('.').pop()!;
-            if (this.extensions.indexOf(fileExtension!) > -1) {
-                var reader = new FileReader();
+            if (this.extensions.indexOf(fileExtension) > -1) {
+                const reader = new FileReader();
                 this.file = event.target.files[0];
                 reader.readAsDataURL(this.file);
                 reader.onload = (e: any) => {
                     this.fileName = e.target.result;
                 };
 
-                console.log(fileExtension);
-
                 const formData = new FormData();
                 formData.append('file', this.file);
                 this.s3Service
                     .uploadImage(this.user.id, 'avatar', formData)
                     .subscribe({
-                        next: (_) => {
+                        next: () => {
                             this.openSnackBar('profile.update-success');
                         },
                         error: (error) => {
@@ -195,6 +193,6 @@ export class UserProfileComponent implements OnInit {
     }
 
     onCloseAccount(): void {
-        this.closeAccountDialog.open(CloseAccountPopUpComponent);
+        this.closeAccountDialog.open(CloseAccountModalComponent);
     }
 }

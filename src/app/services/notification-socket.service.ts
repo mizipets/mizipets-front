@@ -1,34 +1,32 @@
 import { Injectable } from '@angular/core';
-import { MessageModel } from '../models/message.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NotificationSocket } from '../app.module';
-import { UserNotification } from '../models/user-notification';
+import { UserNotificationModel } from '../models/user-notification.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NotificationSocketService {
-
-    public notifications: BehaviorSubject<number> = new BehaviorSubject(0)
+    public notifications: BehaviorSubject<number> = new BehaviorSubject(0);
 
     constructor(private socket: NotificationSocket) {}
 
-    public receiveNotification(): Observable<UserNotification> {
+    public receiveNotification(): Observable<UserNotificationModel> {
         return this.socket.fromEvent('notification');
     }
-    public connected(): Observable<String> {
+    public connected(): Observable<string> {
         return this.socket.fromEvent('connected');
     }
-    
+
     public setId(id: number): void {
         this.socket.emit('setId', id);
     }
-    
+
     public clearId(): void {
         this.socket.emit('clearId');
     }
 
     public connect(): void {
-        this.socket.connect()
+        this.socket.connect();
     }
 }

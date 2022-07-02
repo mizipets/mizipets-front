@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { NotificationSocketService } from '../../../services/notification-socket.service';
-import { ResetPasswordModel } from "../../../models/reset-password.model";
-import { SnackbarService } from "../../../services/snackbar.service";
+import { ResetPasswordModel } from '../../../models/reset-password.model';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 export interface Device {
     browser: string;
@@ -82,7 +82,11 @@ export class LoginComponent implements OnInit {
                 this.authService.decodedToken = this.authService.decodeToken(
                     result.token
                 );
-                this.notificationSocket.setId(this.authService.decodeToken(this.authService.getToken() ?? '').id)
+                this.notificationSocket.setId(
+                    this.authService.decodeToken(
+                        this.authService.getToken() ?? ''
+                    ).id
+                );
                 this.router.navigate(['animals']).then();
             },
             error: (error) => {
@@ -97,13 +101,12 @@ export class LoginComponent implements OnInit {
         this.currentCode = code;
         this.authService.checkCode(this.email, parseInt(code)).subscribe({
             next: () => {
-                    this.isCode = false;
-                    this.isPassword = true;
+                this.isCode = false;
+                this.isPassword = true;
             },
             error: (error) => {
                 console.error(error);
-                if (error.status === 403)
-                  this.errorMessage = 'Invalid code';
+                if (error.status === 403) this.errorMessage = 'Invalid code';
             }
         });
     }
@@ -134,7 +137,9 @@ export class LoginComponent implements OnInit {
                 this.isPasswordForgot = false;
                 this.isCode = false;
                 this.isPassword = false;
-                this.snackBarService.openSuccess('Nouveau mot de passe enregistrer')
+                this.snackBarService.openSuccess(
+                    'Nouveau mot de passe enregistrer'
+                );
             },
             error: (error) => {
                 console.error(error);

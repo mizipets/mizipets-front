@@ -1,21 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { LanguageService } from './language.service';
-import { Languages } from './languages.enum';
-import { LanguagesDisplay } from './languagesDisplay.enum';
+import { Component } from '@angular/core';
+import { LanguageService } from '../../services/language.service';
+import { Languages } from '../../models/enums/languages.enum';
+import { LanguagesDisplay } from '../../models/enums/languagesDisplay.enum';
 
 @Component({
     selector: 'language',
     templateUrl: './language.component.html',
     styleUrls: ['./language.component.scss']
 })
-export class LanguageComponent implements OnInit {
+export class LanguageComponent {
     languages: string[] = Object.values(Languages);
     languagesDisplay = Object.fromEntries(Object.entries(LanguagesDisplay));
 
     constructor(public languageService: LanguageService) {}
-
-    ngOnInit(): void {}
 
     langFlag(lang: string): string {
         return '../../../assets/images/' + lang + '.svg';

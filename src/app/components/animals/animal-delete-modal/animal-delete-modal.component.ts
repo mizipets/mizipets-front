@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AnimalsService } from '../../../services/animals.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,7 +11,7 @@ import { AnimalModel } from 'src/app/models/animal.model';
     templateUrl: './animal-delete-modal.component.html',
     styleUrls: ['./animal-delete-modal.component.scss']
 })
-export class AnimalDeleteModalComponent implements OnInit {
+export class AnimalDeleteModalComponent {
     constructor(
         public deleteAnimalDialog: MatDialogRef<AnimalDeleteModalComponent>,
         private animalService: AnimalsService,
@@ -20,8 +20,6 @@ export class AnimalDeleteModalComponent implements OnInit {
         private router: Router,
         @Inject(MAT_DIALOG_DATA) public data: { animal: AnimalModel }
     ) {}
-
-    ngOnInit(): void {}
 
     openSnackBar(): void {
         this.snackBar.open(

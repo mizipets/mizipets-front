@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
         private snackBar: MatSnackBar,
         private translate: TranslateService,
         private deviceService: DeviceDetectorService,
-        private notificationSocket: NotificationSocketService,
+        private notificationSocket: NotificationSocketService
     ) {
         /**
          * Form controls with validators
@@ -163,8 +163,12 @@ export class RegisterComponent implements OnInit {
                         this.authService.setRefreshToken(result.refreshKey);
                         this.authService.decodedToken =
                             this.authService.decodeToken(result.token);
-                        this.notificationSocket.setId(this.authService.decodeToken(this.authService.getToken() ?? '').id)
-                        
+                        this.notificationSocket.setId(
+                            this.authService.decodeToken(
+                                this.authService.getToken() ?? ''
+                            ).id
+                        );
+
                         this.router.navigate(['animals']).then();
                     },
                     error: (error) => {
