@@ -1,5 +1,4 @@
-<div class="app-content"
-     [ngClass]="{'top': isMobileDevice === true}">
+<div class="app-content" [ngClass]="{'top': isMobileDevice === true}">
   <section class="home">
     <div class="text-center" *ngIf="isMobileDevice === true">
       <img src="../../../assets/images/mizipets.png" height="150" width="150" alt="logo">
@@ -7,32 +6,24 @@
     <h1 class="cookie">{{'common.welcome' | translate}}</h1>
   </section>
 
-  <svg style="margin-top: -5px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <svg style="margin-top: -20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#05668d" fill-opacity="1" d="M0,160L80,181.3C160,203,320,245,480,250.7C640,256,800,224,960,192C1120,160,1280,128,1360,112L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
   </svg>
 
   <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
     <div fxFlex>
-      <h1 class="title">Une application pour les amoureux des animaux</h1>
+      <h1 class="title">{{ 'home.section-1.title' | translate }}</h1>
       <p>
-        Soucieux de la cause animale, nous avons décidé de créer Mizipets pour
-        mettre en avant le bien-être des animaux.
-        <br/>
-        Notre application propose divers services :
-        <br/>
-        -Un service de mise en relation entre particulier, et entre particulier et refuge, afin d' adopter un animal.
-        🐶🐱
-        -Un service conseils pour avoir de bons conseils fait en collaboration avec des professionnels et apprendre des faits intéressants sur les animaux.  💡🤓
-        -Un service mon animal qui permet d’avoir une fiche de son animal, avoir des photos et mettre des rappels médicaux 😻
+        {{ 'home.section-1.content' | translate }}
       </p>
     </div>
     <div fxFlex class="text-center" fxFlexAlign="center">
-      <img src="../../../assets/images/mizipets.png" class="profile-image" width="150" height="150" alt="section">
+      <img src="../../../assets/images/home-1.png" class="animal-image" width="310" height="290" alt="home-1">
     </div>
   </section>
   <section class="section-bg" fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
       <div fxFlex fxFlexAlign="center" class="text-center">
-        <img src="../../../assets/images/mizipets.png" class="profile-image" width="150" height="150" alt="section">
+        <img src="../../../assets/images/home-2.png" class="animal-image" width="310" height="310" alt="home-2">
       </div>
       <div fxFlex>
         <h1 class="title">Pourquoi ?</h1>
@@ -48,10 +39,6 @@
       </div>
     </section>
 
-  <svg style="margin-top: -5px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-    <path fill="#05668d" fill-opacity="1" d="M0,224L80,197.3C160,171,320,117,480,112C640,107,800,149,960,160C1120,171,1280,149,1360,138.7L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
-  </svg>
-
   <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
     <div fxFlex>
       <h1 class="title">Pour qui ?</h1>
@@ -65,32 +52,27 @@
       </p>
     </div>
     <div fxFlex class="text-center" fxFlexAlign="center">
-      <img src="../../../assets/images/mizipets.png" class="profile-image" width="150" height="150" alt="section">
+      <img src="../../../assets/images/home-3.png" class="animal-image" width="310" height="310" alt="home-3">
     </div>
   </section>
   <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexAlign="center" class="justify-content-center">
-    <div fxFlex="25" class="text-center box-content">
+    <div fxFlex="25" class="text-center box-content" [ngClass]="{'radius-left': !isMobileDevice, 'radius-top': isMobileDevice}">
       <img src="assets/images/panda-wait.png" height="215" width="215" alt="wait">
     </div>
-    <div fxFlex class="box-content text-center">
+    <div fxFlex class="box-content text-center" [ngClass]="{'radius-right': !isMobileDevice, 'radius-bot': isMobileDevice}">
       <p class="text mb-5">Téléchargez gratuitement notre application sur Android</p>
       <a href="https://play.google.com/store/apps/details?id=com.mizipets" target="_blank">
         <img src="assets/images/google-play.png" height="46" width="153" alt="google-play icon">
       </a>
     </div>
   </section>
-  <svg style="margin-bottom: -50px"
-    xmlns="http://www.w3.org/2000/svg"
-       viewBox="0 0 1440 320"><path fill="#05668d" fill-opacity="1" d="M0,32L60,58.7C120,85,240,139,360,133.3C480,128,600,64,720,74.7C840,85,960,171,1080,170.7C1200,171,1320,85,1380,42.7L1440,0L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-  </svg>
-  <section class="section-bg" style="padding-bottom: 20px; height: 100%">
+  <section class="section-bg">
     <div class="text-center">
       <h1 class="title">Les animaux</h1>
     </div>
     <div fxLayout="row wrap" fxLayoutGap="32px" class="justify-content-center">
       <ng-container *ngFor="let animal of animals">
-        <img fxflex style="border: solid 2px white"
-             src="{{animal.images[0]}}" width="150" height="150" alt="pets">
+        <img fxflex class="img-list" src="{{animal.images[0]}}" width="250" height="250" alt="pets">
       </ng-container>
     </div>
   </section>
