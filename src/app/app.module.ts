@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MatRadioModule } from '@angular/material/radio';
 import { LanguageComponent } from './components/language/language.component';
-import { LanguageService } from './components/language/language.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SwiperModule } from 'swiper/angular';
@@ -24,7 +23,6 @@ import { AnimalsListComponent } from './components/animals/animals-list/animals-
 import { HomeComponent } from './components/home/home.component';
 import { AnimalsDetailComponent } from './components/animals/animals-detail/animals-detail.component';
 import { CodeInputModule } from 'angular-code-input';
-import { HomeMobileComponent } from './components/home/home-mobile/home-mobile.component';
 import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { environment } from '../environments/environment';
@@ -40,6 +38,7 @@ import { PoliciesComponent } from './components/policies/policies.component';
 import { SnackbarService } from './services/snackbar.service';
 import { AuthService } from './services/auth.service';
 import { FlexModule } from '@angular/flex-layout';
+import { LanguageService } from './services/language.service';
 
 @Injectable()
 export class RoomSocket extends Socket {
