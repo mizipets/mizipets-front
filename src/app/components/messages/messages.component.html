@@ -102,11 +102,16 @@
           <mat-form-field appearance="outline"
                           floatLabel="never"
                           class="send-message">
-            <input matInput maxlength="1300"
-                   type="text"
-                   placeholder="{{'messages.default' | translate}}"
-                   [(ngModel)]="message"
-                   (keydown.enter)="onKeydown()">
+            <textarea matInput
+                      maxlength="1300"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="6"
+                      type="text"
+                      placeholder="{{'messages.default' | translate}}"
+                      [(ngModel)]="message"
+                      (keydown.enter)="onKeydown()">
+            </textarea>
             <button mat-icon-button
                     matSuffix
                     color="primary"
