@@ -7,14 +7,18 @@ export class SnackbarService {
 
     openSuccess(message: string): void {
         this.snackBar.open(message, '', {
-            duration: 3000
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
         });
     }
 
     openError(message: string, showSupportMsg: boolean = true): void {
         this.snackBar.open(message, '', {
             duration: 3000,
-            panelClass: ['error-snackbar']
+            panelClass: ['error-snackbar'],
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
         });
     }
 }
