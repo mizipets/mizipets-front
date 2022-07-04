@@ -18,5 +18,13 @@
       object-fit: cover;
       border: 5px solid #168AAD;
     }
+    .file-upload {
+      display: inline-block;
+      background-color: #168AAD;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+    }
   }
 

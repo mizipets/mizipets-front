@@ -61,9 +61,9 @@
       <img src="assets/images/panda-wait.png" height="215" width="215" alt="wait">
     </div>
     <div fxFlex class="box-content text-center radius-bot">
-      <p class="text mb-5">{{ 'home.section-3.download' | translate }}</p>
+      <p class="text">{{ 'home.section-3.download' | translate }}</p>
       <a href="https://play.google.com/store/apps/details?id=com.mizipets" target="_blank">
-        <img src="assets/images/google-play.png" height="46" width="153" alt="google-play icon">
+        <img src="assets/images/google-play.png" height="200" width="230" alt="google-play icon">
       </a>
     </div>
   </section>
@@ -71,7 +71,7 @@
     <div class="text-center">
       <h1 class="title">{{ 'home.section-3.animals' | translate }}</h1>
     </div>
-    <div fxLayout="row wrap" fxLayoutGap="32px" class="justify-content-center">
+    <div fxLayout="row wrap" class="justify-content-center">
       <ng-container *ngFor="let animal of animals">
         <img fxflex class="img-list" src="{{animal.images[0]}}" width="250" height="250" alt="pets">
       </ng-container>

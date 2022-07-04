@@ -84,7 +84,7 @@
                       <input matInput type="string" formControlName="name" minlength="3">
                       <mat-error>{{'common.error' | translate}}</mat-error>
                     </mat-form-field>
-                    <p> </p>
+                    <p></p>
                     <mat-form-field appearance="outline">
                       <mat-label>{{'animals.born' | translate}}</mat-label>
                       <input matInput [max]="today" formControlName="birthDate" [matDatepicker]="picker">
@@ -93,7 +93,7 @@
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error>{{'common.error' | translate}}</mat-error>
                     </mat-form-field>
-                    <p> </p>
+                    <p></p>
                     <mat-form-field appearance="outline">
                       <mat-label>{{'animals-add.comment' | translate}}</mat-label>
                       <input matInput type="string" formControlName="comment">
@@ -102,7 +102,7 @@
                   </div>
                   <div class="ml-3">
                     <mat-form-field appearance="outline">
-                      <mat-label value="">{{'animals.filter.gender' | translate}}</mat-label>
+                      <mat-label>{{'animals.filter.gender' | translate}}</mat-label>
                       <mat-select formControlName="sex">
                         <mat-option *ngFor="let sex of Sex" [value]="sex">
                           {{ sex }}
@@ -110,9 +110,9 @@
                       </mat-select>
                       <mat-error>{{'common.error' | translate}}</mat-error>
                     </mat-form-field>
-                    <p> </p>
+                    <p></p>
                     <mat-form-field appearance="outline">
-                      <mat-label value="">{{'animals.filter.breeds' | translate}}</mat-label>
+                      <mat-label>{{'animals.filter.breeds' | translate}}</mat-label>
                       <mat-select formControlName="race">
                         <mat-option *ngFor="let race of races" [value]="race.name">
                           {{ race.name }}

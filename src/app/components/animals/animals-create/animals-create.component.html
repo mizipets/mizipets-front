@@ -3,17 +3,18 @@
         <mat-card-header>
             <div class="justify-content-start align-items-center">
                 <button *ngIf="next" mat-icon-button matPrefix (click)="onBack()"><mat-icon>arrow_back</mat-icon></button>
-                <mat-card-title class="mt-2 justify-content-center">{{'animals-add.title' | translate}}</mat-card-title>
+                <mat-card-title class="mt-2">{{'animals-add.title' | translate}}</mat-card-title>
             </div>
         </mat-card-header>
         <form [formGroup]="animalForm" (ngSubmit)="onSubmit()">
             <mat-card-content *ngIf="!next">
-                <div class="justify-content-center mb-4">
-                    <img [src]="fileName" alt="add image" height="100">
+                <div class="justify-content-center mb-4" *ngIf="fileName !== ''">
+                    <img [src]="fileName" alt="add image" height="250">
                 </div>
                 <p class="text-center mt-3">{{'animals-add.photo' | translate}}</p>
                 <div class="justify-content-center mb-4">
-                    <input type="file" class="file-upload " (change)="onChange($event)">
+                    <input type="file" id="upload" (change)="onChange($event)" hidden>
+                    <label for="upload" class="file-upload">{{'animals-add.file' | translate}}</label>
                 </div>
                 <button mat-flat-button color="primary" type="button" (click)="onNext()" [disabled]="!newImage">{{'common.next' | translate}}</button>
             </mat-card-content>
@@ -72,7 +73,7 @@
                 </mat-form-field>
                 <div class="justify-content-center">
                     <button *ngIf="!isLoading" mat-flat-button color="primary" type="submit" [disabled]="animalForm.invalid">{{'animals-add.button' | translate}}</button>
-                    <mat-spinner *ngIf="isLoading"></mat-spinner>
+                    <mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner>
                 </div>
             </mat-card-content>
         </form>
