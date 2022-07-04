@@ -20,7 +20,6 @@
           <mat-hint align="end" (click)="isPasswordForgot = true">{{'login.forgot-password' | translate}} ?</mat-hint>
         </mat-form-field>
         <mat-checkbox color="primary" formControlName="isConnectionSave">{{'login.remember' | translate}}</mat-checkbox>
-        <p class="text-center warn">{{errorMessage}}</p>
         <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid">{{'login.button' | translate}}</button>
       </mat-card-content>
     </form>
@@ -31,7 +30,7 @@
 
   <!-- Forgot password -->
   <mat-card *ngIf="isPasswordForgot">
-    <mat-icon (click)="isPasswordForgot = false; isCode = false; isPassword = false; errorMessage = ''" style="cursor: pointer">arrow_back</mat-icon>
+    <mat-icon (click)="isPasswordForgot = false; isCode = false; isPassword = false" style="cursor: pointer">arrow_back</mat-icon>
     <mat-card-header class="d-flex justify-content-center">
       <mat-card-title>{{'common.forgot-password' | translate}}</mat-card-title>
     </mat-card-header>
@@ -42,13 +41,12 @@
         <input matInput required [(ngModel)]="email">
         <mat-icon matSuffix>mail</mat-icon>
       </mat-form-field>
-      <p class="text-center warn">{{errorMessage}}</p>
       <button mat-flat-button color="primary" (click)="sendCode()">{{'common.continue' | translate}}</button>
     </mat-card-content>
   </mat-card>
 
   <mat-card *ngIf="isCode && !isPasswordForgot">
-    <mat-icon (click)="isPasswordForgot = false; isCode = false; isPassword = false; errorMessage = ''" style="cursor: pointer">arrow_back</mat-icon>
+    <mat-icon (click)="isPasswordForgot = false; isCode = false; isPassword = false" style="cursor: pointer">arrow_back</mat-icon>
     <mat-card-header class="d-flex justify-content-center">
       <mat-card-title>{{'common.code' | translate}}</mat-card-title>
     </mat-card-header>
@@ -58,13 +56,12 @@
                   [codeLength]="4"
                   (codeCompleted)="checkCode($event)">
       </code-input>
-      <p class="text-center warn">{{errorMessage}}</p>
       <a class="text-center" (click)="sendCode()">{{'common.send-again' | translate}}</a>
     </mat-card-content>
   </mat-card>
 
   <mat-card *ngIf="isPassword && !isCode">
-    <mat-icon (click)="isPasswordForgot = false; isCode = false; isPassword = false; errorMessage = ''" style="cursor: pointer">arrow_back</mat-icon>
+    <mat-icon (click)="isPasswordForgot = false; isCode = false; isPassword = false" style="cursor: pointer">arrow_back</mat-icon>
     <mat-card-header class="d-flex justify-content-center">
       <mat-card-title>{{'common.new-password' | translate}}</mat-card-title>
     </mat-card-header>
@@ -77,7 +74,6 @@
         <mat-hint align="end">{{'register.hint' | translate}}</mat-hint>
       </mat-form-field>
 
-      <p class="text-center warn">{{errorMessage}}</p>
       <button mat-flat-button color="primary"
               (click)="resetPassword()">
         {{'common.register-password' | translate}}

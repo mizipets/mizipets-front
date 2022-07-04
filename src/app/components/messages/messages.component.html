@@ -1,7 +1,6 @@
 <mat-drawer-container class="sidenav-container app-content">
     <mat-drawer class="sidenav" mode="side" opened>
       <h3>{{'messages.inbox' | translate }}</h3>
-
       <div *ngIf="rooms.length > 0">
         <div *ngFor="let room of rooms">
           <div class="justify-content-start my-1 room-list"
@@ -91,7 +90,6 @@
                   </div>
                 </div>
               </ng-template>
-
           </div>
         </div>
       </div>
@@ -102,11 +100,16 @@
           <mat-form-field appearance="outline"
                           floatLabel="never"
                           class="send-message">
-            <input matInput maxlength="1300"
-                   type="text"
-                   placeholder="{{'messages.default' | translate}}"
-                   [(ngModel)]="message"
-                   (keydown.enter)="onKeydown()">
+            <textarea matInput
+                      maxlength="1300"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="6"
+                      type="text"
+                      placeholder="{{'messages.default' | translate}}"
+                      [(ngModel)]="message"
+                      (keydown.enter)="onKeydown()">
+            </textarea>
             <button mat-icon-button
                     matSuffix
                     color="primary"

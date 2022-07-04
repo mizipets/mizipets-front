@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
     currentCode: string = '';
     email: string = '';
     password: string = '';
-    errorMessage: string = '';
 
     constructor(
         public formBuilder: FormBuilder,
@@ -91,13 +90,11 @@ export class LoginComponent implements OnInit {
             },
             error: (error) => {
                 console.error(error);
-                this.errorMessage = error.error.message;
             }
         });
     }
 
     checkCode(code: string): void {
-        this.errorMessage = '';
         this.currentCode = code;
         this.authService.checkCode(this.email, parseInt(code)).subscribe({
             next: () => {
@@ -106,13 +103,11 @@ export class LoginComponent implements OnInit {
             },
             error: (error) => {
                 console.error(error);
-                if (error.status === 403) this.errorMessage = 'Invalid code';
             }
         });
     }
 
     sendCode(): void {
-        this.errorMessage = '';
         this.authService.sendCode(this.email).subscribe({
             next: () => {
                 this.isCode = true;
@@ -120,13 +115,11 @@ export class LoginComponent implements OnInit {
             },
             error: (error) => {
                 console.error(error);
-                this.errorMessage = error.error.message;
             }
         });
     }
 
     resetPassword(): void {
-        this.errorMessage = '';
         const data: ResetPasswordModel = {
             email: this.email,
             password: this.password,
@@ -143,7 +136,6 @@ export class LoginComponent implements OnInit {
             },
             error: (error) => {
                 console.error(error);
-                this.errorMessage = error.error.message;
             }
         });
     }

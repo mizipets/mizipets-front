@@ -26,10 +26,15 @@ import { NotificationSocketService } from '../../services/notification-socket.se
 export class MessagesComponent implements OnInit, OnDestroy {
     @ViewChild('scroll_frame', { static: false })
     private scrollFrame: ElementRef;
+
     isLoading: boolean = false;
+
     rooms: RoomModel[] = [];
+
     currentRoom: RoomModel | undefined;
+
     currentUserId: number;
+
     message: string = '';
 
     constructor(
@@ -37,8 +42,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
         private RoomSocketService: RoomSocketService,
         private authService: AuthService,
         private animalDetailDialog: MatDialog,
+        private notificationSocket: NotificationSocketService,
         elementRef: ElementRef,
-        private notificationSocket: NotificationSocketService
     ) {
         this.scrollFrame = elementRef;
         this.currentUserId = this.authService.decodedToken?.id ?? 0;
@@ -165,7 +170,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     onDetail(): void {
         this.animalDetailDialog.open(AnimalsDetailComponent, {
-            data: { animalId: this.currentRoom?.animal.id }
+            data: { animalId: this.currentRoom?.animal.id.toString() }
         });
     }
 

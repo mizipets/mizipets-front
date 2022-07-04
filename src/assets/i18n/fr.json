@@ -37,10 +37,21 @@
   "home": {
     "section-1": {
       "title":"Une application pour les amoureux des animaux",
-      "content": "Soucieux de la cause animale, nous avons décidé de créer Mizipets pour mettre en avant le bien-être des animaux.\nNotre application propose divers services.\n Un service de mise en relation entre particulier, et entre particulier et refuge, afin d' adopter un animal.\n Un service conseils pour avoir de bons conseils fait en collaboration avec des professionnels et apprendre des faits intéressants sur les animaux.\n Un service mon animal qui permet d’avoir une fiche de son animal, avoir des photos et mettre des rappels médicaux"
+      "content": "Soucieux de la cause animale, nous avons décidé de créer Mizipets pour mettre en avant le bien-être des animaux.\nNotre application propose divers services.\n Un service de mise en relation entre particulier, et entre particulier et refuge, afin d' adopter un animal.\n Un service conseils pour avoir de bons conseils fait en collaboration avec des professionnels et apprendre des faits intéressants sur les animaux.\n Un service mon animal qui permet d’avoir une fiche de son animal, avoir des photos et mettre des rappels médicaux. Enfin il y a le dernier service qui permet de voir et mettre une annonce sur un animal perdu."
     },
     "section-2": {
-
+      "title": "Pourquoi ?",
+      "subtitle": "N'abandonnez pas votre animal, faites le adopter ! ❤️",
+      "content": "Face à l'essor de l' abandon, de la maltraitance, nous avons mis en place divers services afin de pallier ces problèmes. On constate une hausse de 7% d’abandons, en particulier des chats et des chiens. A cause de la crise sanitaire, il y a eu des achats compulsifs d’animaux qui ont été abandonnés après le confinement, c’est pourquoi nous mettons des conseils à disposition pour responsabiliser les propriétaires. Notre application permet de mettre en avant les refuges, association qui sont surchargés par le nombres d’animaux avec environ 19% de chats receuillis en refuges depuis 2019. Notre plateforme, regroupant tous les refuges, vous permets d’éviter de chercher sur plusieurs site différents."
+    },
+    "section-3": {
+      "title": "Pour qui ?",
+      "subtitle-pro": "Vous êtes un refuge, une association ou un eleveurs ?",
+      "subtitle": "Vous êtes un particulier ?",
+      "download": "Téléchargez gratuitement notre application sur Android",
+      "animals": "Les animaux",
+      "content-pro": "Si vous êtes une structure pour faire adopter vous pouvez vous connecter sur le site web pour profiter d'une interface penser pour vous et simple d’utilisation.",
+      "content": "Si vous aimez les animaux, que vous voulez apprendre à mieux connaître les animaux ou que vous souhaitez adopter, Mizipets est une application qui est faite pour vous ! Vous êtes un particulier, vous pouvez téléchargez gratuitement l'application Mizipets et profitez d'une utilisation spécialement pensée pour une utilisation sur téléphone."
     }
   },
   "header": {
