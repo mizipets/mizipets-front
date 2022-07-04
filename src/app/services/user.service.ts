@@ -23,6 +23,15 @@ export class UserService {
             userData
         );
     }
+    
+    updateUserLang(id: number, lang: string): Observable<void> {
+        return this.http.put<void>(
+            environment.baseUrl + 'users/' + id + '/lang',
+            {
+                lang: lang
+            }
+        );
+    }
 
     closeUser(): Observable<any> {
         return this.http.put<any>(
