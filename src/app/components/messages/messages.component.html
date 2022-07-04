@@ -1,7 +1,6 @@
 <mat-drawer-container class="sidenav-container app-content">
     <mat-drawer class="sidenav" mode="side" opened>
       <h3>{{'messages.inbox' | translate }}</h3>
-
       <div *ngIf="rooms.length > 0">
         <div *ngFor="let room of rooms">
           <div class="justify-content-start my-1 room-list"
@@ -91,7 +90,6 @@
                   </div>
                 </div>
               </ng-template>
-
           </div>
         </div>
       </div>

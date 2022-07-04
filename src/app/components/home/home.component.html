@@ -26,29 +26,30 @@
         <img src="../../../assets/images/home-2.png" class="animal-image" width="310" height="310" alt="home-2">
       </div>
       <div fxFlex>
-        <h1 class="title">Pourquoi ?</h1>
+        <h1 class="title">{{ 'home.section-2.title' | translate }}</h1>
         <p>
-          Face à l'essor de l' abandon, de la maltraitance, nous avons mis en place divers services afin de pallier
-          ces problèmes.On constate une hausse de 7% d’abandons, en particulier des chats et des chiens.
-          A cause de la crise sanitaire, il y a eu des achats compulsifs d’animaux qui ont été abandonnés après le
-          confinement, c’est pourquoi nous mettons des conseils à disposition pour responsabiliser les propriétaires.
-          Notre application permet de mettre en avant les refuges, association qui sont surchargés par le nombres d’animaux
-          avec environ 19% de chats receuillis en refuges depuis 2019.
-          Notre plateforme, regroupant tous les refuges, vous permets d’éviter de chercher sur plusieurs site différents.
+          {{ 'home.section-2.content' | translate }}
+        </p>
+        <p style="color: #FED08B">
+          {{ 'home.section-2.subtitle' | translate }}
         </p>
       </div>
     </section>
 
   <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
     <div fxFlex>
-      <h1 class="title">Pour qui ?</h1>
+      <h1 class="title">{{ 'home.section-3.title' | translate }}</h1>
+      <h3>
+        {{ 'home.section-3.subtitle-pro' | translate }}
+      </h3>
       <p>
-        Si vous aimez les animaux, que vous voulez apprendre à mieux connaître les animaux ou que vous souhaitez adopter, Mizipets est une application qui est faite pour vous !
-
-
-        Vous êtes une grande structure pour faire adopter rester sur le site web pour une meilleure faciliter d’utilisation.
-
-        Vous êtes un particulier, vous pouvez téléchargez gratuitement l'application Mizipets et profitez d'une utilisation spécialement pensée pour une utilisation sur téléphone.
+        {{ 'home.section-3.content-pro' | translate }}
+      </p>
+      <h3>
+        {{ 'home.section-3.subtitle' | translate }}
+      </h3>
+      <p>
+        {{ 'home.section-3.content' | translate }}
       </p>
     </div>
     <div fxFlex class="text-center" fxFlexAlign="center">
@@ -56,19 +57,19 @@
     </div>
   </section>
   <section fxflex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFlexAlign="center" class="justify-content-center">
-    <div fxFlex="25" class="text-center box-content" [ngClass]="{'radius-left': !isMobileDevice, 'radius-top': isMobileDevice}">
+    <div fxFlex="25" class="text-center box-content radius-top">
       <img src="assets/images/panda-wait.png" height="215" width="215" alt="wait">
     </div>
-    <div fxFlex class="box-content text-center" [ngClass]="{'radius-right': !isMobileDevice, 'radius-bot': isMobileDevice}">
-      <p class="text mb-5">Téléchargez gratuitement notre application sur Android</p>
+    <div fxFlex class="box-content text-center radius-bot">
+      <p class="text mb-5">{{ 'home.section-3.download' | translate }}</p>
       <a href="https://play.google.com/store/apps/details?id=com.mizipets" target="_blank">
         <img src="assets/images/google-play.png" height="46" width="153" alt="google-play icon">
       </a>
     </div>
   </section>
-  <section class="section-bg">
+  <section class="section-bg" *ngIf="animals.length > 0">
     <div class="text-center">
-      <h1 class="title">Les animaux</h1>
+      <h1 class="title">{{ 'home.section-3.animals' | translate }}</h1>
     </div>
     <div fxLayout="row wrap" fxLayoutGap="32px" class="justify-content-center">
       <ng-container *ngFor="let animal of animals">

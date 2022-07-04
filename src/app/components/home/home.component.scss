@@ -27,21 +27,13 @@
     max-width: 700px;
     padding: 10px;
   }
-  .radius-left {
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-  }
-  .radius-right {
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-  }
   .radius-top {
     border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
   }
   .radius-bot {
+    border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
   }
   .img-list {
     border: solid 2px #FED08B;
@@ -54,4 +46,15 @@
 }
 .top {
   margin-top: -64px !important;
+}
+
+@media screen and (max-width: 992px) {
+  .radius-top {
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 0 !important;
+  }
+  .radius-bot {
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 0 !important;
+  }
 }

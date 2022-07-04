@@ -34,6 +34,26 @@
     "years": "years old",
     "wrong-image-type": "Wrong image type"
   },
+  "home": {
+    "section-1": {
+      "title":"An app for animal lovers",
+      "content": "Concerned about the animal cause, we decided to create Mizipets to highlight the well-being of animals.Our application offers various services. A connection service between individuals, and between individuals and shelters, in order to adopt an animal. An advice service to get good advice done in collaboration with professionals and learn interesting facts about animals. A my animal service which allows you to have a file of your animal, to have photos and set medical reminders. Finally there is the last service which allows to see and put an announcement on a lost animal."
+    },
+    "section-2": {
+      "title": "Why ?",
+      "subtitle": "Don't abandon your pet, get it adopted ! ❤️",
+      "content": "Faced with the rise of abandonment and abuse, we have set up various services to alleviate these problems. There is a 7% increase in abandonment, especially of cats and dogs. Due to the health crisis, there have been compulsive purchases of animals that have been abandoned after confinement, which is why we are providing advice to empower owners. Our application makes it possible to highlight shelters, associations which are overloaded by the number of animals with approximately 19% of cats collected in shelters since 2019. Our platform, bringing together all shelters, allows you to avoid searching on several sites different."
+    },
+    "section-3": {
+      "title": "For who ?",
+      "subtitle-pro": "Shelter, association or breeder ?",
+      "subtitle": "Are you an individual ?",
+      "download": "Download our app for free on Android",
+      "animals": "Pets",
+      "content-pro": "If you are a structure for adoption, you can connect to the website to take advantage of an interface designed for you and easy to use.",
+      "content": "If you love animals, want to get to know animals better, or want to adopt, Mizipets is the app for you! You are an individual, you can download the Mizipets application for free and enjoy a use specially designed for use on your phone."
+    }
+  },
   "header": {
     "animals": "My animals",
     "add":  "Create a post",
