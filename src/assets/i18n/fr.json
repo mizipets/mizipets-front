@@ -68,7 +68,8 @@
     "button": "Se connecter",
     "remember": "Se souvenir de moi",
     "forgot-password": "Mot de passe oublié",
-    "no-account": "Créer un compte Pro"
+    "no-account": "Créer un compte Pro",
+    "registered": "Nouveau mot de passe enregistré"
   },
   "register": {
     "title": "Inscription",
@@ -107,6 +108,7 @@
     "comment": "Commentaire",
     "button": "Créer l'annonce",
     "success": "Annonce créée",
+    "file": "Choisir une image",
     "image-error": "Cette image n'a pas pu être sauvegardé",
     "animal-error": "Votre animal n'a pas pu être enregistré"
   },

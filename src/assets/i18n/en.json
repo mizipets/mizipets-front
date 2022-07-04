@@ -68,7 +68,8 @@
     "button": "Log in",
     "remember": "Remember me",
     "forgot-password": "Forgotten your password",
-    "no-account": "Create Pro account"
+    "no-account": "Create Pro account",
+    "registered": "New saved password"
   },
   "register": {
     "title": "Sign up",
@@ -106,6 +107,7 @@
     "name": "Name",
     "comment": "Comment",
     "button": "Create ad",
+    "file": "Choose a picture",
     "success": "Ad created",
     "image-error": "This picture couldn't be saved",
     "animal-error": "Your animal couldn't be saved"

@@ -30,7 +30,7 @@ export class AnimalsCreateComponent implements OnInit {
 
     today: Date = new Date();
 
-    fileName = './assets/images/logo.png';
+    fileName = '';
 
     newAnimal: CreateAdoption = {} as CreateAdoption;
 

@@ -11,6 +11,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { NotificationSocketService } from '../../../services/notification-socket.service';
 import { ResetPasswordModel } from '../../../models/reset-password.model';
 import { SnackbarService } from '../../../services/snackbar.service';
+import { TranslateService } from "@ngx-translate/core";
 
 export interface Device {
     browser: string;
@@ -41,7 +42,8 @@ export class LoginComponent implements OnInit {
         private deviceService: DeviceDetectorService,
         private router: Router,
         private notificationSocket: NotificationSocketService,
-        private snackBarService: SnackbarService
+        private snackBarService: SnackbarService,
+        private translate: TranslateService,
     ) {
         this.emailCtrl = formBuilder.control('', Validators.required);
         this.passwordCtrl = formBuilder.control('', Validators.required);
@@ -131,7 +133,7 @@ export class LoginComponent implements OnInit {
                 this.isCode = false;
                 this.isPassword = false;
                 this.snackBarService.openSuccess(
-                    'Nouveau mot de passe enregistrer'
+                  this.translate.instant('login.registered')
                 );
             },
             error: (error) => {
