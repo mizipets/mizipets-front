@@ -9,7 +9,7 @@
         <form [formGroup]="animalForm" (ngSubmit)="onSubmit()">
             <mat-card-content *ngIf="!next">
                 <div class="justify-content-center mb-4" *ngIf="fileName !== ''">
-                    <img [src]="fileName" alt="add image" height="250">
+                    <img [src]="fileName" alt="add image" width="100%">
                 </div>
                 <p class="text-center mt-3">{{'animals-add.photo' | translate}}</p>
                 <div class="justify-content-center mb-4">
