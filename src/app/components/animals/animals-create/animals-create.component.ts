@@ -114,7 +114,7 @@ export class AnimalsCreateComponent implements OnInit {
                     .uploadImage(animal.id, 'animal', formData)
                     .subscribe({
                         next: () => {
-                            this.openSnackBar('animals-add.button');
+                            this.openSnackBar('animals-add.success');
                             this.isLoading = false;
                             this.router.navigateByUrl('/animals').then();
                         },
